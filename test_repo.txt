@@ -1,1 +1,6 @@
+<<<<<<< .merge_file_a18848
 123wassup mah boys
+=======
+wassup mah boys
+nothing much my dude
+>>>>>>> .merge_file_a13576

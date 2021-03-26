@@ -267,7 +267,25 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\PROJET.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\PROJET.cydsn\main_cm4.c" />
+<name v=".\PROJET.cydsn\Traitement.h" />
+<name v=".\PROJET.cydsn\Communication.h" />
+<name v=".\PROJET.cydsn\Interface.h" />
+<name v=".\PROJET.cydsn\Traitement.c" />
+<name v=".\PROJET.cydsn\Interface.c" />
+<name v=".\PROJET.cydsn\Communication.c" />
+<name v=".\PROJET.cydsn\PROJET.cydwr" />
+<name v=".\PROJET.cydsn\Generated_Source\PSoC6\pdl\drivers\peripheral\scb\cy_scb_common.h" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="981, 555" SelectedTabbedMdiWindow="47661e38-4fe1-430e-af63-306e264451d6"><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\TopDesign\TopDesign.cysch" Guid="4c7fb5ad-521a-4c0a-bab4-3125057ca6ad" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\main_cm4.c" Guid="e93e8cb1-3354-4a6a-80e6-591494e2bbbe" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Traitement.h" Guid="084c22b4-c86c-4309-91a9-48e5bd554b04" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Communication.h" Guid="b9e2ec3b-4e57-4fb9-8aa3-7a6b7c28ed47" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Interface.h" Guid="ba7d587a-e269-4a48-a8e0-20d450d0253f" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Traitement.c" Guid="47661e38-4fe1-430e-af63-306e264451d6" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Interface.c" Guid="e9b2a19a-d650-4e56-ad96-dccfe83ecb27" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Communication.c" Guid="41e6938d-8810-42df-abf0-00f2a8363df5" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\PROJET.cydwr" Guid="f4411cd3-4ebd-461c-86a1-b1ed7c66dc04" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\Generated_Source\PSoC6\pdl\drivers\peripheral\scb\cy_scb_common.h" Guid="ebe934e9-d3c5-44fd-9503-b91887998193" /><ToolWindow Key="Output Window Plugin:7305390e-eabe-4963-b21f-3a0f11b4b1d5:Output Window" Guid="1075d063-ddc4-4cec-a3a9-3ffe57a3ccf0" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

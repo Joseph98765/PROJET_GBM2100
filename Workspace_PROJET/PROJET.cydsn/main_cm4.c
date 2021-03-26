@@ -18,14 +18,13 @@ int main(void)
     __enable_irq(); /* Enable global interrupts. */
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-    UART_1_Start();
     traitement();
     interface();
-    
+    communication();
     for(;;)
     {
         /* Place your application code here. */
-        communication();
+        
     }
 }
 

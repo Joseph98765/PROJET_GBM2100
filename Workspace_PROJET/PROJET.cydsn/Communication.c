@@ -17,10 +17,11 @@
 #include "project.h"
 #include "Communication.h"
 
+
 void communication(void)
 {
     CyDelay(1000);
-    UART_1_PutString("YOOOOOO");
+    UART_1_PutString("crackheads");
 }
 
 /* [] END OF FILE */

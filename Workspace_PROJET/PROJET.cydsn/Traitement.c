@@ -19,6 +19,6 @@
 
 void traitement(void)
 {
-    //Allo
+
 }
 /* [] END OF FILE */

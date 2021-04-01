@@ -1,6 +1,6 @@
 // ======================================================================
 // PROJET.v generated from TopDesign.cysch
-// 03/31/2021 at 11:54
+// 03/31/2021 at 21:46
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -106,17 +106,17 @@
 `define CYDEV_CHIP_FAMILY_USED 4
 `define CYDEV_CHIP_MEMBER_USED 33
 `define CYDEV_CHIP_REVISION_USED 33
-// Component: cy_virtualmux_v1_0
+// Component: or_v1_0
 `ifdef CY_BLK_DIR
 `undef CY_BLK_DIR
 `endif
 
 `ifdef WARP
-`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0"
-`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.v"
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0\or_v1_0.v"
 `else
-`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0"
-`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.v"
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0\or_v1_0.v"
 `endif
 
 // Component: ZeroTerminal
@@ -132,21 +132,201 @@
 `include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\ZeroTerminal\ZeroTerminal.v"
 `endif
 
-// Component: or_v1_0
+// Component: cy_virtualmux_v1_0
 `ifdef CY_BLK_DIR
 `undef CY_BLK_DIR
 `endif
 
 `ifdef WARP
-`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0"
-`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0\or_v1_0.v"
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.v"
 `else
-`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0"
-`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0\or_v1_0.v"
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.v"
 `endif
 
+// SCB_I2C_PDL_v2_0(AcceptAddress=false, AcceptGeneralCall=false, ClkDesFrequency=1550, ClkMinusTolerance=5, ClkPlusTolerance=206.451612903226, ClockFromTerm=false, DataRate=100, DeepSleepCapable=false, EnableManualSclControl=false, EnableRxFifo=false, EnableSclAccess=false, EnableTxFifo=false, EnableWakeup=false, HighPhaseDutyCycle=10, I2cMode=0, IsEnableRxFifoVisible=true, IsMasterEnabled=true, IsSlaveVisible=false, LowPhaseDutyCycle=10, Mode=2, ShowTerminals=false, SlaveAddress=8, SlaveAddressMask=254, SymbolShape=0, CY_API_CALLBACK_HEADER_INCLUDE=#include "cyapicallbacks.h", CY_COMMENT=, CY_COMPONENT_NAME=SCB_I2C_PDL_v2_0, CY_CONFIG_TITLE=I2C_1, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=I2C_1, CY_INSTANCE_SHORT_NAME=I2C_1, CY_MAJOR_VERSION=2, CY_MINOR_VERSION=0, CY_PDL_DRIVER_NAME=scb, CY_PDL_DRIVER_REQ_VERSION=2.0.0, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.4, INSTANCE_NAME=I2C_1, )
+module SCB_I2C_PDL_v2_0_0 (
+    clock,
+    scl_b,
+    scl_trig,
+    sda_b);
+    input       clock;
+    inout       scl_b;
+    output      scl_trig;
+    inout       sda_b;
+
+
+          wire  clock_wire;
+          wire  Net_222;
+          wire  Net_223;
+          wire  Net_224;
+          wire  Net_277;
+          wire  Net_1062;
+          wire  Net_283;
+          wire  Net_1053;
+          wire  Net_282;
+          wire  Net_162;
+          wire  intr_wire;
+          wire  Net_163;
+          wire  Net_280;
+          wire [3:0] Net_87;
+          wire  Net_278;
+          wire  Net_1061;
+          wire  Net_1055;
+          wire  Net_279;
+          wire  Net_281;
+          wire  Net_1059;
+          wire  Net_847;
+
+    cy_mxs40_scb_v1_10 SCB (
+        .clock(clock_wire),
+        .i2c_scl(scl_b),
+        .i2c_sda(sda_b),
+        .interrupt(intr_wire),
+        .spi_clk_m(Net_1059),
+        .spi_clk_s(Net_281),
+        .spi_miso_m(Net_279),
+        .spi_miso_s(Net_1055),
+        .spi_mosi_m(Net_1061),
+        .spi_mosi_s(Net_278),
+        .spi_select_m(Net_87[3:0]),
+        .spi_select_s(Net_280),
+        .tr_i2c_scl_filtered(scl_trig),
+        .tr_rx_req(Net_163),
+        .tr_tx_req(Net_162),
+        .uart_cts(Net_282),
+        .uart_rts(Net_1053),
+        .uart_rx(Net_283),
+        .uart_tx(Net_1062),
+        .uart_tx_en(Net_277));
+    defparam SCB.master = 1;
+    defparam SCB.mode = 0;
+    defparam SCB.requires_io_preconfigure = 1;
+
+
+    assign Net_224 = Net_223 | Net_847;
+
+    ZeroTerminal ZeroTerminal_7 (
+        .z(Net_223));
+
+	// clock_VM (cy_virtualmux_v1_0)
+	assign clock_wire = Net_847;
+
+    ZeroTerminal ZeroTerminal_6 (
+        .z(Net_278));
+
+    ZeroTerminal ZeroTerminal_5 (
+        .z(Net_279));
+
+    ZeroTerminal ZeroTerminal_4 (
+        .z(Net_280));
+
+    ZeroTerminal ZeroTerminal_3 (
+        .z(Net_281));
+
+    ZeroTerminal ZeroTerminal_2 (
+        .z(Net_282));
+
+    ZeroTerminal ZeroTerminal_1 (
+        .z(Net_283));
+
+
+	cy_mxs40_isr_v1_0
+		#(.deepsleep_required(0),
+		  .int_type(2'b10))
+		SCB_IRQ
+		 (.int_signal(intr_wire));
+
+
+
+	cy_clock_v1_0
+		#(.id("79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/b68e5b9d-7828-482d-a282-930f990e3b3e"),
+		  .source_clock_id(""),
+		  .divisor(0),
+		  .period("645161290.322581"),
+		  .is_direct(0),
+		  .is_digital(0))
+		SCBCLK
+		 (.clock_out(Net_847));
+
+
+	wire [0:0] tmpFB_0__scl_net;
+	electrical [0:0] tmpSIOVREF__scl_net;
+
+	cy_mxs40_gpio_v1_0
+		#(.id("79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/69c3b5e8-b094-4d65-b96b-9f4f3a9a8641"),
+		  .width(1),
+		  .sio_grp_cnt(0),
+		  .drive_mode("4"),
+		  .ibuf_enabled("1"),
+		  .init_dr_st("1"),
+		  .input_sync("0"),
+		  .intr_mode("0"),
+		  .io_voltage(""),
+		  .output_conn("0"),
+		  .oe_conn("0"),
+		  .output_sync("0"),
+		  .oe_sync("0"),
+		  .drive_strength("0"),
+		  .max_frequency("100"),
+		  .i2c_mode("0"),
+		  .output_current_cap("8"),
+		  .pin_aliases(""),
+		  .pin_mode("B"),
+		  .slew_rate("0"),
+		  .vtrip("0"),
+		  .use_annotation("0"),
+		  .hotswap_needed("0"))
+		scl
+		 (.oe({1'b1}),
+		  .y({1'b0}),
+		  .fb({tmpFB_0__scl_net[0:0]}),
+		  .io({scl_b}),
+		  .siovref(tmpSIOVREF__scl_net));
+
+
+	wire [0:0] tmpFB_0__sda_net;
+	electrical [0:0] tmpSIOVREF__sda_net;
+
+	cy_mxs40_gpio_v1_0
+		#(.id("79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/2aab8a93-e7dd-4bd4-8210-42652cd079c5"),
+		  .width(1),
+		  .sio_grp_cnt(0),
+		  .drive_mode("4"),
+		  .ibuf_enabled("1"),
+		  .init_dr_st("1"),
+		  .input_sync("0"),
+		  .intr_mode("0"),
+		  .io_voltage(""),
+		  .output_conn("0"),
+		  .oe_conn("0"),
+		  .output_sync("0"),
+		  .oe_sync("0"),
+		  .drive_strength("0"),
+		  .max_frequency("100"),
+		  .i2c_mode("0"),
+		  .output_current_cap("8"),
+		  .pin_aliases(""),
+		  .pin_mode("B"),
+		  .slew_rate("0"),
+		  .vtrip("0"),
+		  .use_annotation("0"),
+		  .hotswap_needed("0"))
+		sda
+		 (.oe({1'b1}),
+		  .y({1'b0}),
+		  .fb({tmpFB_0__sda_net[0:0]}),
+		  .io({sda_b}),
+		  .siovref(tmpSIOVREF__sda_net));
+
+
+
+
+endmodule
+
 // SCB_UART_PDL_v2_0(BaudRate=115200, BitsOrder=0, BreakSignalBits=11, BufferMinSize=64, ByteMode=true, ClkFreqDes=1382.4, ClkMinusTolerance=5, ClkPlusTolerance=5, ClockFromTerm=false, ComMode=0, CtsPolarity=0, CtsTermEnable=false, DataWidth=8, Direction=3, DropOnFrameErr=false, DropOnParityErr=false, EnableCts=false, EnableInputFilter=false, EnableMultiProc=false, EnableRts=false, EnableRxOutput=false, EnableTxEn=false, EnableTxOutput=false, InterruptMode=1, InterruptTermEnable=false, IntrRxBreakDetected=false, IntrRxFrameErr=false, IntrRxFull=false, IntrRxNotEmpty=false, IntrRxOverflow=false, IntrRxParityErr=false, IntrRxTrigger=false, IntrRxUnderflow=false, IntrTxEmpty=false, IntrTxNotFull=false, IntrTxOverflow=false, IntrTxTrigger=false, IntrTxUartDone=false, IntrTxUartLostArb=false, IntrTxUartNack=false, IntrTxUnderflow=false, IrdaLowPower=false, IrdaPolarity=0, IsCtsPinAllowed=true, IsDmaCapable=true, IsEnableInputFilterVisible=true, IsMultiprocessorModeAvailable=false, IsRtsPinAllowed=true, IsRtsTriggerLevelVisible=false, IsRxIntrSourcesVisible=false, IsRxTriggerLevelVisible=false, IsTxIntrSourcesVisible=false, IsTxTriggerLevelVisible=false, MaxFifoLevel=127, MpRxAcceptAddress=false, MpRxAddress=0, MpRxAddressMask=255, OvsFactor=12, ParityType=0, PreconfigureIO=false, RemoveCtsPin=true, RemoveIntr=false, RemoveRtsPin=true, RemoveRxPin=false, RemoveRxTxPin=true, RemoveTxEnPin=true, RemoveTxPin=false, RtsPolarity=0, RtsTermEnable=false, RtsTriggerLevel=63, RxIntrMask=0, RxTermEnable=false, RxTriggerLevel=63, RxTxTermEnable=false, ShowTerminals=false, SmCardRetryOnNack=false, StopBits=2, SymbolShape=0, TriggerOutputEnable=false, TxEnTermEnable=false, TxIntrMask=0, TxTermEnable=false, TxTriggerLevel=63, UartMode=2, UseIntr=true, CY_API_CALLBACK_HEADER_INCLUDE=#include "cyapicallbacks.h", CY_COMMENT=, CY_COMPONENT_NAME=SCB_UART_PDL_v2_0, CY_CONFIG_TITLE=UART_1, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=UART_1, CY_INSTANCE_SHORT_NAME=UART_1, CY_MAJOR_VERSION=2, CY_MINOR_VERSION=0, CY_PDL_DRIVER_NAME=scb, CY_PDL_DRIVER_REQ_VERSION=2.0.0, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.4, INSTANCE_NAME=UART_1, )
-module SCB_UART_PDL_v2_0_0 (
+module SCB_UART_PDL_v2_0_1 (
     clock,
     cts_in,
     interrupt,
@@ -196,7 +376,7 @@ module SCB_UART_PDL_v2_0_0 (
 
 
 	cy_clock_v1_0
-		#(.id("05c635f6-42a8-4a9d-a58e-ccb3fdf4a9a2/b68e5b9d-7828-482d-a282-930f990e3b3e"),
+		#(.id("c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/b68e5b9d-7828-482d-a282-930f990e3b3e"),
 		  .source_clock_id(""),
 		  .divisor(0),
 		  .period("723379629.62963"),
@@ -220,7 +400,7 @@ module SCB_UART_PDL_v2_0_0 (
 	electrical [0:0] tmpSIOVREF__tx_net;
 
 	cy_mxs40_gpio_v1_0
-		#(.id("05c635f6-42a8-4a9d-a58e-ccb3fdf4a9a2/65f3af6c-759b-4ccb-8c66-5c95ba1f5f4f"),
+		#(.id("c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/65f3af6c-759b-4ccb-8c66-5c95ba1f5f4f"),
 		  .width(1),
 		  .sio_grp_cnt(0),
 		  .drive_mode("6"),
@@ -255,7 +435,7 @@ module SCB_UART_PDL_v2_0_0 (
 	electrical [0:0] tmpSIOVREF__rx_net;
 
 	cy_mxs40_gpio_v1_0
-		#(.id("05c635f6-42a8-4a9d-a58e-ccb3fdf4a9a2/b7e8018e-1ef7-49c0-b5a5-61641a03e31c"),
+		#(.id("c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/b7e8018e-1ef7-49c0-b5a5-61641a03e31c"),
 		  .width(1),
 		  .sio_grp_cnt(0),
 		  .drive_mode("0"),
@@ -342,28 +522,38 @@ endmodule
 // top
 module top ;
 
-          wire  Net_2;
-          wire  Net_10;
-          wire  Net_7;
-          wire  Net_9;
-          wire  Net_8;
-          wire  Net_6;
-          wire  Net_3;
-          wire  Net_4;
-          wire  Net_1;
-          wire  Net_5;
+          wire  Net_16;
+          wire  Net_24;
+          wire  Net_21;
+          wire  Net_23;
+          wire  Net_22;
+          wire  Net_20;
+          wire  Net_17;
+          wire  Net_18;
+          wire  Net_15;
+          wire  Net_19;
+          wire  Net_13;
+          wire  Net_14;
+          wire  Net_12;
+          wire  Net_11;
 
-    SCB_UART_PDL_v2_0_0 UART_1 (
+    SCB_I2C_PDL_v2_0_0 I2C_1 (
+        .clock(1'b0),
+        .scl_b(Net_12),
+        .scl_trig(Net_14),
+        .sda_b(Net_13));
+
+    SCB_UART_PDL_v2_0_1 UART_1 (
         .clock(1'b0),
         .cts_in(1'b0),
-        .interrupt(Net_4),
-        .rts_out(Net_3),
-        .rx_dma(Net_6),
+        .interrupt(Net_18),
+        .rts_out(Net_17),
+        .rx_dma(Net_20),
         .rx_in(1'b0),
-        .rx_tx_out(Net_9),
-        .tx_dma(Net_7),
-        .tx_en_out(Net_10),
-        .tx_out(Net_2));
+        .rx_tx_out(Net_23),
+        .tx_dma(Net_21),
+        .tx_en_out(Net_24),
+        .tx_out(Net_16));
 
 
 

@@ -9,9 +9,16 @@
 ********************************************************************************/
 
 #include "project.h"
+
 #include "Traitement.h"
 #include "Interface.h"
 #include "Communication.h"
+
+#include "Communication.c"
+#include "Traitement.c"
+#include "Interface.c"
+
+
 
 int main(void)
 {

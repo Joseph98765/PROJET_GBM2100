@@ -8,6 +8,10 @@
     <Group key="Pin">
       <Data key="05c635f6-42a8-4a9d-a58e-ccb3fdf4a9a2/65f3af6c-759b-4ccb-8c66-5c95ba1f5f4f" value="UART_1_tx" />
       <Data key="05c635f6-42a8-4a9d-a58e-ccb3fdf4a9a2/b7e8018e-1ef7-49c0-b5a5-61641a03e31c" value="UART_1_rx" />
+      <Data key="79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/2aab8a93-e7dd-4bd4-8210-42652cd079c5" value="I2C_1_sda" />
+      <Data key="79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/69c3b5e8-b094-4d65-b96b-9f4f3a9a8641" value="I2C_1_scl" />
+      <Data key="c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/65f3af6c-759b-4ccb-8c66-5c95ba1f5f4f" value="UART_1_tx" />
+      <Data key="c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/b7e8018e-1ef7-49c0-b5a5-61641a03e31c" value="UART_1_rx" />
     </Group>
   </Group>
   <Group key="M0S8Clock">
@@ -601,6 +605,26 @@
       </Group>
     </Group>
     <Group key="05c635f6-42a8-4a9d-a58e-ccb3fdf4a9a2/b7e8018e-1ef7-49c0-b5a5-61641a03e31c">
+      <Group key="0">
+        <Data key="Port Format" value="5,0" />
+      </Group>
+    </Group>
+    <Group key="79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/2aab8a93-e7dd-4bd4-8210-42652cd079c5">
+      <Group key="0">
+        <Data key="Port Format" value="6,1" />
+      </Group>
+    </Group>
+    <Group key="79f9a7f0-0321-4ff7-be4d-ec4595c5d13d/69c3b5e8-b094-4d65-b96b-9f4f3a9a8641">
+      <Group key="0">
+        <Data key="Port Format" value="6,0" />
+      </Group>
+    </Group>
+    <Group key="c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/65f3af6c-759b-4ccb-8c66-5c95ba1f5f4f">
+      <Group key="0">
+        <Data key="Port Format" value="5,1" />
+      </Group>
+    </Group>
+    <Group key="c13a7ce4-1023-4ade-a6e2-7bd5fb8a7c62/b7e8018e-1ef7-49c0-b5a5-61641a03e31c">
       <Group key="0">
         <Data key="Port Format" value="5,0" />
       </Group>

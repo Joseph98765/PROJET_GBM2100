@@ -1,4 +1,4 @@
-C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\TopDesign\TopDesign.cysch
+C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\TopDesign\TopDesign.cysch
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComponentLibrary\CyComponentLibrary.cylib\SCB_I2C_PDL_v2_0\SCB_I2C_PDL_v2_0.cysym
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComponentLibrary\CyComponentLibrary.cylib\SCB_I2C_PDL_v2_0\SCB_I2C_PDL_v2_0.cystate
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComponentLibrary\CyComponentLibrary.cylib\SCB_I2C_PDL_v2_0\SCB_I2C_PDL_v2_0.pdf
@@ -91,4 +91,4 @@ C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComp
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComponentLibrary\CyComponentLibrary.cylib\SCB_UART_PDL_v2_0\Custom\Controls\cydynamicdatacontrol.designer.cs
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComponentLibrary\CyComponentLibrary.cylib\SCB_UART_PDL_v2_0\Custom\Resources.resx
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyComponentLibrary\CyComponentLibrary.cylib\SCB_UART_PDL_v2_0\Custom\Controls\cydynamicdatacontrol.resx
-C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\PROJET.cydwr
+C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Workspace_PROJET\PROJET.cydsn\PROJET.cydwr

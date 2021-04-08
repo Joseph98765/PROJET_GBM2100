@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Workspace_PROJET\PROJET\CM4 (Core 1)\Source Files\main_cm4.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Workspace_PROJET\PROJET\CM4 (Core 1)\Source Files\Communication.c">
 <ExpandedNodeIds>
 <v>Workspace_PROJET</v>
 <v>Workspace_PROJET\PROJET</v>
@@ -78,6 +78,9 @@
 <v>Workspace_PROJET\PROJET\Generated_Source\PSoC6</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>Workspace_PROJET\PROJET\CM0p (Core 0)\Source Files\ARM MDK Generic\startup_psoc6_01_cm0plus.s</v>
+<v>Workspace_PROJET\PROJET\CM0p (Core 0)\Source Files\main_cm0p.c</v>
+<v>Workspace_PROJET\PROJET\CM0p (Core 0)\Source Files\system_psoc6_cm0plus.c</v>
 <v>Workspace_PROJET\PROJET\CM4 (Core 1)</v>
 <v>Workspace_PROJET\PROJET\CM4 (Core 1)\ARM GCC Generic</v>
 <v>Workspace_PROJET\PROJET\CM4 (Core 1)\ARM GCC Generic\cy8c6xx7_cm4_dual.ld</v>
@@ -108,9 +111,6 @@
 <v>Workspace_PROJET\PROJET\Shared Files</v>
 <v>Workspace_PROJET\PROJET\Generated_Source</v>
 <v>Workspace_PROJET\PROJET\Generated_Source\PSoC6</v>
-<v>Workspace_PROJET\PROJET\Generated_Source\PSoC6\pdl</v>
-<v>Workspace_PROJET\PROJET\Generated_Source\PSoC6\I2C_1</v>
-<v>Workspace_PROJET\PROJET\Generated_Source\PSoC6\I2C_1_SCBCLK</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -318,7 +318,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="795, 407" SelectedTabbedMdiWindow="fb704371-242d-449a-8658-ac11eb514a5a"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="5dc560a6-d0ec-4c00-aa61-84e5d28adf77" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\main_cm4.c" Guid="fb704371-242d-449a-8658-ac11eb514a5a" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Interface.c" Guid="3a364a56-3363-4354-bcab-925089c3ea6e" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Communication.c" Guid="3995a5a6-8502-4af0-800b-b062216a3b92" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\TopDesign\TopDesign.cysch" Guid="d71cf11c-3d44-4deb-8bfd-f86e5f831415" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Communication.h" Guid="cedbec14-fe44-4b02-959f-e5c239046f4e" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\stdio_user.h" Guid="14ff63f7-e634-473e-9e7f-0b1c09272d55" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\PROJET.cydwr" Guid="b1094e82-c8e2-4a3d-ae58-2cbdd39daaa9" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\FreeRTOSConfig.h" Guid="cbad20a0-c777-49d5-9f4e-66332f4c79de" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Interface.h" Guid="5d85e39d-1124-4688-9a75-c90626766378" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Traitement.h" Guid="2121a0d4-d2f0-4d44-9c0e-16f0294cffd2" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="867, 407" SelectedTabbedMdiWindow="d71cf11c-3d44-4deb-8bfd-f86e5f831415"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="5dc560a6-d0ec-4c00-aa61-84e5d28adf77" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\main_cm4.c" Guid="fb704371-242d-449a-8658-ac11eb514a5a" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Interface.c" Guid="3a364a56-3363-4354-bcab-925089c3ea6e" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Communication.c" Guid="3995a5a6-8502-4af0-800b-b062216a3b92" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\TopDesign\TopDesign.cysch" Guid="d71cf11c-3d44-4deb-8bfd-f86e5f831415" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Communication.h" Guid="cedbec14-fe44-4b02-959f-e5c239046f4e" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\stdio_user.h" Guid="14ff63f7-e634-473e-9e7f-0b1c09272d55" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\PROJET.cydwr" Guid="b1094e82-c8e2-4a3d-ae58-2cbdd39daaa9" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\FreeRTOSConfig.h" Guid="cbad20a0-c777-49d5-9f4e-66332f4c79de" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Interface.h" Guid="5d85e39d-1124-4688-9a75-c90626766378" /><DocumentWindow Key="C:\Users\aaram_000\Documents\PROJET_GBM2100\Workspace_PROJET\PROJET.cydsn\Traitement.h" Guid="2121a0d4-d2f0-4d44-9c0e-16f0294cffd2" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

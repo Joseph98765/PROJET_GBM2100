@@ -17,11 +17,9 @@
 #include "project.h"
 #include "Interface.h"
 
-
-#include "project.h"
 #include "GUI.h"
-#include "pervasive_eink_hardware_driver.h"
-#include "cy_eink_library.h"
+#include "eInk Library\cy_eink_library.h"
+#include "eInk Library\pervasive_eink_hardware_driver.h"
 #include "LCDConf.h"
 #include <stdlib.h>
 #include "FreeRTOS.h"

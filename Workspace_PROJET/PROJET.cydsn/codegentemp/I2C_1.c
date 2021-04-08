@@ -44,13 +44,13 @@ uint8_t I2C_1_initVar = 0U;
 */
 cy_stc_scb_i2c_config_t const I2C_1_config =
 {
-    .i2cMode    = CY_SCB_I2C_MASTER,
+    .i2cMode    = CY_SCB_I2C_SLAVE,
 
     .useRxFifo = false,
     .useTxFifo = false,
 
-    .slaveAddress        = 0U,
-    .slaveAddressMask    = 0U,
+    .slaveAddress        = 0x8U,
+    .slaveAddressMask    = 0xFEU,
     .acceptAddrInFifo    = false,
     .ackGeneralAddr      = false,
 

@@ -20,27 +20,66 @@
 #include "cyfitter_gpio.h"
 #include "cyfitter_sysint.h"
 
+/* ADC */
+#define ADC_intSarClock__DIV_IDX 3
+#define ADC_intSarClock__DIV_NUM 3
+#define ADC_intSarClock__DIV_TYPE CY_SYSCLK_DIV_8_BIT
+#define ADC_SAR__HW SAR
+#define ADC_SAR__IDX 0
+#define ADC_SAR__TR_SAR_IN TRIG6_OUT_PASS_TR_SAR_IN
+
+/* PWM */
+#define PWM_CLOCK__DIV_IDX 8
+#define PWM_CLOCK__DIV_NUM 0
+#define PWM_CLOCK__DIV_TYPE CY_SYSCLK_DIV_16_BIT
+#define PWM_TCPWM__CNT_HW TCPWM0_CNT1
+#define PWM_TCPWM__CNT_IDX 1u
+#define PWM_TCPWM__HW TCPWM0
+#define PWM_TCPWM__IDX 0u
+
 /* I2C_1 */
-#define I2C_1_SCB__HW SCB3
-#define I2C_1_SCB__IDX 3
+#define I2C_1_SCB__HW SCB2
+#define I2C_1_SCB__IDX 2
 #define I2C_1_SCB__SS0_POSITION 0u
 #define I2C_1_SCB__SS1_POSITION 1u
 #define I2C_1_SCB__SS2_POSITION 2u
 #define I2C_1_SCB__SS3_POSITION 3u
-#define I2C_1_SCBCLK__DIV_IDX 0
-#define I2C_1_SCBCLK__DIV_NUM 0
+#define I2C_1_SCBCLK__DIV_IDX 1
+#define I2C_1_SCBCLK__DIV_NUM 1
 #define I2C_1_SCBCLK__DIV_TYPE CY_SYSCLK_DIV_8_BIT
 
 /* UART_1 */
-#define UART_1_SCB__HW SCB5
-#define UART_1_SCB__IDX 5
+#define UART_1_SCB__HW SCB1
+#define UART_1_SCB__IDX 1
 #define UART_1_SCB__SS0_POSITION 0u
 #define UART_1_SCB__SS1_POSITION 1u
 #define UART_1_SCB__SS2_POSITION 2u
 #define UART_1_SCB__SS3_POSITION 3u
-#define UART_1_SCBCLK__DIV_IDX 1
-#define UART_1_SCBCLK__DIV_NUM 1
+#define UART_1_SCBCLK__DIV_IDX 2
+#define UART_1_SCBCLK__DIV_NUM 2
 #define UART_1_SCBCLK__DIV_TYPE CY_SYSCLK_DIV_8_BIT
+
+/* EINK_Clock */
+#define EINK_Clock__DIV_IDX 9
+#define EINK_Clock__DIV_NUM 1
+#define EINK_Clock__DIV_TYPE CY_SYSCLK_DIV_16_BIT
+
+/* CY_EINK_SPIM */
+#define CY_EINK_SPIM_SCB__HW SCB6
+#define CY_EINK_SPIM_SCB__IDX 6
+#define CY_EINK_SPIM_SCB__SS0_POSITION 0u
+#define CY_EINK_SPIM_SCB__SS1_POSITION 1u
+#define CY_EINK_SPIM_SCB__SS2_POSITION 2u
+#define CY_EINK_SPIM_SCB__SS3_POSITION 3u
+#define CY_EINK_SPIM_SCBCLK__DIV_IDX 0
+#define CY_EINK_SPIM_SCBCLK__DIV_NUM 0
+#define CY_EINK_SPIM_SCBCLK__DIV_TYPE CY_SYSCLK_DIV_8_BIT
+
+/* CY_EINK_Timer */
+#define CY_EINK_Timer_TCPWM__CNT_HW TCPWM0_CNT0
+#define CY_EINK_Timer_TCPWM__CNT_IDX 0u
+#define CY_EINK_Timer_TCPWM__HW TCPWM0
+#define CY_EINK_Timer_TCPWM__IDX 0u
 
 /* Miscellaneous */
 #define CPUSS__CTI_TR_IN_0 TRIG5_OUT_CPUSS_CTI_TR_IN0

@@ -13,6 +13,7 @@
     <Dir fileName="drivers/peripheral/lvd/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/profile/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/prot/" buildType="OTHER;;;;" />
+    <Dir fileName="drivers/peripheral/sar/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/scb/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/sysanalog/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/sysclk/" buildType="OTHER;;;;" />
@@ -20,9 +21,12 @@
     <Dir fileName="drivers/peripheral/syslib/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/syspm/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/systick/" buildType="OTHER;;;;" />
+    <Dir fileName="drivers/peripheral/tcpwm/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/trigmux/" buildType="OTHER;;;;" />
     <Dir fileName="drivers/peripheral/wdt/" buildType="OTHER;;;;" />
     <Dir fileName="middleware/" buildType="OTHER;;;;" />
+    <Dir fileName="middleware/emWin/code/include/" buildType="OTHER;;;;" />
+    <Dir fileName="middleware/emWin/code/include/osnts_softfp/" buildType="OTHER;;;;" />
     <Dir fileName="rtos/FreeRTOS/10.0.1/Source/include/" buildType="OTHER;;;;" />
     <Dir fileName="rtos/FreeRTOS/10.0.1/Source/portable/GCC/CM4F/" buildType="OTHER;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;" />
     <Dir fileName="rtos/FreeRTOS/10.0.1/Source/portable/IAR/CM4F/" buildType="OTHER;;;e9305a93-d091-4da5-bdc7-2813049dcdbf;" />
@@ -34,6 +38,9 @@
     <Define>CY8C6347BZI_BLD53</Define>
   </Defines>
   <folder folderName=".">
+    <file fileName="GUIConf.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\osnts_softfp\GUIConf.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="True" />
+    <file fileName="GUI_X_RTOS.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\config\os\GUI_X_RTOS.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="True" />
+    <file fileName="GUIConf.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\config\GUIConf.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="True" />
     <file fileName="FreeRTOSConfig.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\rtos\FreeRTOS\10.0.1\Source\portable\FreeRTOSConfig.h" buildType="HEADER;CortexM4;;;" copyLocal="True" isTemplate="True" />
     <file fileName="stdio_user.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\utilities\retarget_io\user\stdio_user.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="True" />
     <file fileName="stdio_user.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\utilities\retarget_io\user\stdio_user.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="True" />
@@ -103,6 +110,10 @@
             <file fileName="cy_prot.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\prot\cy_prot.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
             <file fileName="cy_prot.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\prot\cy_prot.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
           </folder>
+          <folder folderName="sar">
+            <file fileName="cy_sar.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\sar\cy_sar.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_sar.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\sar\cy_sar.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
+          </folder>
           <folder folderName="scb">
             <file fileName="cy_scb_common.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\scb\cy_scb_common.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
             <file fileName="cy_scb_common.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\scb\cy_scb_common.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
@@ -148,6 +159,15 @@
             <file fileName="cy_systick.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\systick\cy_systick.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
             <file fileName="cy_systick.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\systick\cy_systick.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
           </folder>
+          <folder folderName="tcpwm">
+            <file fileName="cy_tcpwm.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_tcpwm_counter.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm_counter.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_tcpwm_counter.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm_counter.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_tcpwm_pwm.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm_pwm.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_tcpwm_pwm.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm_pwm.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_tcpwm_quaddec.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm_quaddec.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
+            <file fileName="cy_tcpwm_quaddec.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\tcpwm\cy_tcpwm_quaddec.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
+          </folder>
           <folder folderName="trigmux">
             <file fileName="cy_trigmux.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\trigmux\cy_trigmux.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
             <file fileName="cy_trigmux.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\drivers\peripheral\trigmux\cy_trigmux.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
@@ -166,6 +186,109 @@
         <folder folderName="ble">
           <file fileName="cy_ble_clk.c" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\ble\cy_ble_clk.c" buildType="SOURCE_C;;;;" copyLocal="True" isTemplate="False" />
           <file fileName="cy_ble_clk.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\ble\cy_ble_clk.h" buildType="HEADER;;;;" copyLocal="True" isTemplate="False" />
+        </folder>
+        <folder folderName="emWin">
+          <folder folderName="code">
+            <folder folderName="include">
+              <file fileName="BUTTON.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\BUTTON.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="BUTTON_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\BUTTON_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="CALENDAR.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\CALENDAR.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="CHECKBOX.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\CHECKBOX.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="CHECKBOX_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\CHECKBOX_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="CHOOSECOLOR.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\CHOOSECOLOR.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="CHOOSEFILE.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\CHOOSEFILE.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="DIALOG.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\DIALOG.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="DIALOG_Intern.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\DIALOG_Intern.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="DROPDOWN.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\DROPDOWN.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="DROPDOWN_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\DROPDOWN_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="EDIT.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\EDIT.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="EDIT_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\EDIT_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="FRAMEWIN.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\FRAMEWIN.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="FRAMEWIN_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\FRAMEWIN_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="Global.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\Global.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GRAPH.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GRAPH.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GRAPH_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GRAPH_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_ARRAY.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_ARRAY.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_ARRAY_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_ARRAY_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_BMP_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_BMP_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_ConfDefaults.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_ConfDefaults.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_Debug.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_Debug.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_FontIntern.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_FontIntern.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_GCache_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_GCache_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_GIF_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_GIF_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_HOOK.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_HOOK.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_JPEG_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_JPEG_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_SetOrientation.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_SetOrientation.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_SetOrientationCX.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_SetOrientationCX.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_SPRITE_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_SPRITE_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_Type.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_Type.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_Version.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_Version.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI_VNC.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI_VNC.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI__BiDi2_Brackets_800.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI__BiDi2_Brackets_800.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="GUI__BiDi2_Types_800.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\GUI__BiDi2_Types_800.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="HEADER.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\HEADER.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="HEADER_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\HEADER_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="ICONVIEW.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\ICONVIEW.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="ICONVIEW_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\ICONVIEW_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="IMAGE.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\IMAGE.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="IMAGE_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\IMAGE_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="IP_FS.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\IP_FS.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="KNOB.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\KNOB.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="KNOB_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\KNOB_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LCD.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LCD.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LCD_ConfDefaults.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LCD_ConfDefaults.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LCD_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LCD_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LCD_Protected.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LCD_Protected.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LCD_SIM.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LCD_SIM.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LISTBOX.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LISTBOX.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LISTBOX_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LISTBOX_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LISTVIEW.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LISTVIEW.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LISTVIEW_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LISTVIEW_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LISTWHEEL.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LISTWHEEL.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="LISTWHEEL_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\LISTWHEEL_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="MENU.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\MENU.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="MENU_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\MENU_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="MESSAGEBOX.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\MESSAGEBOX.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="MULTIEDIT.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\MULTIEDIT.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="MULTIPAGE.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\MULTIPAGE.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="MULTIPAGE_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\MULTIPAGE_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="PROGBAR.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\PROGBAR.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="PROGBAR_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\PROGBAR_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="RADIO.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\RADIO.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="RADIO_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\RADIO_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SCROLLBAR.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SCROLLBAR.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SCROLLBAR_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SCROLLBAR_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SEGGER.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SEGGER.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SLIDER.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SLIDER.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SLIDER_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SLIDER_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SPINBOX.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SPINBOX.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SPINBOX_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SPINBOX_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SWIPELIST.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SWIPELIST.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="SWIPELIST_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\SWIPELIST_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="TEXT.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\TEXT.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="TEXT_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\TEXT_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="TREEVIEW.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\TREEVIEW.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="TREEVIEW_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\TREEVIEW_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="WIDGET.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\WIDGET.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="WINDOW_Private.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\WINDOW_Private.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="WM.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\WM.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="WM_GUI.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\WM_GUI.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+              <file fileName="WM_Intern.h" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\code\include\WM_Intern.h" buildType="OTHER;;;;" copyLocal="True" isTemplate="False" />
+            </folder>
+          </folder>
+          <folder folderName="libs">
+            <folder folderName="GCC">
+              <file fileName="libemWin_osnts_gcc.a" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\libs\GCC\libemWin_osnts_gcc.a" buildType="LIBRARY;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;" copyLocal="True" isTemplate="False" />
+            </folder>
+            <folder folderName="IAR">
+              <file fileName="libemWin_osnts_iar.a" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\libs\IAR\libemWin_osnts_iar.a" buildType="LIBRARY;;;e9305a93-d091-4da5-bdc7-2813049dcdbf;" copyLocal="True" isTemplate="False" />
+            </folder>
+            <folder folderName="MDK">
+              <file fileName="libemWin_osnts_mdk.a" physicalFilePath="C:\Program Files (x86)\Cypress\PDL\3.1.3\middleware\emWin\libs\MDK\libemWin_osnts_mdk.a" buildType="LIBRARY;;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;" copyLocal="True" isTemplate="False" />
+            </folder>
+          </folder>
         </folder>
       </folder>
       <folder folderName="rtos">

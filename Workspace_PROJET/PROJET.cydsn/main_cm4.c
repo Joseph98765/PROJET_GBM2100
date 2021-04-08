@@ -13,6 +13,7 @@
 #include "Traitement.h"
 #include "Interface.h"
 #include "Communication.h"
+#include "GUI.h"
 
 #include "Communication.c"
 #include "Traitement.c"

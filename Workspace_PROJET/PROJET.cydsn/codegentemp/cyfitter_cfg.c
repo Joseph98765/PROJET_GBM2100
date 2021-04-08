@@ -209,14 +209,6 @@ static void ClockInit(void)
 
 	/* Set memory wait states based on 100 MHz HFClk[0] */
 	Cy_SysLib_SetWaitStates(false, 100);
-
-	/* Configure peripheral clock dividers */
-	Cy_SysClk_PeriphAssignDivider(PCLK_SCB3_CLOCK, CY_SYSCLK_DIV_8_BIT, 0u);
-	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 0u, 31u);
-	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 0u);
-	Cy_SysClk_PeriphAssignDivider(PCLK_SCB5_CLOCK, CY_SYSCLK_DIV_8_BIT, 1u);
-	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 1u, 35u);
-	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 1u);
 }
 
 
@@ -284,44 +276,19 @@ void Cy_SystemInit(void)
 
 	/* Clock */
 	ClockInit();
-	{
-		/* SCB3_CTRL Starting address: CYDEV_SCB3_CTRL */
-		CY_SET_REG32((void *)(CYREG_SCB3_CTRL), 0x0000000Fu);
-
-		/* SCB3_TX Starting address: CYDEV_SCB3_TX_CTRL */
-		CY_SET_REG32((void *)(CYREG_SCB3_TX_CTRL), 0x00010107u);
-
-	}
-
-	/* Port5 configuration */
-	{
-	    const cy_stc_gpio_prt_config_t port5_cfg =
-	    {
-	        .out        = 0x00000003u,
-	        .intrMask   = 0x00000000u,
-	        .intrCfg    = 0x00000000u,
-	        .cfg        = 0x00000068u,
-	        .cfgIn      = 0x00000000u,
-	        .cfgOut     = 0x00000000u,
-	        .cfgSIO     = 0x00000000u,
-	        .sel0Active = 0x00001212u,
-	        .sel1Active = 0x00000000u,
-	    };
-	    (void)Cy_GPIO_Port_Init(GPIO_PRT5, &port5_cfg);
-	}
 
 	/* Port6 configuration */
 	{
 	    const cy_stc_gpio_prt_config_t port6_cfg =
 	    {
-	        .out        = 0x00000003u,
+	        .out        = 0x00000000u,
 	        .intrMask   = 0x00000000u,
 	        .intrCfg    = 0x00000000u,
-	        .cfg        = 0xBA0000CCu,
+	        .cfg        = 0xBA000000u,
 	        .cfgIn      = 0x00000000u,
 	        .cfgOut     = 0x00000000u,
 	        .cfgSIO     = 0x00000000u,
-	        .sel0Active = 0x00001313u,
+	        .sel0Active = 0x00000000u,
 	        .sel1Active = 0x1D1D0000u,
 	    };
 	    (void)Cy_GPIO_Port_Init(GPIO_PRT6, &port6_cfg);

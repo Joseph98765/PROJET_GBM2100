@@ -24,11 +24,6 @@
 #include "cy_lvd.h"
 #include "cy_profile.h"
 #include "cy_prot.h"
-#include "cy_scb_common.h"
-#include "cy_scb_i2c.h"
-#include "cy_scb_ezi2c.h"
-#include "cy_scb_spi.h"
-#include "cy_scb_uart.h"
 #include "cy_sysanalog.h"
 #include "cy_sysclk.h"
 #include "cy_sysint.h"
@@ -102,10 +97,6 @@
 #include "cyfitter_gpio.h"
 #include "cyfitter_sysint.h"
 #include "cydisabledsheets.h"
-#include "I2C_1.h"
-#include "UART_1.h"
-#include "I2C_1_SCBCLK.h"
-#include "UART_1_SCBCLK.h"
 
 /*[]*/
 

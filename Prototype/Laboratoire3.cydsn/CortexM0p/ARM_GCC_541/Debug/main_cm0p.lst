@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
   28:main_cm0p.c   **** * of this Software except as specified above is prohibited without the express
   29:main_cm0p.c   **** * written permission of Cypress.
   30:main_cm0p.c   **** *
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 2
 
 
   31:main_cm0p.c   **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
   54              		.text
   55              	.Letext0:
   56              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 3
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 3
 
 
   57              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  111 0055 02       		.byte	0x2
  112 0056 2B       		.byte	0x2b
  113 0057 5B000000 		.4byte	0x5b
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 4
 
 
  114 005b 02       		.uleb128 0x2
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  168 00c4 04       		.byte	0x4
  169 00c5 07       		.byte	0x7
  170 00c6 83070000 		.4byte	.LASF17
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 5
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 5
 
 
  171 00ca 05       		.uleb128 0x5
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  225 0133 86000000 		.4byte	.LASF26
  226 0137 04       		.byte	0x4
  227 0138 3E       		.byte	0x3e
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 6
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 6
 
 
  228 0139 B8000000 		.4byte	0xb8
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  282 01a5 97000000 		.4byte	0x97
  283 01a9 2E       		.byte	0x2e
  284 01aa 07       		.uleb128 0x7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 7
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 7
 
 
  285 01ab 46070000 		.4byte	.LASF36
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  339 0217 24030000 		.4byte	.LASF45
  340 021b 04       		.byte	0x4
  341 021c 55       		.byte	0x55
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 8
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 8
 
 
  342 021d 97000000 		.4byte	0x97
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  396 0289 B8000000 		.4byte	0xb8
  397 028d 48       		.byte	0x48
  398 028e 07       		.uleb128 0x7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 9
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 9
 
 
  399 028f C4030000 		.4byte	.LASF55
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  453 02fb 24000000 		.4byte	.LASF64
  454 02ff 04       		.byte	0x4
  455 0300 68       		.byte	0x68
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 10
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 10
 
 
  456 0301 97000000 		.4byte	0x97
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  510 036d AD000000 		.4byte	0xad
  511 0371 6A       		.byte	0x6a
  512 0372 07       		.uleb128 0x7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 11
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 11
 
 
  513 0373 26060000 		.4byte	.LASF74
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  567 03df CC000000 		.4byte	.LASF83
  568 03e3 04       		.byte	0x4
  569 03e4 83       		.byte	0x83
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 12
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 12
 
 
  570 03e5 AD000000 		.4byte	0xad
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  624 0451 B8000000 		.4byte	0xb8
  625 0455 90       		.byte	0x90
  626 0456 07       		.uleb128 0x7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 13
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 13
 
 
  627 0457 F5040000 		.4byte	.LASF93
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  681 04c3 DC070000 		.4byte	.LASF102
  682 04c7 04       		.byte	0x4
  683 04c8 9A       		.byte	0x9a
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 14
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 14
 
 
  684 04c9 AD000000 		.4byte	0xad
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  738 0530 06       		.byte	0x6
  739 0531 1304     		.2byte	0x413
  740 0533 50050000 		.4byte	0x550
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 15
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 15
 
 
  741 0537 09       		.uleb128 0x9
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  795 05a7 F60C0000 		.4byte	.LASF122
  796 05ab 06       		.byte	0x6
  797 05ac 0905     		.2byte	0x509
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 16
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 16
 
 
  798 05ae 50050000 		.4byte	0x550
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  852 0623 B8000000 		.4byte	0xb8
  853 0627 74       		.byte	0x74
  854 0628 00       		.byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 17
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 17
 
 
  855 0629 0E       		.uleb128 0xe
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  909 06a3 12       		.uleb128 0x12
  910 06a4 B8000000 		.4byte	0xb8
  911 06a8 00       		.byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 18
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 18
 
 
  912 06a9 14       		.uleb128 0x14
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  966 071e 0D       		.uleb128 0xd
  967 071f 97070000 		.4byte	.LASF146
  968 0723 07       		.byte	0x7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 19
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 19
 
 
  969 0724 D102     		.2byte	0x2d1
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1023 0799 DD02     		.2byte	0x2dd
  1024 079b B8000000 		.4byte	0xb8
  1025 079f 3C       		.byte	0x3c
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 20
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 20
 
 
  1026 07a0 0D       		.uleb128 0xd
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1080 0817 08       		.byte	0x8
  1081 0818 7A02     		.2byte	0x27a
  1082 081a B8000000 		.4byte	0xb8
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 21
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 21
 
 
  1083 081e 08       		.byte	0x8
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1137 0893 0D       		.uleb128 0xd
  1138 0894 05060000 		.4byte	.LASF174
  1139 0898 09       		.byte	0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 22
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 22
 
 
  1140 0899 7802     		.2byte	0x278
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1194 090e 8402     		.2byte	0x284
  1195 0910 21050000 		.4byte	0x521
  1196 0914 24       		.byte	0x24
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 23
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 23
 
 
  1197 0915 0D       		.uleb128 0xd
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1251 0986 07       		.uleb128 0x7
  1252 0987 F8000000 		.4byte	.LASF186
  1253 098b 0A       		.byte	0xa
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 24
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 24
 
 
  1254 098c 35       		.byte	0x35
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1308 09f8 42       		.byte	0x42
  1309 09f9 B8000000 		.4byte	0xb8
  1310 09fd 30       		.byte	0x30
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 25
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 25
 
 
  1311 09fe 07       		.uleb128 0x7
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1365 0a6a 07       		.uleb128 0x7
  1366 0a6b 68010000 		.4byte	.LASF184
  1367 0a6f 0B       		.byte	0xb
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 26
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 26
 
 
  1368 0a70 33       		.byte	0x33
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1422 0adc 3C       		.byte	0x3c
  1423 0add 23050000 		.4byte	0x523
  1424 0ae1 28       		.byte	0x28
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 27
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 27
 
 
  1425 0ae2 07       		.uleb128 0x7
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1479 0b4e 07       		.uleb128 0x7
  1480 0b4f 2E070000 		.4byte	.LASF197
  1481 0b53 0B       		.byte	0xb
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 28
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 28
 
 
  1482 0b54 4A       		.byte	0x4a
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1536 0bbd DB0B0000 		.4byte	0xbdb
  1537 0bc1 08       		.byte	0x8
  1538 0bc2 07       		.uleb128 0x7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 29
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 29
 
 
  1539 0bc3 C70B0000 		.4byte	.LASF221
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1593 0c32 8D080000 		.4byte	.LASF224
  1594 0c36 04       		.byte	0x4
  1595 0c37 A7       		.byte	0xa7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 30
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 30
 
 
  1596 0c38 3C0C0000 		.4byte	0xc3c
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1650 0cb5 87       		.byte	0x87
  1651 0cb6 4A090000 		.4byte	0x94a
  1652 0cba 1D       		.uleb128 0x1d
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 31
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 31
 
 
  1653 0cbb 72060000 		.4byte	.LASF232
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1707 002a 00       		.byte	0
  1708 002b 04       		.uleb128 0x4
  1709 002c 24       		.uleb128 0x24
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 32
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 32
 
 
  1710 002d 00       		.byte	0
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1764 0063 05       		.uleb128 0x5
  1765 0064 01       		.uleb128 0x1
  1766 0065 13       		.uleb128 0x13
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 33
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 33
 
 
  1767 0066 00       		.byte	0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1821 009c 13       		.uleb128 0x13
  1822 009d 38       		.uleb128 0x38
  1823 009e 0B       		.uleb128 0xb
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 34
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 34
 
 
  1824 009f 00       		.byte	0
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1878 00d5 00       		.byte	0
  1879 00d6 00       		.byte	0
  1880 00d7 14       		.uleb128 0x14
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 35
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 35
 
 
  1881 00d8 13       		.uleb128 0x13
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1935 010f 01       		.uleb128 0x1
  1936 0110 12       		.uleb128 0x12
  1937 0111 06       		.uleb128 0x6
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 36
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 36
 
 
  1938 0112 40       		.uleb128 0x40
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  1992 0150 1C       		.uleb128 0x1c
  1993 0151 34       		.uleb128 0x34
  1994 0152 00       		.byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 37
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 37
 
 
  1995 0153 03       		.uleb128 0x3
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2047      00000201 
  2047      FB0E0D00 
  2047      01010101 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 38
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 38
 
 
  2048              	.LASF54:
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2071 009b 70776D41 		.ascii	"pwmAlignment\000"
  2071      6C69676E 
  2071      6D656E74 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 39
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 39
 
 
  2071      00
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2095      63757272 
  2095      656E7443 
  2095      6F6E6669 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 40
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 40
 
 
  2095      6700
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2117      74635F73 
  2117      63625F69 
  2117      32635F63 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 41
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 41
 
 
  2117      6F6E7465 
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2137      657200
  2138              	.LASF23:
  2139 02cb 70726F74 		.ascii	"protBase\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 42
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 42
 
 
  2139      42617365 
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2160              	.LASF7:
  2161 0391 6C6F6E67 		.ascii	"long int\000"
  2161      20696E74 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 43
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 43
 
 
  2161      00
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2185 0436 4144435F 		.ascii	"ADC_CONFIG_STRUCT\000"
  2185      434F4E46 
  2185      49475F53 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 44
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 44
 
 
  2185      54525543 
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2207      7400
  2208              	.LASF166:
  2209 04e7 72784275 		.ascii	"rxBufIdx\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 45
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 45
 
 
  2209      66496478 
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2231      64477253 
  2231      656C4D73 
  2231      6B00
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 46
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 46
 
 
  2232              	.LASF62:
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2254              	.LASF101:
  2255 0635 63707573 		.ascii	"cpussRam1Ctl0\000"
  2255      7352616D 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 47
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 47
 
 
  2255      3143746C 
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2279      61736500 
  2280              	.LASF210:
  2281 06e0 696E7665 		.ascii	"invertPWMOut\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 48
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 48
 
 
  2281      72745057 
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2303 078c 64774368 		.ascii	"dwChOffset\000"
  2303      4F666673 
  2303      657400
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 49
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 49
 
 
  2304              	.LASF146:
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2325      7273696F 
  2325      6E00
  2326              	.LASF28:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 50
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 50
 
 
  2327 083a 63727970 		.ascii	"cryptoBase\000"
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2352              	.LASF113:
  2353 08d1 43595F53 		.ascii	"CY_SAR_RANGE_COND_INSIDE\000"
  2353      41525F52 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 51
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 51
 
 
  2353      414E4745 
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2375 097d 6D617374 		.ascii	"masterPause\000"
  2375      65725061 
  2375      75736500 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 52
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 52
 
 
  2376              	.LASF209:
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2397      74635F73 
  2397      63625F69 
  2397      32635F63 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 53
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 53
 
 
  2397      6F6E7465 
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2421 0b36 50574D5F 		.ascii	"PWM_config\000"
  2421      636F6E66 
  2421      696700
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 54
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 54
 
 
  2422              	.LASF81:
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2443      5350494D 
  2443      5F636F6E 
  2443      74657874 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 55
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 55
 
 
  2444              	.LASF199:
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2468      65547842 
  2468      75666665 
  2468      7200
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 56
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 56
 
 
  2469              	.LASF151:
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2492 0d65 43595F53 		.ascii	"CY_SYSPM_WAIT_FOR_INTERRUPT\000"
  2492      5953504D 
  2492      5F574149 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 57
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 57
 
 
  2492      545F464F 
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 1
  2512      74496E70 
  2512      75744D6F 
  2512      646500
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccjDhb73.s 			page 58
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccEXajQ3.s 			page 58
 
 
  2513              	.LASF129:

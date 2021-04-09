@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Laboratoire3\Laboratoire3\Laboratoire3.cydwr\Pins">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
 <v>Laboratoire3</v>
 <v>Laboratoire3\Laboratoire3</v>
@@ -91,7 +91,6 @@
 <v>Laboratoire3\Laboratoire3\Shared Files\system_psoc6.h</v>
 <v>Laboratoire3\Laboratoire3\Generated_Source</v>
 <v>Laboratoire3\Laboratoire3\Generated_Source\PSoC6</v>
-<v>Laboratoire3\Laboratoire3\Generated_Source\PSoC6\I2C_1</v>
 <v>Laboratoire3\CE223727_EmWin_EInk_Display.pdf</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>

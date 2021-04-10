@@ -14,11 +14,15 @@
 #include "Interface.h"
 #include "Communication.h"
 
+#include "arm_math.h"
+#include "core_cm4.h"
 
 
 int main(void)
 {
     __enable_irq(); /* Enable global interrupts. */
+    SystemInit();
+    SystemCoreClockUpdate();
     
     
     interfaceSetup();
@@ -40,6 +44,15 @@ int main(void)
     Cy_SysInt_Init(&Bouton_ISR_cfg, isr_bouton);
     NVIC_ClearPendingIRQ(Bouton_ISR_cfg.intrSrc);
     NVIC_EnableIRQ(Bouton_ISR_cfg.intrSrc);
+    
+    float vecteurTest[125] = {0};
+    
+    for(int i =0; i<125; i++){
+        vecteurTest[i] = 1-vectorR[i]/215000;
+    
+    }
+    
+    drawGraph(vecteurTest,125);
     
     xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
     

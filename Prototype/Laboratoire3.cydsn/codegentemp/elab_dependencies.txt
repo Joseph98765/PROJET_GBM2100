@@ -1,4 +1,4 @@
-C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\TopDesign\TopDesign.cysch
+C:\Users\youss\OneDrive\Documents\Session 6\GBM2100\PROJET_2\PROJET_GBM2100\Prototype\Laboratoire3.cydsn\TopDesign\TopDesign.cysch
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\GPIO_PDL_v1_0\GPIO_PDL_v1_0.cysym
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\GPIO_PDL_v1_0\GPIO_PDL_v1_0.cystate
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\GPIO_PDL_v1_0\GPIO_PDL_v1_0.cyprimitive
@@ -208,4 +208,4 @@ C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrim
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_gsref_v2_10\Custom\cycenteredtextcontrol.resx
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_gsref_v2_10\Custom\cygsrefidcontrol.resx
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_gsref_v2_10
-C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\Laboratoire3.cydwr
+C:\Users\youss\OneDrive\Documents\Session 6\GBM2100\PROJET_2\PROJET_GBM2100\Prototype\Laboratoire3.cydsn\Laboratoire3.cydwr

@@ -43,6 +43,6 @@ void CreationVecteurEspacer(int longueurVecteur, int espacement, int ValeurMin, 
 void drawGraph(float* vecteurNelements, int Nelements);
 void Affichage_task();
 
-
+float vectorR[6625];
 #endif
 /* [] END OF FILE */

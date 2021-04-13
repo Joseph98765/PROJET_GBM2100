@@ -16,11 +16,15 @@
 #include <arm_math.h>
 #include <core_cm4.h>
 
+#include <arm_math.h>
+#include <core_cm4.h>
 
 
 int main(void)
 {
     __enable_irq(); /* Enable global interrupts. */
+    SystemInit();
+    SystemCoreClockUpdate();
     
     CapSense_Start();
     CapSense_ScanAllWidgets();
@@ -45,14 +49,27 @@ int main(void)
     NVIC_ClearPendingIRQ(Bouton_ISR_cfg.intrSrc);
     NVIC_EnableIRQ(Bouton_ISR_cfg.intrSrc);
     
+<<<<<<< HEAD
     //Initialize system clock
     SystemInit();
     SystemCoreClockUpdate();
     
     xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
+=======
+    float vecteurTest[125] = {0};
+    
+    for(int i =0; i<125; i++){
+        vecteurTest[i] = 1-vectorR[i]/215000;
+    
+    }
+    
+    drawGraph(vecteurTest,125);
+>>>>>>> Traitement_2
+    
+    xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
     
     
-    
+  
     
     //xTaskCreate(DesactiverAlarme_task, "BOUTON", 500, NULL, 1, NULL);
     //xTaskCreate(SelectionPage_task, "SelectionPage", 500, NULL, 0, NULL);

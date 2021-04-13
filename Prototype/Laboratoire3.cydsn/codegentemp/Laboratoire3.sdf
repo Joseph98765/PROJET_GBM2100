@@ -1,6 +1,10 @@
 (DELAYFILE
  (SDFVERSION "IEEE 1497 4.0")
+<<<<<<< HEAD
  (DATE "2021-04-12T20:58:54Z")
+=======
+ (DATE "2021-04-10T02:08:24Z")
+>>>>>>> Traitement_2
  (DESIGN "Laboratoire3")
  (VENDOR "Cypress Semiconductor")
  (PROGRAM "PSoC Creator")

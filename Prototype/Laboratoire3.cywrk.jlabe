@@ -13,7 +13,11 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
+<<<<<<< HEAD
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files">
+=======
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+>>>>>>> Traitement_2
 <ExpandedNodeIds>
 <v>Laboratoire3</v>
 <v>Laboratoire3\Laboratoire3</v>

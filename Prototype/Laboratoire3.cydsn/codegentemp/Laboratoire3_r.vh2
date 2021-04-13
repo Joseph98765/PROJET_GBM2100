@@ -1,5 +1,9 @@
 -- Project:   Laboratoire3
+<<<<<<< HEAD
 -- Generated: 04/12/2021 16:58:36
+=======
+-- Generated: 04/09/2021 22:08:11
+>>>>>>> Traitement_2
 -- PSoC Creator  4.4
 
 ENTITY Laboratoire3 IS

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
+=======
+ARM GAS  C:\Users\youss\AppData\Local\Temp\ccbyEOJo.s 			page 1
+>>>>>>> Traitement_2
 
 
    1              		.syntax unified
@@ -23,7 +27,11 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
   20              	.Letext0:
   21              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
   22              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+<<<<<<< HEAD
   23              		.file 3 ".\\CMSIS\\Core\\Include/core_cm4.h"
+=======
+  23              		.file 3 ".\\CIMSIS_M4\\CMSIS\\Core\\Include/core_cm4.h"
+>>>>>>> Traitement_2
   24              		.section	.debug_info,"",%progbits
   25              	.Ldebug_info0:
   26 0000 AA000000 		.4byte	0xaa
@@ -33,8 +41,8 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
   30 000b 01       		.uleb128 0x1
   31 000c 0E000000 		.4byte	.LASF16
   32 0010 0C       		.byte	0xc
-  33 0011 C2010000 		.4byte	.LASF17
-  34 0015 C1000000 		.4byte	.LASF18
+  33 0011 DD010000 		.4byte	.LASF17
+  34 0015 03010000 		.4byte	.LASF18
   35 0019 00000000 		.4byte	.Ldebug_line0
   36 001d 02       		.uleb128 0x2
   37 001e 04       		.byte	0x4
@@ -43,7 +51,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
   40 0024 03       		.uleb128 0x3
   41 0025 04       		.byte	0x4
   42 0026 07       		.byte	0x7
-  43 0027 8D010000 		.4byte	.LASF0
+  43 0027 A8010000 		.4byte	.LASF0
   44 002b 03       		.uleb128 0x3
   45 002c 08       		.byte	0x8
   46 002d 05       		.byte	0x5
@@ -51,66 +59,70 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
   48 0032 03       		.uleb128 0x3
   49 0033 08       		.byte	0x8
   50 0034 04       		.byte	0x4
-  51 0035 A4010000 		.4byte	.LASF2
+  51 0035 BF010000 		.4byte	.LASF2
   52 0039 03       		.uleb128 0x3
   53 003a 01       		.byte	0x1
   54 003b 06       		.byte	0x6
-  55 003c 81010000 		.4byte	.LASF3
+  55 003c 9C010000 		.4byte	.LASF3
   56 0040 03       		.uleb128 0x3
   57 0041 01       		.byte	0x1
+<<<<<<< HEAD
 ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 2
+=======
+ARM GAS  C:\Users\youss\AppData\Local\Temp\ccbyEOJo.s 			page 2
+>>>>>>> Traitement_2
 
 
   58 0042 08       		.byte	0x8
-  59 0043 3E010000 		.4byte	.LASF4
+  59 0043 F5000000 		.4byte	.LASF4
   60 0047 03       		.uleb128 0x3
   61 0048 02       		.byte	0x2
   62 0049 05       		.byte	0x5
-  63 004a B0010000 		.4byte	.LASF5
+  63 004a CB010000 		.4byte	.LASF5
   64 004e 03       		.uleb128 0x3
   65 004f 02       		.byte	0x2
   66 0050 07       		.byte	0x7
-  67 0051 6E010000 		.4byte	.LASF6
+  67 0051 89010000 		.4byte	.LASF6
   68 0055 04       		.uleb128 0x4
-  69 0056 9A010000 		.4byte	.LASF10
+  69 0056 B5010000 		.4byte	.LASF10
   70 005a 01       		.byte	0x1
   71 005b 3F       		.byte	0x3f
   72 005c 60000000 		.4byte	0x60
   73 0060 03       		.uleb128 0x3
   74 0061 04       		.byte	0x4
   75 0062 05       		.byte	0x5
-  76 0063 65010000 		.4byte	.LASF7
+  76 0063 80010000 		.4byte	.LASF7
   77 0067 03       		.uleb128 0x3
   78 0068 04       		.byte	0x4
   79 0069 07       		.byte	0x7
-  80 006a 0F010000 		.4byte	.LASF8
+  80 006a C1000000 		.4byte	.LASF8
   81 006e 03       		.uleb128 0x3
   82 006f 08       		.byte	0x8
   83 0070 07       		.byte	0x7
-  84 0071 21010000 		.4byte	.LASF9
+  84 0071 D3000000 		.4byte	.LASF9
   85 0075 04       		.uleb128 0x4
-  86 0076 BA010000 		.4byte	.LASF11
+  86 0076 D5010000 		.4byte	.LASF11
   87 007a 02       		.byte	0x2
   88 007b 2C       		.byte	0x2c
   89 007c 55000000 		.4byte	0x55
   90 0080 03       		.uleb128 0x3
   91 0081 04       		.byte	0x4
   92 0082 07       		.byte	0x7
-  93 0083 04020000 		.4byte	.LASF12
+  93 0083 1F020000 		.4byte	.LASF12
   94 0087 03       		.uleb128 0x3
   95 0088 01       		.byte	0x1
   96 0089 08       		.byte	0x8
-  97 008a 4C010000 		.4byte	.LASF13
+  97 008a F0000000 		.4byte	.LASF13
   98 008e 03       		.uleb128 0x3
   99 008f 04       		.byte	0x4
  100 0090 04       		.byte	0x4
- 101 0091 38010000 		.4byte	.LASF14
+ 101 0091 EA000000 		.4byte	.LASF14
  102 0095 03       		.uleb128 0x3
  103 0096 08       		.byte	0x8
  104 0097 04       		.byte	0x4
- 105 0098 5E010000 		.4byte	.LASF15
+ 105 0098 79010000 		.4byte	.LASF15
  106 009c 05       		.uleb128 0x5
- 107 009d 51010000 		.4byte	.LASF19
+ 107 009d 6C010000 		.4byte	.LASF19
  108 00a1 03       		.byte	0x3
  109 00a2 0108     		.2byte	0x801
  110 00a4 A8000000 		.4byte	0xa8
@@ -118,7 +130,11 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
  112 00a9 75000000 		.4byte	0x75
  113 00ad 00       		.byte	0
  114              		.section	.debug_abbrev,"",%progbits
+<<<<<<< HEAD
 ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 3
+=======
+ARM GAS  C:\Users\youss\AppData\Local\Temp\ccbyEOJo.s 			page 3
+>>>>>>> Traitement_2
 
 
  115              	.Ldebug_abbrev0:
@@ -178,7 +194,11 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
  169 0035 03       		.uleb128 0x3
  170 0036 0E       		.uleb128 0xe
  171 0037 3A       		.uleb128 0x3a
+<<<<<<< HEAD
 ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 4
+=======
+ARM GAS  C:\Users\youss\AppData\Local\Temp\ccbyEOJo.s 			page 4
+>>>>>>> Traitement_2
 
 
  172 0038 0B       		.uleb128 0xb
@@ -212,8 +232,13 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
  200 0014 00000000 		.4byte	0
  201              		.section	.debug_line,"",%progbits
  202              	.Ldebug_line0:
+<<<<<<< HEAD
  203 0000 39010000 		.section	.debug_str,"MS",%progbits,1
  203      02003301 
+=======
+ 203 0000 43010000 		.section	.debug_str,"MS",%progbits,1
+ 203      02003D01 
+>>>>>>> Traitement_2
  203      00000201 
  203      FB0E0D00 
  203      01010101 
@@ -238,7 +263,11 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
  209      6670753D 
  209      66707634 
  209      2D73702D 
+<<<<<<< HEAD
 ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 5
+=======
+ARM GAS  C:\Users\youss\AppData\Local\Temp\ccbyEOJo.s 			page 5
+>>>>>>> Traitement_2
 
 
  210 00a7 65637469 		.ascii	"ections -ffat-lto-objects\000"
@@ -246,6 +275,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
  210      2D666661 
  210      742D6C74 
  210      6F2D6F62 
+<<<<<<< HEAD
  211              	.LASF18:
  212 00c1 433A5C55 		.ascii	"C:\\Users\\jlabe\\Desktop\\H21\\GBM2100_Projet\\PRO"
  212      73657273 
@@ -299,45 +329,104 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 1
  231      65642069 
  231      6E7400
 ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccZPiq5h.s 			page 6
+=======
+ 211              	.LASF8:
+ 212 00c1 6C6F6E67 		.ascii	"long unsigned int\000"
+ 212      20756E73 
+ 212      69676E65 
+ 212      6420696E 
+ 212      7400
+ 213              	.LASF9:
+ 214 00d3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 214      206C6F6E 
+ 214      6720756E 
+ 214      7369676E 
+ 214      65642069 
+ 215              	.LASF14:
+ 216 00ea 666C6F61 		.ascii	"float\000"
+ 216      7400
+ 217              	.LASF13:
+ 218 00f0 63686172 		.ascii	"char\000"
+ 218      00
+ 219              	.LASF4:
+ 220 00f5 756E7369 		.ascii	"unsigned char\000"
+ 220      676E6564 
+ 220      20636861 
+ 220      7200
+ 221              	.LASF18:
+ 222 0103 433A5C55 		.ascii	"C:\\Users\\youss\\OneDrive\\Documents\\Session 6\\G"
+ 222      73657273 
+ 222      5C796F75 
+ 222      73735C4F 
+ 222      6E654472 
+ 223 0130 424D3231 		.ascii	"BM2100\\PROJET_2\\PROJET_GBM2100\\Prototype\\Labora"
+ 223      30305C50 
+ 223      524F4A45 
+ 223      545F325C 
+ 223      50524F4A 
+ 224 015f 746F6972 		.ascii	"toire3.cydsn\000"
+ 224      65332E63 
+ 224      7964736E 
+ 224      00
+ 225              	.LASF19:
+ 226 016c 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 226      52784275 
+ 226      66666572 
+ 226      00
+ 227              	.LASF15:
+ 228 0179 646F7562 		.ascii	"double\000"
+ 228      6C6500
+ 229              	.LASF7:
+ 230 0180 6C6F6E67 		.ascii	"long int\000"
+ 230      20696E74 
+ 230      00
+ 231              	.LASF6:
+ 232 0189 73686F72 		.ascii	"short unsigned int\000"
+ARM GAS  C:\Users\youss\AppData\Local\Temp\ccbyEOJo.s 			page 6
+>>>>>>> Traitement_2
 
 
- 232              	.LASF3:
- 233 0181 7369676E 		.ascii	"signed char\000"
- 233      65642063 
- 233      68617200 
- 234              	.LASF0:
- 235 018d 756E7369 		.ascii	"unsigned int\000"
- 235      676E6564 
- 235      20696E74 
- 235      00
- 236              	.LASF10:
- 237 019a 5F5F696E 		.ascii	"__int32_t\000"
- 237      7433325F 
- 237      7400
- 238              	.LASF2:
- 239 01a4 6C6F6E67 		.ascii	"long double\000"
- 239      20646F75 
- 239      626C6500 
- 240              	.LASF5:
- 241 01b0 73686F72 		.ascii	"short int\000"
- 241      7420696E 
- 241      7400
- 242              	.LASF11:
- 243 01ba 696E7433 		.ascii	"int32_t\000"
- 243      325F7400 
- 244              	.LASF17:
- 245 01c2 47656E65 		.ascii	"Generated_Source\\PSoC6\\pdl\\rtos\\FreeRTOS\\10.0."
- 245      72617465 
- 245      645F536F 
- 245      75726365 
- 245      5C50536F 
- 246 01f0 315C536F 		.ascii	"1\\Source\\croutine.c\000"
+ 232      7420756E 
+ 232      7369676E 
+ 232      65642069 
+ 232      6E7400
+ 233              	.LASF3:
+ 234 019c 7369676E 		.ascii	"signed char\000"
+ 234      65642063 
+ 234      68617200 
+ 235              	.LASF0:
+ 236 01a8 756E7369 		.ascii	"unsigned int\000"
+ 236      676E6564 
+ 236      20696E74 
+ 236      00
+ 237              	.LASF10:
+ 238 01b5 5F5F696E 		.ascii	"__int32_t\000"
+ 238      7433325F 
+ 238      7400
+ 239              	.LASF2:
+ 240 01bf 6C6F6E67 		.ascii	"long double\000"
+ 240      20646F75 
+ 240      626C6500 
+ 241              	.LASF5:
+ 242 01cb 73686F72 		.ascii	"short int\000"
+ 242      7420696E 
+ 242      7400
+ 243              	.LASF11:
+ 244 01d5 696E7433 		.ascii	"int32_t\000"
+ 244      325F7400 
+ 245              	.LASF17:
+ 246 01dd 47656E65 		.ascii	"Generated_Source\\PSoC6\\pdl\\rtos\\FreeRTOS\\10.0."
+ 246      72617465 
+ 246      645F536F 
  246      75726365 
- 246      5C63726F 
- 246      7574696E 
- 246      652E6300 
- 247              	.LASF12:
- 248 0204 73697A65 		.ascii	"sizetype\000"
- 248      74797065 
- 248      00
- 249              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 246      5C50536F 
+ 247 020b 315C536F 		.ascii	"1\\Source\\croutine.c\000"
+ 247      75726365 
+ 247      5C63726F 
+ 247      7574696E 
+ 247      652E6300 
+ 248              	.LASF12:
+ 249 021f 73697A65 		.ascii	"sizetype\000"
+ 249      74797065 
+ 249      00
+ 250              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

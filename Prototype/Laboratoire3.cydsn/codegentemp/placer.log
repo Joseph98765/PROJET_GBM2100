@@ -6,7 +6,11 @@
 
 #Build Date:         Sep  9 2019 11:47:43
 
+<<<<<<< HEAD
 #File Generated:     Apr 12 2021 16:58:35
+=======
+#File Generated:     Apr 9 2021 22:08:10
+>>>>>>> Traitement_2
 
 #Purpose:            
 
@@ -69,5 +73,5 @@ D2088: Phase 8, elapsed time : 0.0 (sec)
 
 D2054: Placement of the design completed successfully
 
-I2076: Total run-time: 0.6 sec.
+I2076: Total run-time: 0.5 sec.
 

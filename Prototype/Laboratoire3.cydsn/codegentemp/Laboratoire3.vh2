@@ -2,7 +2,11 @@
 --	Conversion of Laboratoire3.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
+<<<<<<< HEAD
 --	Mon Apr 12 16:58:21 2021
+=======
+--	Fri Apr 09 22:07:59 2021
+>>>>>>> Traitement_2
 --
 
 USE cypress.cypress.all;

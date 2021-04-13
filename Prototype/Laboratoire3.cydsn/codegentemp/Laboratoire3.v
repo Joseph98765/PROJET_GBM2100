@@ -1,6 +1,10 @@
 // ======================================================================
 // Laboratoire3.v generated from TopDesign.cysch
+<<<<<<< HEAD
 // 04/12/2021 at 16:58
+=======
+// 04/09/2021 at 22:07
+>>>>>>> Traitement_2
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 

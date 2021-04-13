@@ -6,7 +6,7 @@
 
 #Build Date:         Sep  9 2019 11:47:43
 
-#File Generated:     Apr 11 2021 18:03:40
+#File Generated:     Apr 12 2021 16:58:35
 
 #Purpose:            
 
@@ -14,7 +14,7 @@
 
 #***************************************************************************
 
-Executing : D:\Psoc\PSoC Creator\4.4\PSoC Creator\bin/sjplacer.exe --proj-name Laboratoire3 --netlist-vh2 Laboratoire3_p.vh2 --arch p6_udb2x6 --arch-file D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\arch/udbdsi2_2x6_12.cydata --ip-file D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/ip_blocks.cydata --rrg-file D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/route_arch-rrg.cydata --irq-file D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/irqconn.cydata --drq-file D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/triggerconn.cydata --dsi-conn-file D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/dsiconn.cydata --pins-file pins_116-BGA-BLE.xml --lib-file Laboratoire3_p.lib --sdc-file Laboratoire3.sdc --io-pcf Laboratoire3.pci --outdir .
+Executing : C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\bin/sjplacer.exe --proj-name Laboratoire3 --netlist-vh2 Laboratoire3_p.vh2 --arch p6_udb2x6 --arch-file C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\arch/udbdsi2_2x6_12.cydata --ip-file C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/ip_blocks.cydata --rrg-file C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/route_arch-rrg.cydata --irq-file C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/irqconn.cydata --drq-file C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/triggerconn.cydata --dsi-conn-file C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc6/0/dsiconn.cydata --pins-file pins_116-BGA-BLE.xml --lib-file Laboratoire3_p.lib --sdc-file Laboratoire3.sdc --io-pcf Laboratoire3.pci --outdir .
 
 		Softjin Techologies Placer, Version 1.1
 
@@ -23,7 +23,7 @@ Build Date : Sep  9 2019	11:45:12
 D2004: Option and Settings Summary
 =============================================================
 Netlist vh2 file          - Laboratoire3_p.vh2
-Architecture file         - D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\arch/udbdsi2_2x6_12.cydata
+Architecture file         - C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\arch/udbdsi2_2x6_12.cydata
 Package                   - 
 Defparam file             - 
 SDC file                  - Laboratoire3.sdc
@@ -34,7 +34,7 @@ IO Placement file         - Laboratoire3.pci
 D2050: Starting reading inputs for placer
 =============================================================
 D2065: Reading netlist file : "Laboratoire3_p.vh2"
-D2065: Reading arch file : "D:\Psoc\PSoC Creator\4.4\PSoC Creator\dev\arch/udbdsi2_2x6_12.cydata"
+D2065: Reading arch file : "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\arch/udbdsi2_2x6_12.cydata"
 D2051: Reading of inputs for placer completed successfully
 
 D2053: Starting placement of the design
@@ -56,7 +56,7 @@ Design Statistics after Packing
 Device Utilization Summary after Packing
     Macrocells                  :	0/96
     UDBS                        :	0/12
-    IOs                         :	20/96
+    IOs                         :	35/96
 
 
 D2088: Phase 3, elapsed time : 0.0 (sec)
@@ -69,5 +69,5 @@ D2088: Phase 8, elapsed time : 0.0 (sec)
 
 D2054: Placement of the design completed successfully
 
-I2076: Total run-time: 0.3 sec.
+I2076: Total run-time: 0.6 sec.
 

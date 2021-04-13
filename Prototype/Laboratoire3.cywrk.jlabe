@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Laboratoire3\Laboratoire3\Laboratoire3.cydwr\Pins">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files">
 <ExpandedNodeIds>
 <v>Laboratoire3</v>
 <v>Laboratoire3\Laboratoire3</v>
@@ -60,9 +60,11 @@
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\eInk Library\pervasive_eink_hardware_driver.c</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\eInk Library\pervasive_eink_hardware_driver.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files</v>
+<v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\arm_math.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\bmi160.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\bmi160_defs.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\Communication.h</v>
+<v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\core_cm4.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\debug.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\FreeRTOSConfig.h</v>
 <v>Laboratoire3\Laboratoire3\CM4 (Core 1)\Header Files\Interface.h</v>
@@ -91,7 +93,6 @@
 <v>Laboratoire3\Laboratoire3\Shared Files\system_psoc6.h</v>
 <v>Laboratoire3\Laboratoire3\Generated_Source</v>
 <v>Laboratoire3\Laboratoire3\Generated_Source\PSoC6</v>
-<v>Laboratoire3\Laboratoire3\Generated_Source\PSoC6\I2C_1</v>
 <v>Laboratoire3\CE223727_EmWin_EInk_Display.pdf</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
@@ -147,10 +148,16 @@
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INIT.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INT.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_PM.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Centroid_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Control.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Filter.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_INT.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Processing.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Sensing.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_SensingCSD_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_SensingCSX_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Structure.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Tuner.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_clk.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_device.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_efuse.lst</v>
@@ -164,7 +171,6 @@
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_lvd.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_profile.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_prot.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_sar.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_common.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_ezi2c.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_i2c.lst</v>
@@ -188,6 +194,7 @@
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\GUI_X_RTOS.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\GUIConf.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\I2C_1.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\I2C_2.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\LCDConf.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\main_cm0p.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\PWM.lst</v>
@@ -201,11 +208,17 @@
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files</v>
-<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\ADC.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\ADC_INIT.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\ADC_INT.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\ADC_PM.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\bmi160.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Centroid_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Control.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Filter.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_INT.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Processing.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Sensing.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_SensingCSD_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_SensingCSX_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Structure.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\CapSense_Tuner.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\Communication.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\croutine.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_clk.lst</v>
@@ -223,7 +236,6 @@
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_lvd.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_profile.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_prot.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_sar.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_common.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_ezi2c.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_i2c.lst</v>
@@ -249,6 +261,7 @@
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\GUIConf.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\heap_1.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\I2C_1.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\I2C_2.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\Interface.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\LCDConf.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM4\ARM_GCC_541\Debug\Listing Files\list.lst</v>
@@ -278,10 +291,16 @@
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INIT.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INT.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_PM.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Centroid_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Control.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Filter.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_INT.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Processing.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Sensing.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_SensingCSD_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_SensingCSX_LL.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Structure.lst</v>
+<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\CapSense_Tuner.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_clk.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_device.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_efuse.lst</v>
@@ -294,12 +313,6 @@
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ipc_sema.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_lvd.lst</v>
 <v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_profile.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_prot.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_sar.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_common.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_ezi2c.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_i2c.lst</v>
-<v>Laboratoire3\Laboratoire3\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_spi.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -315,17 +328,17 @@
 <v>Laboratoire3\Laboratoire3\PSoC 63 Family Datasheet</v>
 <v>Laboratoire3\Laboratoire3\Peripheral Driver Library</v>
 <v>Laboratoire3\Laboratoire3\System Reference Guides</v>
+<v>Laboratoire3\Laboratoire3\CapSense_v3_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\cy_gsref_v2_10.pdf</v>
 <v>Laboratoire3\Laboratoire3\GPIO_PDL_v1_0</v>
 <v>Laboratoire3\Laboratoire3\GPIO_PDL_v1_0\GPIO_PDL_v1_0.pdf</v>
-<v>Laboratoire3\Laboratoire3\Scan_ADC_P6_v3_10.pdf</v>
-<v>Laboratoire3\Laboratoire3\SCB_I2C_PDL_v2_0.pdf</v>
+<v>Laboratoire3\Laboratoire3\SCB_I2C_PDL_v2_0</v>
+<v>Laboratoire3\Laboratoire3\SCB_I2C_PDL_v2_0\SCB_I2C_PDL_v2_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\SCB_SPI_PDL_v2_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\SCB_UART_PDL_v2_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\SysClk_PDL_v1_0</v>
 <v>Laboratoire3\Laboratoire3\SysClk_PDL_v1_0\SysClk_PDL_v1_0.pdf</v>
-<v>Laboratoire3\Laboratoire3\SysInt_PDL_v1_0</v>
-<v>Laboratoire3\Laboratoire3\SysInt_PDL_v1_0\SysInt_PDL_v1_0.pdf</v>
+<v>Laboratoire3\Laboratoire3\SysInt_PDL_v1_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\TCPWM_Counter_PDL_v1_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\TCPWM_PWM_PDL_v1_0.pdf</v>
 </ExpandedNodeIds>
@@ -336,17 +349,17 @@
 <v>Laboratoire3\Laboratoire3\PSoC 63 Family Datasheet</v>
 <v>Laboratoire3\Laboratoire3\Peripheral Driver Library</v>
 <v>Laboratoire3\Laboratoire3\System Reference Guides</v>
+<v>Laboratoire3\Laboratoire3\CapSense_v3_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\cy_gsref_v2_10.pdf</v>
 <v>Laboratoire3\Laboratoire3\GPIO_PDL_v1_0</v>
 <v>Laboratoire3\Laboratoire3\GPIO_PDL_v1_0\GPIO_PDL_v1_0.pdf</v>
-<v>Laboratoire3\Laboratoire3\Scan_ADC_P6_v3_10.pdf</v>
-<v>Laboratoire3\Laboratoire3\SCB_I2C_PDL_v2_0.pdf</v>
+<v>Laboratoire3\Laboratoire3\SCB_I2C_PDL_v2_0</v>
+<v>Laboratoire3\Laboratoire3\SCB_I2C_PDL_v2_0\SCB_I2C_PDL_v2_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\SCB_SPI_PDL_v2_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\SCB_UART_PDL_v2_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\SysClk_PDL_v1_0</v>
 <v>Laboratoire3\Laboratoire3\SysClk_PDL_v1_0\SysClk_PDL_v1_0.pdf</v>
-<v>Laboratoire3\Laboratoire3\SysInt_PDL_v1_0</v>
-<v>Laboratoire3\Laboratoire3\SysInt_PDL_v1_0\SysInt_PDL_v1_0.pdf</v>
+<v>Laboratoire3\Laboratoire3\SysInt_PDL_v1_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\TCPWM_Counter_PDL_v1_0.pdf</v>
 <v>Laboratoire3\Laboratoire3\TCPWM_PWM_PDL_v1_0.pdf</v>
 </VisibleNodeIds>
@@ -357,7 +370,21 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\Laboratoire3.cydsn\Laboratoire3.cydwr" />
+<name v=".\Laboratoire3.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\Laboratoire3.cydsn\Communication.c" />
+<name v=".\Laboratoire3.cydsn\Interface.c" />
+<name v=".\Laboratoire3.cydsn\Traitement.c" />
+<name v=".\Laboratoire3.cydsn\main_cm4.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="884, 555" SelectedTabbedMdiWindow="8458a638-f746-4467-bfd8-0aeb611c5488"><ToolWindow Key="Output Window Plugin:7305390e-eabe-4963-b21f-3a0f11b4b1d5:Output Window" Guid="1075d063-ddc4-4cec-a3a9-3ffe57a3ccf0" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\Laboratoire3.cydwr" Guid="375a2879-d4ef-403c-88cb-4bf408f1a856" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\TopDesign\TopDesign.cysch" Guid="a9433a28-3e7e-4407-b5de-3ea5f3bc2ecb" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\Communication.c" Guid="04d44635-6923-4790-94c6-ece28e1a9bb4" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\Interface.c" Guid="8458a638-f746-4467-bfd8-0aeb611c5488" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\Traitement.c" Guid="fe0171a9-9160-4e7a-ad97-d8a995ee4a4a" /><DocumentWindow Key="C:\Users\jlabe\Desktop\H21\GBM2100_Projet\PROJET\Prototype\Laboratoire3.cydsn\main_cm4.c" Guid="e1eb6c3b-a10c-42ca-8d37-941c99831eee" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="e0c40b3f-714d-4466-8a87-548f3c52918e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

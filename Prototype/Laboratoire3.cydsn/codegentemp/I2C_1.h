@@ -26,7 +26,7 @@ extern "C" {
 *   Initial Parameter Constants
 ****************************************/
 
-#define I2C_1_MODE               (0x1U)
+#define I2C_1_MODE               (0x2U)
 #define I2C_1_MODE_SLAVE_MASK    (0x1U)
 #define I2C_1_MODE_MASTER_MASK   (0x2U)
 
@@ -142,17 +142,17 @@ extern cy_stc_scb_i2c_context_t I2C_1_context;
 #define I2C_1_DATA_RATE_HZ      (100000U)
 
 /** The frequency of the clock used by the Component in Hz */
-#define I2C_1_CLK_FREQ_HZ       (12500000U)
+#define I2C_1_CLK_FREQ_HZ       (1538461U)
 
 /** The number of Component clocks used by the master to generate the SCL
 * low phase. This number is calculated by GUI based on the selected data rate.
 */
-#define I2C_1_LOW_PHASE_DUTY_CYCLE   (0U)
+#define I2C_1_LOW_PHASE_DUTY_CYCLE   (8U)
 
 /** The number of Component clocks used by the master to generate the SCL
 * high phase. This number is calculated by GUI based on the selected data rate.
 */
-#define I2C_1_HIGH_PHASE_DUTY_CYCLE  (0U)
+#define I2C_1_HIGH_PHASE_DUTY_CYCLE  (8U)
 /** @} group_macros */
 
 

@@ -13,6 +13,8 @@
 #include "Traitement.h"
 #include "Interface.h"
 #include "Communication.h"
+#include <arm_math.h>
+#include <core_cm4.h>
 
 
 
@@ -20,6 +22,8 @@ int main(void)
 {
     __enable_irq(); /* Enable global interrupts. */
     
+    CapSense_Start();
+    CapSense_ScanAllWidgets();
     
     interfaceSetup();
     bouton_semph = xSemaphoreCreateBinary();
@@ -41,6 +45,10 @@ int main(void)
     NVIC_ClearPendingIRQ(Bouton_ISR_cfg.intrSrc);
     NVIC_EnableIRQ(Bouton_ISR_cfg.intrSrc);
     
+    //Initialize system clock
+    SystemInit();
+    SystemCoreClockUpdate();
+    
     xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
     
     
@@ -55,15 +63,9 @@ int main(void)
     PWM_Start();
     PWM_CLOCK_Enable();
     
-    //ADC : On start l'ADC, ses conversions
-    ADC_Start();
-    ADC_StartConvert();
-    
     
    // UpdateDisplay(CY_EINK_FULL_4STAGE, true);
     
-    //CapSense_Start();
-    //CapSense_ScanAllWidgets();
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 

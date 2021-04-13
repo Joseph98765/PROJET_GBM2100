@@ -14,8 +14,8 @@
 #include "Interface.h"
 #include "Communication.h"
 
-#include "arm_math.h"
-#include "core_cm4.h"
+#include <arm_math.h>
+#include <core_cm4.h>
 
 
 int main(void)
@@ -57,7 +57,7 @@ int main(void)
     xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
     
     
-    
+  
     
     //xTaskCreate(DesactiverAlarme_task, "BOUTON", 500, NULL, 1, NULL);
     //xTaskCreate(SelectionPage_task, "SelectionPage", 500, NULL, 0, NULL);

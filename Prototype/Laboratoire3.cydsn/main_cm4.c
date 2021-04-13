@@ -48,14 +48,13 @@ int main(void)
     Cy_SysInt_Init(&Bouton_ISR_cfg, isr_bouton);
     NVIC_ClearPendingIRQ(Bouton_ISR_cfg.intrSrc);
     NVIC_EnableIRQ(Bouton_ISR_cfg.intrSrc);
-    
-<<<<<<< HEAD
+
     //Initialize system clock
     SystemInit();
     SystemCoreClockUpdate();
     
     xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
-=======
+    
     float vecteurTest[125] = {0};
     
     for(int i =0; i<125; i++){
@@ -64,7 +63,6 @@ int main(void)
     }
     
     drawGraph(vecteurTest,125);
->>>>>>> Traitement_2
     
     xTaskCreate(Affichage_task, "Affichage", 500, NULL, 1, NULL); 
     

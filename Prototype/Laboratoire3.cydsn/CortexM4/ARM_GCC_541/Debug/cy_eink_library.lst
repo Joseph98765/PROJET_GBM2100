@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
   27:eInk Library/cy_eink_library.c **** * written permission of Cypress.
   28:eInk Library/cy_eink_library.c **** *
   29:eInk Library/cy_eink_library.c **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 2
 
 
   30:eInk Library/cy_eink_library.c **** * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              	.LVL0:
   34 0000 10B5     		push	{r4, lr}
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 3
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 3
 
 
   35              		.cfi_def_cfa_offset 8
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
   61              		@ frame_needed = 0, uses_anonymous_args = 0
   62              	.LVL3:
   63 0000 08B5     		push	{r3, lr}
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 4
 
 
   64              		.cfi_def_cfa_offset 8
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
   91              		.loc 1 135 0
   92 0016 08BD     		pop	{r3, pc}
   93              		.cfi_endproc
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 5
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 5
 
 
   94              	.LFE690:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  117 0004 0D46     		mov	r5, r1
  118 0006 11B1     		cbz	r1, .L10
  167:eInk Library/cy_eink_library.c ****     {
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 6
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 6
 
 
  168:eInk Library/cy_eink_library.c ****         Cy_EINK_Power(CY_EINK_ON);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  188:eInk Library/cy_eink_library.c ****     /* If power cycle operation requested, turn off E-INK power */
  189:eInk Library/cy_eink_library.c ****     if (powerCycle)
  153              		.loc 1 189 0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 7
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 7
 
 
  154 0036 15B1     		cbz	r5, .L9
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  222:eInk Library/cy_eink_library.c **** ********************************************************************************/
  223:eInk Library/cy_eink_library.c **** void Cy_EINK_ShowFrame(cy_eink_frame_t* prevFrame, cy_eink_frame_t* newFrame,
  224:eInk Library/cy_eink_library.c ****                        cy_eink_update_t updateType, bool powerCycle)
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 8
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 8
 
 
  225:eInk Library/cy_eink_library.c **** {
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  240:eInk Library/cy_eink_library.c ****     {
  241:eInk Library/cy_eink_library.c ****         /* Stage 1: update the display with the inverted version of the previous 
  242:eInk Library/cy_eink_library.c ****            frame */
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 9
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 9
 
 
  243:eInk Library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(prevFrame, PV_EINK_STAGE1);
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  246              	.L17:
  247 0052 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
  248              		.cfi_endproc
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 10
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 10
 
 
  249              	.LFE692:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  266              		.cfi_offset 3, -24
  267              		.cfi_offset 4, -20
  268              		.cfi_offset 5, -16
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 11
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 11
 
 
  269              		.cfi_offset 6, -12
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  315:eInk Library/cy_eink_library.c ****     {
  298              		.loc 1 315 0
  299 0024 0134     		adds	r4, r4, #1
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 12
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 12
 
 
  300              	.LVL35:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  358:eInk Library/cy_eink_library.c **** *
  359:eInk Library/cy_eink_library.c **** * Side Effects:
  360:eInk Library/cy_eink_library.c **** *  This is a blocking function that can take as many as 5808 RAM write cycles
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 13
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 13
 
 
  361:eInk Library/cy_eink_library.c **** *  to complete.
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  345 000a 167A     		ldrb	r6, [r2, #8]	@ zero_extendqisi2
  346 000c B542     		cmp	r5, r6
  347 000e 6AD2     		bcs	.L30
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 14
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 14
 
 
  392:eInk Library/cy_eink_library.c ****             (fontCor[CY_EINK_FONT_Y] < (fontInfo->ySpan)))
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  379 004e 4FF0000E 		mov	lr, #0
  380 0052 23E0     		b	.L32
  381              	.LVL42:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 15
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 15
 
 
  382              	.L35:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  439:eInk Library/cy_eink_library.c ****                         else if ((fontInfo->color) == CY_EINK_BLACK_BACKGROUND)
  409              		.loc 1 439 0
  410 007c 11B9     		cbnz	r1, .L34
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 16
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 16
 
 
  440:eInk Library/cy_eink_library.c ****                         {
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  452:eInk Library/cy_eink_library.c ****             {
  453:eInk Library/cy_eink_library.c ****                 /* Vertical copying loop */
  454:eInk Library/cy_eink_library.c ****                 for (verticalCounter = 0; 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 17
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 17
 
 
  455:eInk Library/cy_eink_library.c ****                      verticalCounter < (fontInfo->ySize); 
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  476              	.LVL59:
  460:eInk Library/cy_eink_library.c ****                          horizontalCounter++)
  477              		.loc 1 460 0 discriminator 1
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 18
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 18
 
 
  478 00d2 9479     		ldrb	r4, [r2, #6]	@ zero_extendqisi2
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  513 00f8 5C78     		ldrb	r4, [r3, #1]	@ zero_extendqisi2
  514 00fa 0134     		adds	r4, r4, #1
  515 00fc 5C70     		strb	r4, [r3, #1]
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 19
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 19
 
 
  516              	.L41:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  565 0015 4A000000 		.4byte	.LASF269
  566 0019 00000000 		.4byte	.Ldebug_ranges0+0
  567 001d 00000000 		.4byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 20
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 20
 
 
  568 0021 00000000 		.4byte	.Ldebug_line0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  622 008d C80D0000 		.4byte	.LASF11
  623 0091 03       		.uleb128 0x3
  624 0092 08       		.byte	0x8
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 21
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 21
 
 
  625 0093 05       		.byte	0x5
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  679 00fc 2C       		.byte	0x2c
  680 00fd 6D000000 		.4byte	0x6d
  681 0101 02       		.uleb128 0x2
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 22
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 22
 
 
  682 0102 20040000 		.4byte	.LASF23
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  736 016e C50F0000 		.4byte	.LASF31
  737 0172 04       		.byte	0x4
  738 0173 3E       		.byte	0x3e
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 23
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 23
 
 
  739 0174 01010000 		.4byte	0x101
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  793 01e0 D5000000 		.4byte	0xd5
  794 01e4 2E       		.byte	0x2e
  795 01e5 09       		.uleb128 0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 24
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 24
 
 
  796 01e6 B20F0000 		.4byte	.LASF41
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  850 0252 CE0F0000 		.4byte	.LASF50
  851 0256 04       		.byte	0x4
  852 0257 55       		.byte	0x55
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 25
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 25
 
 
  853 0258 D5000000 		.4byte	0xd5
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  907 02c4 01010000 		.4byte	0x101
  908 02c8 48       		.byte	0x48
  909 02c9 09       		.uleb128 0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 26
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 26
 
 
  910 02ca 4D020000 		.4byte	.LASF60
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  964 0336 2E060000 		.4byte	.LASF69
  965 033a 04       		.byte	0x4
  966 033b 68       		.byte	0x68
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 27
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 27
 
 
  967 033c D5000000 		.4byte	0xd5
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1021 03a8 EB000000 		.4byte	0xeb
  1022 03ac 6A       		.byte	0x6a
  1023 03ad 09       		.uleb128 0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 28
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 28
 
 
  1024 03ae 87090000 		.4byte	.LASF79
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1078 041a 19050000 		.4byte	.LASF88
  1079 041e 04       		.byte	0x4
  1080 041f 83       		.byte	0x83
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 29
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 29
 
 
  1081 0420 EB000000 		.4byte	0xeb
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1135 048c 01010000 		.4byte	0x101
  1136 0490 90       		.byte	0x90
  1137 0491 09       		.uleb128 0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 30
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 30
 
 
  1138 0492 F50C0000 		.4byte	.LASF98
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1192 04fe 4D0A0000 		.4byte	.LASF107
  1193 0502 04       		.byte	0x4
  1194 0503 9A       		.byte	0x9a
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 31
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 31
 
 
  1195 0504 EB000000 		.4byte	0xeb
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1249 0570 74050000 		.4byte	0x574
  1250 0574 06       		.uleb128 0x6
  1251 0575 04       		.byte	0x4
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 32
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 32
 
 
  1252 0576 7A050000 		.4byte	0x57a
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1306 05ef 3B050000 		.4byte	0x53b
  1307 05f3 0C       		.byte	0xc
  1308 05f4 11       		.uleb128 0x11
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 33
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 33
 
 
  1309 05f5 7B090000 		.4byte	.LASF124
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1363 066a 0F040000 		.4byte	.LASF133
  1364 066e 05       		.byte	0x5
  1365 066f D902     		.2byte	0x2d9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 34
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 34
 
 
  1366 0671 0C010000 		.4byte	0x10c
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1420 06e8 10       		.uleb128 0x10
  1421 06e9 490D0000 		.4byte	.LASF143
  1422 06ed 24       		.byte	0x24
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 35
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 35
 
 
  1423 06ee 06       		.byte	0x6
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1477 0763 8802     		.2byte	0x288
  1478 0765 01010000 		.4byte	0x101
  1479 0769 20       		.byte	0x20
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 36
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 36
 
 
  1480 076a 00       		.byte	0
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1534 07df 28060000 		.4byte	.LASF145
  1535 07e3 07       		.byte	0x7
  1536 07e4 8002     		.2byte	0x280
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 37
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 37
 
 
  1537 07e6 B4000000 		.4byte	0xb4
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1591 085a 2F       		.byte	0x2f
  1592 085b 44090000 		.4byte	0x944
  1593 085f 09       		.uleb128 0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 38
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 38
 
 
  1594 0860 0C0F0000 		.4byte	.LASF164
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1648 08cc F4050000 		.4byte	.LASF173
  1649 08d0 08       		.byte	0x8
  1650 08d1 3D       		.byte	0x3d
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 39
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 39
 
 
  1651 08d2 01010000 		.4byte	0x101
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1705 093e 01010000 		.4byte	0x101
  1706 0942 48       		.byte	0x48
  1707 0943 00       		.byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 40
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 40
 
 
  1708 0944 02       		.uleb128 0x2
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1762 09b0 0D090000 		.4byte	.LASF190
  1763 09b4 09       		.byte	0x9
  1764 09b5 39       		.byte	0x39
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 41
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 41
 
 
  1765 09b6 3B050000 		.4byte	0x53b
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1819 0a22 01010000 		.4byte	0x101
  1820 0a26 40       		.byte	0x40
  1821 0a27 09       		.uleb128 0x9
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 42
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 42
 
 
  1822 0a28 DE090000 		.4byte	.LASF175
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1876 0a94 0C       		.byte	0xc
  1877 0a95 0A       		.byte	0xa
  1878 0a96 3B       		.byte	0x3b
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 43
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 43
 
 
  1879 0a97 FC0A0000 		.4byte	0xafc
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1933 0b03 930A0000 		.4byte	0xa93
  1934 0b07 02       		.uleb128 0x2
  1935 0b08 5B0A0000 		.4byte	.LASF208
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 44
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 44
 
 
  1936 0b0c 0B       		.byte	0xb
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  1990 0b75 42000000 		.4byte	0x42
  1991 0b79 0C       		.byte	0xc
  1992 0b7a 6E       		.byte	0x6e
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 45
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 45
 
 
  1993 0b7b 920B0000 		.4byte	0xb92
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2047 0bf0 250C0000 		.4byte	0xc25
  2048 0bf4 15       		.uleb128 0x15
  2049 0bf5 73080000 		.4byte	.LASF225
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 46
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 46
 
 
  2050 0bf9 01       		.byte	0x1
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2104 0c7a 50       		.byte	0x50
  2105 0c7b 01       		.uleb128 0x1
  2106 0c7c 30       		.byte	0x30
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 47
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 47
 
 
  2107 0c7d 18       		.uleb128 0x18
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2161 0cce 3E000000 		.4byte	.LVL18
  2162 0cd2 DB0B0000 		.4byte	0xbdb
  2163 0cd6 18       		.uleb128 0x18
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 48
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 48
 
 
  2164 0cd7 01       		.uleb128 0x1
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2218 0d4f 01       		.uleb128 0x1
  2219 0d50 50       		.byte	0x50
  2220 0d51 02       		.uleb128 0x2
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 49
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 49
 
 
  2221 0d52 77       		.byte	0x77
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2275 0da3 01       		.uleb128 0x1
  2276 0da4 32       		.byte	0x32
  2277 0da5 00       		.byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 50
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 50
 
 
  2278 0da6 1B       		.uleb128 0x1b
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2332 0e13 C5060000 		.4byte	0x6c5
  2333 0e17 98010000 		.4byte	.LLST11
  2334 0e1b 1E       		.uleb128 0x1e
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 51
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 51
 
 
  2335 0e1c 020C0000 		.4byte	.LASF239
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2389 0e9f C5060000 		.4byte	0x6c5
  2390 0ea3 01       		.uleb128 0x1
  2391 0ea4 53       		.byte	0x53
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 52
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 52
 
 
  2392 0ea5 1E       		.uleb128 0x1e
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2446 0f2e 40000000 		.4byte	.LASF254
  2447 0f32 04       		.byte	0x4
  2448 0f33 A7       		.byte	0xa7
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 53
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 53
 
 
  2449 0f34 380F0000 		.4byte	0xf38
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2503 0faf 4E       		.byte	0x4e
  2504 0fb0 23       		.uleb128 0x23
  2505 0fb1 DB050000 		.4byte	.LASF264
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 54
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 54
 
 
  2506 0fb5 DB050000 		.4byte	.LASF264
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2560 0023 0B       		.uleb128 0xb
  2561 0024 0B       		.uleb128 0xb
  2562 0025 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 55
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 55
 
 
  2563 0026 0B       		.uleb128 0xb
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2617 005c 00       		.byte	0
  2618 005d 03       		.uleb128 0x3
  2619 005e 0E       		.uleb128 0xe
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 56
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 56
 
 
  2620 005f 3A       		.uleb128 0x3a
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2674 0095 00       		.byte	0
  2675 0096 00       		.byte	0
  2676 0097 0E       		.uleb128 0xe
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 57
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 57
 
 
  2677 0098 05       		.uleb128 0x5
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2731 00ce 3A       		.uleb128 0x3a
  2732 00cf 0B       		.uleb128 0xb
  2733 00d0 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 58
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 58
 
 
  2734 00d1 0B       		.uleb128 0xb
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2788 0108 49       		.uleb128 0x49
  2789 0109 13       		.uleb128 0x13
  2790 010a 02       		.uleb128 0x2
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 59
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 59
 
 
  2791 010b 17       		.uleb128 0x17
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2845 0149 13       		.uleb128 0x13
  2846 014a 00       		.byte	0
  2847 014b 00       		.byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 60
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 60
 
 
  2848 014c 1A       		.uleb128 0x1a
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2902 0185 03       		.uleb128 0x3
  2903 0186 0E       		.uleb128 0xe
  2904 0187 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 61
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 61
 
 
  2905 0188 0B       		.uleb128 0xb
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  2959 01be 00       		.byte	0
  2960 01bf 00       		.byte	0
  2961 01c0 21       		.uleb128 0x21
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 62
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 62
 
 
  2962 01c1 34       		.uleb128 0x34
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3016              		.section	.debug_loc,"",%progbits
  3017              	.Ldebug_loc0:
  3018              	.LLST0:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 63
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 63
 
 
  3019 0000 00000000 		.4byte	.LVL0
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3073 0082 12000000 		.4byte	.LVL8
  3074 0086 0100     		.2byte	0x1
  3075 0088 50       		.byte	0x50
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 64
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 64
 
 
  3076 0089 14000000 		.4byte	.LVL9
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3130 0112 00000000 		.4byte	0
  3131 0116 00000000 		.4byte	0
  3132              	.LLST7:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 65
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 65
 
 
  3133 011a 00000000 		.4byte	.LVL19
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3187 01a3 0C000000 		.4byte	.LVL30
  3188 01a7 30000000 		.4byte	.LFE693
  3189 01ab 0100     		.2byte	0x1
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 66
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 66
 
 
  3190 01ad 55       		.byte	0x55
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3244 0227 0400     		.2byte	0x4
  3245 0229 F3       		.byte	0xf3
  3246 022a 01       		.uleb128 0x1
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 67
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 67
 
 
  3247 022b 51       		.byte	0x51
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3301 02b3 00       		.sleb128 0
  3302 02b4 1E       		.byte	0x1e
  3303 02b5 78       		.byte	0x78
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 68
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 68
 
 
  3304 02b6 00       		.sleb128 0
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3358 0329 0100     		.2byte	0x1
  3359 032b 56       		.byte	0x56
  3360 032c 00000000 		.4byte	0
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 69
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 69
 
 
  3361 0330 00000000 		.4byte	0
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3415 0008 00000000 		.4byte	.LFB690
  3416 000c 18000000 		.4byte	.LFE690
  3417 0010 00000000 		.4byte	.LFB691
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 70
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 70
 
 
  3418 0014 44000000 		.4byte	.LFE691
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3443              	.LASF53:
  3444 00af 70657269 		.ascii	"periClockNr\000"
  3444      436C6F63 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 71
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 71
 
 
  3444      6B4E7200 
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3466      66666572 
  3466      49647800 
  3467              	.LASF229:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 72
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 72
 
 
  3468 016e 706F7765 		.ascii	"powerCycle\000"
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3492      7400
  3493              	.LASF158:
  3494 0208 72785269 		.ascii	"rxRingBufSize\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 73
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 73
 
 
  3494      6E674275 
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3516 02bb 636F6D70 		.ascii	"compare0\000"
  3516      61726530 
  3516      00
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 74
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 74
 
 
  3517              	.LASF170:
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3535 03e6 736C6176 		.ascii	"slaveTxBuffer\000"
  3535      65547842 
  3535      75666665 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 75
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 75
 
 
  3535      7200
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3558              	.LASF162:
  3559 048e 63795F73 		.ascii	"cy_stc_scb_uart_context_t\000"
  3559      74635F73 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 76
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 76
 
 
  3559      63625F75 
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3580              	.LASF255:
  3581 054f 50574D5F 		.ascii	"PWM_config\000"
  3581      636F6E66 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 77
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 77
 
 
  3581      696700
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3603      4D6F6465 
  3603      00
  3604              	.LASF33:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 78
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 78
 
 
  3605 0605 63727970 		.ascii	"cryptoBase\000"
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3630              	.LASF119:
  3631 0698 75736552 		.ascii	"useRxFifo\000"
  3631      78466966 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 79
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 79
 
 
  3631      6F00
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3654              	.LASF233:
  3655 0743 75706461 		.ascii	"updateType\000"
  3655      74655479 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 80
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 80
 
 
  3655      706500
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3679      6B507265 
  3679      7363616C 
  3679      657200
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 81
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 81
 
 
  3680              	.LASF147:
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3705      72437472 
  3705      6C00
  3706              	.LASF87:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 82
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 82
 
 
  3707 087d 70657269 		.ascii	"periDiv16_5CtlOffset\000"
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3727      74617475 
  3727      7300
  3728              	.LASF194:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 83
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 83
 
 
  3729 0937 73776170 		.ascii	"swapInputMode\000"
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3752              	.LASF175:
  3753 09de 72656C6F 		.ascii	"reloadInputMode\000"
  3753      6164496E 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 84
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 84
 
 
  3753      7075744D 
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3775      49414C00 
  3776              	.LASF148:
  3777 0a8c 74784275 		.ascii	"txBuf\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 85
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 85
 
 
  3777      6600
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3799      64477253 
  3799      656C4D73 
  3799      6B00
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 86
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 86
 
 
  3800              	.LASF125:
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3821      00
  3822              	.LASF85:
  3823 0be6 70657269 		.ascii	"periDiv8CtlOffset\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 87
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 87
 
 
  3823      44697638 
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3845 0c7d 43795F45 		.ascii	"Cy_EINK_Power\000"
  3845      494E4B5F 
  3845      506F7765 
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 88
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 88
 
 
  3845      7200
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3867      74385F74 
  3867      00
  3868              	.LASF95:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 89
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 89
 
 
  3869 0d32 63707573 		.ascii	"cpussCm4ClockCtlOffset\000"
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3889 0de6 696E7433 		.ascii	"int32_t\000"
  3889      325F7400 
  3890              	.LASF204:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 90
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 90
 
 
  3891 0dee 78537061 		.ascii	"xSpan\000"
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3911      635F636F 
  3911      6D6D616E 
  3912              	.LASF65:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 91
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 91
 
 
  3913 0eb0 666C6173 		.ascii	"flashEraseDelay\000"
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3935      6E746572 
  3936              	.LASF74:
  3937 0f56 64774368 		.ascii	"dwChCtlPreemptablePos\000"
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 92
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 92
 
 
  3937      43746C50 
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 1
  3959      57733446 
  3959      72657100 
  3960              	.LASF215:
-ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccM7I5Q8.s 			page 93
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccWWig6h.s 			page 93
 
 
  3961 100a 50565F45 		.ascii	"PV_EINK_STAGE1\000"

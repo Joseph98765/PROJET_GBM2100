@@ -1,13 +1,24 @@
-#ifndef COMMUNICATION_H
-#define COMMUNICATION_H
-
+/* ========================================
+ *
+ * Copyright YOUR COMPANY, THE YEAR
+ * All Rights Reserved
+ * UNPUBLISHED, LICENSED SOFTWARE.
+ *
+ * CONFIDENTIAL AND PROPRIETARY INFORMATION
+ * WHICH IS THE PROPERTY OF your company.
+ *
+ * ========================================
+*/
+#ifndef COMMUNICATION_H_   
+#define COMMUNICATION_H_
+    
     #include "project.h"
     #include "FreeRTOS.h"
     #include "task.h"
     #include <stdio.h>
-    #include "bmi160.h"
-
-    //Addresse I2C du capteur MAX30102    
+    #include <stdlib.h>    
+    
+//Addresse I2C du capteur MAX30102    
     #define MAX30102_I2C_ADDR 0x57
 
     //Taille du FIFO    
@@ -144,28 +155,16 @@
     
     //Taille du buffer contenant les données de RED et IR 
     #define BUFFER_SIZE 1000
-    
-
 
     #define I2C_TIMEOUT 100
 
     #define UN_MIN 0x03FFFF
+ 
     
-    
-void communication(void);
-
-//Fonctions de BMI160
-    void motionTask(void *arg);
-    
-    int8_t BMI160BurstWrite(uint8_t dev_addr, uint8_t reg_addr,uint8_t *data, uint16_t len);
-    
-    int8_t BMI160BurstRead(uint8_t dev_addr, uint8_t reg_addr,uint8_t *data, uint16_t len);
-    
-    void bmi160Init(void);
-
-
-//Fonctions de MAX30102
-
+/*
+    Fonctions MAX30102   
+*/
+ 
     uint8_t MAX30102Read (uint8_t address);
     
     void MAX30102Write(uint8_t address, uint8_t data);
@@ -182,12 +181,29 @@ void communication(void);
     
     void MAX30102Task(void *arg);
     
-    void MAX30102ReadTemperatureInt(uint8_t *buffer);
-    
-    void MAX30102ReadTemperatureFrac(uint8_t *buffer);
+    void MAX30102ReadTemperature(uint8_t *buffer);
     
     void MAX30102Reset();
+    
+    void MAX30102Task(void *arg);    
+    
+    
+/*
+    Fonctions BMI160   
+*/
+    
+    void bmi160Init(void);
 
+    int8_t BMI160BurstWrite(uint8_t dev_addr, uint8_t reg_addr,uint8_t *data, uint16_t len); 
+    
+    int8_t BMI160BurstRead(uint8_t dev_addr, uint8_t reg_addr,uint8_t *data, uint16_t len);
+    
+    void bmi160Init(void);
+    
+    void motionTask(void *arg);
+    
 
-#endif
+    
+    
+    #endif
 /* [] END OF FILE */

@@ -36,7 +36,7 @@
       <Data key="0479a41f-7847-4e96-b9d9-0145177051b1" value="CY_EINK_Border" />
       <Data key="2252f701-ce2e-4278-92fa-443b088392e6" value="ADC_IN" />
       <Data key="5551a661-ca39-4f0e-adf4-3e0ea5c57550" value="MAX_VIN" />
-      <Data key="0113321b-4a37-46f6-8407-2f8646c68756" value="GreenLED" />
+      <Data key="0113321b-4a37-46f6-8407-2f8646c68756" value="RedLED" />
       <Data key="a7da09bd-32de-4318-843c-a6312c77919f/4db2e9d3-9f70-4f4e-a919-7eefada41863" value="CapSense_Cmod" />
       <Data key="a7da09bd-32de-4318-843c-a6312c77919f/8ed50244-d239-4c9b-9207-b8e71ce193dc" value="CapSense_Tx" />
       <Data key="a7da09bd-32de-4318-843c-a6312c77919f/77fd7f86-2082-41fa-a471-914d5f07502d" value="CapSense_Rx" />
@@ -854,7 +854,7 @@
     </Group>
     <Group key="0113321b-4a37-46f6-8407-2f8646c68756">
       <Group key="0">
-        <Data key="Port Format" value="1,1" />
+        <Data key="Port Format" value="0,3" />
       </Group>
     </Group>
     <Group key="a7da09bd-32de-4318-843c-a6312c77919f/4db2e9d3-9f70-4f4e-a919-7eefada41863">

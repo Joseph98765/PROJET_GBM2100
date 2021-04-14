@@ -13,7 +13,7 @@
 #define TRAITEMENT_H
 #include <project.h>
     
-void traitement(void);
+void traitement_task(void *arg);
 
 #endif
 /* [] END OF FILE */

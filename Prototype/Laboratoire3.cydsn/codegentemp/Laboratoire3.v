@@ -1,6 +1,6 @@
 // ======================================================================
 // Laboratoire3.v generated from TopDesign.cysch
-// 04/12/2021 at 16:58
+// 04/14/2021 at 18:10
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -1530,9 +1530,9 @@ module top ;
           wire  Net_307;
           wire  Net_700;
 
-	wire [0:0] tmpFB_0__GreenLED_net;
-	wire [0:0] tmpIO_0__GreenLED_net;
-	electrical [0:0] tmpSIOVREF__GreenLED_net;
+	wire [0:0] tmpFB_0__RedLED_net;
+	wire [0:0] tmpIO_0__RedLED_net;
+	electrical [0:0] tmpSIOVREF__RedLED_net;
 
 	cy_mxs40_gpio_v1_0
 		#(.id("0113321b-4a37-46f6-8407-2f8646c68756"),
@@ -1558,12 +1558,12 @@ module top ;
 		  .vtrip("0"),
 		  .use_annotation("0"),
 		  .hotswap_needed("0"))
-		GreenLED
+		RedLED
 		 (.oe({1'b1}),
 		  .y({Net_182}),
-		  .fb({tmpFB_0__GreenLED_net[0:0]}),
-		  .io({tmpIO_0__GreenLED_net[0:0]}),
-		  .siovref(tmpSIOVREF__GreenLED_net));
+		  .fb({tmpFB_0__RedLED_net[0:0]}),
+		  .io({tmpIO_0__RedLED_net[0:0]}),
+		  .siovref(tmpSIOVREF__RedLED_net));
 
 
 
@@ -2079,7 +2079,7 @@ module top ;
 		  .width(1),
 		  .sio_grp_cnt(0),
 		  .drive_mode("2"),
-		  .ibuf_enabled("0"),
+		  .ibuf_enabled("1"),
 		  .init_dr_st("1"),
 		  .input_sync("0"),
 		  .intr_mode("0"),
@@ -2093,7 +2093,7 @@ module top ;
 		  .i2c_mode("0"),
 		  .output_current_cap("8"),
 		  .pin_aliases(""),
-		  .pin_mode("O"),
+		  .pin_mode("I"),
 		  .slew_rate("0"),
 		  .vtrip("0"),
 		  .use_annotation("0"),

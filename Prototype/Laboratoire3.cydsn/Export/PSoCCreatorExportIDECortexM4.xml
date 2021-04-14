@@ -45,6 +45,7 @@
           <File BuildType="BUILD" Toolchain="">bmi160_defs.h</File>
           <File BuildType="BUILD" Toolchain="">CMSIS\DSP\Include\arm_math.h</File>
           <File BuildType="BUILD" Toolchain="">CMSIS\Core\Include\core_cm4.h</File>
+          <File BuildType="BUILD" Toolchain="">Commun.h</File>
           <File BuildType="BUILD" Toolchain="">main_cm4.c</File>
           <File BuildType="BUILD" Toolchain="ARM GCC Generic">gcc\startup_psoc6_01_cm4.S</File>
           <File BuildType="BUILD" Toolchain="ARM IAR Generic">iar\startup_psoc6_01_cm4.s</File>

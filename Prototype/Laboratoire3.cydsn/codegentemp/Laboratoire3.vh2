@@ -2,7 +2,7 @@
 --	Conversion of Laboratoire3.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Mon Apr 12 16:58:21 2021
+--	Wed Apr 14 18:10:25 2021
 --
 
 USE cypress.cypress.all;
@@ -14,9 +14,9 @@ END top_RTL;
 ARCHITECTURE R_T_L OF top_RTL IS
 SIGNAL one : bit;
 SIGNAL Net_182 : bit;
-SIGNAL tmpFB_0__GreenLED_net_0 : bit;
-SIGNAL tmpIO_0__GreenLED_net_0 : bit;
-TERMINAL tmpSIOVREF__GreenLED_net_0 : bit;
+SIGNAL tmpFB_0__RedLED_net_0 : bit;
+SIGNAL tmpIO_0__RedLED_net_0 : bit;
+TERMINAL tmpSIOVREF__RedLED_net_0 : bit;
 SIGNAL Net_307 : bit;
 SIGNAL \PWM:swap\ : bit;
 SIGNAL \PWM:count\ : bit;
@@ -308,7 +308,7 @@ one <=  ('1') ;
 
 zero <=  ('0') ;
 
-GreenLED:cy_mxs40_gpio_v1_0
+RedLED:cy_mxs40_gpio_v1_0
 	GENERIC MAP(cy_registers=>"",
 		width=>1,
 		sio_grp_cnt=>0,
@@ -335,11 +335,11 @@ GreenLED:cy_mxs40_gpio_v1_0
 		hotswap_needed=>"0")
 	PORT MAP(oe=>(one),
 		y=>Net_182,
-		fb=>(tmpFB_0__GreenLED_net_0),
+		fb=>(tmpFB_0__RedLED_net_0),
 		analog=>(open),
-		io=>(tmpIO_0__GreenLED_net_0),
+		io=>(tmpIO_0__RedLED_net_0),
 		annotation=>(open),
-		siovref=>(tmpSIOVREF__GreenLED_net_0));
+		siovref=>(tmpSIOVREF__RedLED_net_0));
 PWM_CLOCK:cy_clock_v1_0
 	GENERIC MAP(cy_registers=>"",
 		id=>"8b643ad8-49c3-4957-b57f-a012ffe9f8fc",
@@ -1495,7 +1495,7 @@ MAX_INT:cy_mxs40_gpio_v1_0
 		sio_grp_cnt=>0,
 		id=>"98f0293d-3d3c-4ca1-bdaa-69d7c2826c8e",
 		drive_mode=>"2",
-		ibuf_enabled=>"0",
+		ibuf_enabled=>"1",
 		init_dr_st=>"1",
 		input_sync=>"0",
 		intr_mode=>"0",
@@ -1509,7 +1509,7 @@ MAX_INT:cy_mxs40_gpio_v1_0
 		output_current_cap=>"8",
 		i2c_mode=>"0",
 		pin_aliases=>"",
-		pin_mode=>"O",
+		pin_mode=>"I",
 		slew_rate=>"0",
 		vtrip=>"0",
 		use_annotation=>"0",

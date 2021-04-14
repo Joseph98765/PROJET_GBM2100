@@ -1,6 +1,6 @@
 -- ======================================================================
 -- Laboratoire3.ctl generated from Laboratoire3
--- 04/12/2021 at 16:58
+-- 04/14/2021 at 18:10
 -- This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 -- ======================================================================
 
@@ -8659,7 +8659,7 @@ attribute port_location of *_[pP]20_4(0) : label is "PORT(20,4)";
 attribute port_location of *_[pP]20_5(0) : label is "PORT(20,5)";
 attribute port_location of *_[pP]20_6(0) : label is "PORT(20,6)";
 attribute port_location of *_[pP]20_7(0) : label is "PORT(20,7)";
--- GreenLED
+-- RedLED
 attribute port_location of [pP]0_0(0) : label is "PORT(0,0)";
 attribute port_location of [pP]0_1(0) : label is "PORT(0,1)";
 attribute port_location of [pP]0_2(0) : label is "PORT(0,2)";

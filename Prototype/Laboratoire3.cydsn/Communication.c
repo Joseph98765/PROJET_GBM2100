@@ -18,14 +18,13 @@ Problèmes:
 */
 
 
-#include "Communication.h"
-#include "Commun.h"
 #include "project.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "bmi160.h"
+#include "Communication.h"
 
 uint8_t MAX30102Read (uint8_t address){
 
@@ -113,6 +112,7 @@ void MAX30102ReadFIFO32bits(uint32_t *data_red, uint32_t *data_ir)
     uint8_t temp_buffer[6]; //contient 3 bytes de red (0,1,2) suivis de 3 bytes de ir (3,4,5)
     uint32_t temp; 
     
+    //while(MAX30102Read(REG_INTR_STATUS_1) == 0x40)
     
     *data_red = 0; //initialisation
     *data_ir = 0;
@@ -139,42 +139,66 @@ void MAX30102ReadFIFO32bits(uint32_t *data_red, uint32_t *data_ir)
     
     *data_ir &= UN_MIN; //Masque MSB
     *data_red &= UN_MIN;
+    
 }
 
 void MAX30102Config()
 {
-   
-    MAX30102Write(REG_INTR_ENABLE_1,0xc0); // INTR setting
+    //REG_INTR_ENABLE_1
+    //PARAMS: A_FULL, PPG_RDY, ALC_OVF    
+    MAX30102Write(REG_INTR_ENABLE_1,
+        (A_FULL_YES << A_FULL_RM_BIT)|(PPG_RDY_YES << PPG_RDY_RM_BIT)
+        |(ALC_OVF_NO << ALC_OVF_RM_BIT));
+    
+    //REG_INTR_ENABLE_2
+    //PARAMS: DIE_TEMP_READY
+    MAX30102Write(REG_INTR_ENABLE_2,
+        (DIE_TEMP_READY_NO << DIE_TEMP_READY_RM_BIT));
 
-    MAX30102Write(REG_INTR_ENABLE_2,0x00);
-
+    //REG_FIFO_WR_PTR
+    //PARAMS: Position du pointeur FIFO pour l'écriture (de 0 à 4)
     MAX30102Write(REG_FIFO_WR_PTR,0x00); 
 
+    //REG_OVF_COUNTER
+    //PARAMS: Nombre de samples perdus lorsqu'on lit un FIFO remplis (de 0 à 4 pour 0-31 perdus).
     MAX30102Write(REG_OVF_COUNTER,0x00); 
-
+    
+    //REG_FIFO_RD_PTR
+    //PARAMS: Position du pointeur FIFO pour l'écriture (de 0 à 4)
     MAX30102Write(REG_FIFO_RD_PTR,0x00);  
 
+    //REG_FIFO_CONFIG
+    //PARAMS: SMP_AVE, FIFO_ROLLOVER_EN, FIFO_A_FULL
     MAX30102Write(REG_FIFO_CONFIG,
-    (SMP_AVE_2 << 5) | (FIFO_ROLLOVER_EN_0 << 4) | (FIFO_A_FULL_15));
+        (SMP_AVE_2 << SMP_AVE_RM_BIT) | (FIFO_ROLLOVER_EN_0 << FIFO_A_FULL_RM_BIT)
+        | (FIFO_A_FULL_15 << FIFO_A_FULL_RM_BIT));
 
+    //REG_MODE_CONFIG
+    //PARAMS: SHDN, RESET, MODE
     MAX30102Write(REG_MODE_CONFIG,
-    (SHDN_0 << 7)|(RESET_0 << 6)|(MODE_SPO2));
+    (SHDN_NO << SHDN_RM_BIT)|(RESET_NO << RESET_RM_BIT)|(MODE_SPO2 << MODE_RM_BIT));
 
+    //REG_SPO2_CONFIG
+    //PARAMS: SPO2_ADC_RGE, SPO2_SR, LED_PW
     MAX30102Write(REG_SPO2_CONFIG,
     (SPO2_ADC_RGE_4096 << 5)|(SPO2_SR_100 << 2)|(LED_PW_411));
 
+    //REG_LED1_PA
     MAX30102Write(REG_LED1_PA,(uint8_t) 2/0.2);   
 
+    //REG_LED2_PA
     MAX30102Write(REG_LED2_PA,(uint8_t) 2/0.2);   
 
+    //REG_PILOT_PA
     MAX30102Write(REG_PILOT_PA,(uint8_t) 25/0.2); 
-
-    MAX30102Write(REG_TEMP_CONFIG,0x01);
+    
+    //REG_TEMP_CONFIG
+    MAX30102Write(REG_TEMP_CONFIG,TEMP_EN_YES << TEMP_EN_RM_BIT);
 
 }
 
 void MAX30102Reset(){
-    MAX30102Write(REG_MODE_CONFIG,0x40);
+    MAX30102Write(REG_MODE_CONFIG, RESET_YES << RESET_RM_BIT);
 }
 
 void change_RED_LED_amp(uint8_t amp){
@@ -192,24 +216,21 @@ void MAX30102ReadTemperature(uint8_t *buffer){
 void MAX30102Task(void *arg){
     (void)arg;
     
+    uint32_t red_LED_buffer [BUFFER_SIZE];
+    uint32_t ir_LED_buffer [BUFFER_SIZE]; 
+    uint16_t i = 0;
     //uint8_t temperature;
     
-    for(;;){
-        for(uint16_t i = 0; i < BUFFER_SIZE ; i++){  
-            
-            //while(Cy_GPIO_Read(GPIO_PRT13,7u) == 0){};
-            if (MAX30102Read(REG_INTR_STATUS_1) == 0b0010000){
-                MAX30102ReadFIFO32bits(&buffer_Red[i], &buffer_IR[i]);
-                printf("RED : %u  IR  : %u  \r\n",buffer_Red[i],buffer_IR[i]);
-                
-            }
-            if (i == BUFFER_SIZE/2 || i == 0){
-                flagTraitement = true;
-                indexCommunication = i;
-            }
-            vTaskDelay(pdMS_TO_TICKS (5));
+    while(1){
+        if(i != BUFFER_SIZE){
+            i++;
         }
-    //vTaskDelay(pdMS_TO_TICKS (50));
+        while(Cy_GPIO_Read(GPIO_PRT13,7u) == 1){};
+        MAX30102ReadFIFO32bits(&red_LED_buffer[i], &ir_LED_buffer[i]);
+        printf("i: %u RED : %u  IR  : %u  \r\n",i,red_LED_buffer[i],ir_LED_buffer[i]);
+
+        vTaskDelay(10);
+        
     }
 }
 
@@ -277,23 +298,19 @@ void bmi160Init(void)
 void motionTask(void *arg)
 {
     (void)arg;
-    I2C_2_Start();
     bmi160Init();
     struct bmi160_sensor_data acc;
     
-    float gx,gy,gz;
+    double acceleration;
     
     while(1)
     {
         bmi160_get_sensor_data(BMI160_ACCEL_ONLY, &acc, NULL, &bmi160Dev);
     
-        gx = (float)acc.x/MAXACCEL;
-        gy = (float)acc.y/MAXACCEL;
-        gz = (float)acc.z/MAXACCEL;
+        acceleration = sqrt(pow(acc.x,2)+pow(acc.y,2)+pow(acc.z,2))/MAXACCEL;
         
-        printf("x=%1.2f y=%1.2f z=%1.2f\r\n",gx,gy,gz);
-        
-        vTaskDelay(200);
+        printf("ACC = %f\r\n",acceleration);
+        vTaskDelay(pdMS_TO_TICKS(200));
     }
 }
 

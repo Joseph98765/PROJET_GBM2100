@@ -35,6 +35,11 @@ int main(void)
     
     // Initialize emWin Graphics 
     GUI_Init();
+    
+    //Initialize I2C
+    //bmi160Init();
+    I2C_1_Start();
+    I2C_2_Start();
 
     // Start the eInk display interface and turn on the display power 
     Cy_EINK_Start(20);
@@ -73,6 +78,7 @@ int main(void)
     
     //Taches Communication
     xTaskCreate(MAX30102Task, "MAX Task", 400,0,1,0);
+    xTaskCreate(motionTask, "MMotion Task", 400,0,1,0);
     
     //Taches Traitement
     xTaskCreate(traitement_task, "Traitement", 500, NULL, 0, NULL);

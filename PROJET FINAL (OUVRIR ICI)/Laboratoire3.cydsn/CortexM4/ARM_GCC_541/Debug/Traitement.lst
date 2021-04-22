@@ -1,0 +1,5744 @@
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"Traitement.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.section	.text.FilterLP,"ax",%progbits
+  21              		.align	2
+  22              		.global	FilterLP
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	FilterLP, %function
+  26              	FilterLP:
+  27              	.LFB725:
+  28              		.file 1 "Traitement.c"
+   1:Traitement.c  **** /*******************************************************************************
+   2:Traitement.c  **** * File name : Traitement.c
+   3:Traitement.c  **** *
+   4:Traitement.c  **** * Function Name: void traitement(void)
+   5:Traitement.c  **** * Summary: 
+   6:Traitement.c  **** *
+   7:Traitement.c  **** * Parameters:
+   8:Traitement.c  **** *  None
+   9:Traitement.c  **** *
+  10:Traitement.c  **** * Return:
+  11:Traitement.c  **** *  None
+  12:Traitement.c  **** *
+  13:Traitement.c  **** * Authors : 
+  14:Traitement.c  **** * Date of Creation : 24 mars 2021
+  15:Traitement.c  **** *
+  16:Traitement.c  **** ********************************************************************************/
+  17:Traitement.c  **** 
+  18:Traitement.c  **** 
+  19:Traitement.c  **** #include <project.h>
+  20:Traitement.c  **** #include <Traitement.h>
+  21:Traitement.c  **** #include <Commun.h>
+  22:Traitement.c  **** #include <arm_math.h>
+  23:Traitement.c  **** #include <core_cm4.h>
+  24:Traitement.c  **** #include "FreeRTOS.h"
+  25:Traitement.c  **** #include "task.h"
+  26:Traitement.c  **** 
+  27:Traitement.c  **** #define DATA_LENGTH 500
+  28:Traitement.c  **** #define BLOCK_SIZE  500 
+  29:Traitement.c  **** #define NUM_COEFF1  41
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 2
+
+
+  30:Traitement.c  **** 
+  31:Traitement.c  **** static float32_t firStateF32_LP[BLOCK_SIZE + NUM_COEFF1 - 1];
+  32:Traitement.c  **** const float32_t firCoeffsLPF[NUM_COEFF1] ={0,-0.0004417223,-0.0010613407,-0.0019635183,-0.003163288
+  33:Traitement.c  **** uint32_t blockSize  = BLOCK_SIZE; 
+  34:Traitement.c  **** uint32_t numBlocks  = DATA_LENGTH/BLOCK_SIZE; 
+  35:Traitement.c  **** uint32_t dataLength = DATA_LENGTH;
+  36:Traitement.c  **** float Fs = 100; 
+  37:Traitement.c  **** 
+  38:Traitement.c  **** 
+  39:Traitement.c  **** /* Fonction filtre passe-bas pour avoir la composante DC signal rouge et infrarouge */
+  40:Traitement.c  **** void FilterLP(float* buffer, float* filteredSignal){
+  29              		.loc 1 40 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 16
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              	.LVL0:
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 4, -16
+  37              		.cfi_offset 5, -12
+  38              		.cfi_offset 6, -8
+  39              		.cfi_offset 14, -4
+  40 0002 86B0     		sub	sp, sp, #24
+  41              		.cfi_def_cfa_offset 40
+  42 0004 0546     		mov	r5, r0
+  43 0006 0E46     		mov	r6, r1
+  41:Traitement.c  ****     //Utilisation du filtre de la librairie CMSIS DSP
+  42:Traitement.c  **** 	//Fréquence de coupure de 5 Hz et 41 coefficients utilisés
+  43:Traitement.c  ****     arm_fir_instance_f32 S; 
+  44:Traitement.c  ****     arm_fir_init_f32(&S, NUM_COEFF1, (float32_t *)&firCoeffsLPF[0], &firStateF32_LP[0], blockSize);
+  44              		.loc 1 44 0
+  45 0008 084C     		ldr	r4, .L3
+  46 000a 2368     		ldr	r3, [r4]
+  47 000c 0093     		str	r3, [sp]
+  48 000e 084B     		ldr	r3, .L3+4
+  49 0010 084A     		ldr	r2, .L3+8
+  50 0012 2921     		movs	r1, #41
+  51              	.LVL1:
+  52 0014 03A8     		add	r0, sp, #12
+  53              	.LVL2:
+  54 0016 FFF7FEFF 		bl	arm_fir_init_f32
+  55              	.LVL3:
+  45:Traitement.c  ****     arm_fir_f32(&S, buffer, filteredSignal, blockSize);  
+  56              		.loc 1 45 0
+  57 001a 2368     		ldr	r3, [r4]
+  58 001c 3246     		mov	r2, r6
+  59 001e 2946     		mov	r1, r5
+  60 0020 03A8     		add	r0, sp, #12
+  61 0022 FFF7FEFF 		bl	arm_fir_f32
+  62              	.LVL4:
+  46:Traitement.c  **** }
+  63              		.loc 1 46 0
+  64 0026 06B0     		add	sp, sp, #24
+  65              		.cfi_def_cfa_offset 16
+  66              		@ sp needed
+  67 0028 70BD     		pop	{r4, r5, r6, pc}
+  68              	.LVL5:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 3
+
+
+  69              	.L4:
+  70 002a 00BF     		.align	2
+  71              	.L3:
+  72 002c 00000000 		.word	.LANCHOR2
+  73 0030 00000000 		.word	.LANCHOR0
+  74 0034 00000000 		.word	.LANCHOR1
+  75              		.cfi_endproc
+  76              	.LFE725:
+  77              		.size	FilterLP, .-FilterLP
+  78              		.section	.text.Center,"ax",%progbits
+  79              		.align	2
+  80              		.global	Center
+  81              		.thumb
+  82              		.thumb_func
+  83              		.type	Center, %function
+  84              	Center:
+  85              	.LFB726:
+  47:Traitement.c  **** 
+  48:Traitement.c  **** /* Fonction qui sert a centrer le signal pour avoir la composante AC du signal rouge et infrarouge 
+  49:Traitement.c  **** void Center(float* buffer, float* filteredSignal){
+  86              		.loc 1 49 0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+  91              	.LVL6:
+  92              	.LBB2:
+  50:Traitement.c  ****     float mean = 0;
+  51:Traitement.c  ****     //Boucle for pour trouver la moyenne du signal
+  52:Traitement.c  ****     for(uint16_t i = 0; i<dataLength; i++){
+  93              		.loc 1 52 0
+  94 0000 0023     		movs	r3, #0
+  95              	.LBE2:
+  50:Traitement.c  ****     float mean = 0;
+  96              		.loc 1 50 0
+  97 0002 9FED157A 		vldr.32	s14, .L11
+  98              	.LBB3:
+  99              		.loc 1 52 0
+ 100 0006 07E0     		b	.L6
+ 101              	.LVL7:
+ 102              	.L7:
+  53:Traitement.c  ****             mean+=buffer[i];
+ 103              		.loc 1 53 0 discriminator 3
+ 104 0008 00EB8302 		add	r2, r0, r3, lsl #2
+ 105 000c D2ED007A 		vldr.32	s15, [r2]
+ 106 0010 37EE277A 		vadd.f32	s14, s14, s15
+ 107              	.LVL8:
+  52:Traitement.c  ****             mean+=buffer[i];
+ 108              		.loc 1 52 0 discriminator 3
+ 109 0014 0133     		adds	r3, r3, #1
+ 110              	.LVL9:
+ 111 0016 9BB2     		uxth	r3, r3
+ 112              	.LVL10:
+ 113              	.L6:
+  52:Traitement.c  ****             mean+=buffer[i];
+ 114              		.loc 1 52 0 is_stmt 0 discriminator 1
+ 115 0018 104A     		ldr	r2, .L11+4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 4
+
+
+ 116 001a 5268     		ldr	r2, [r2, #4]
+ 117 001c 9342     		cmp	r3, r2
+ 118 001e F3D3     		bcc	.L7
+ 119              	.LBE3:
+  49:Traitement.c  ****     float mean = 0;
+ 120              		.loc 1 49 0 is_stmt 1
+ 121 0020 10B4     		push	{r4}
+ 122              		.cfi_def_cfa_offset 4
+ 123              		.cfi_offset 4, -4
+  54:Traitement.c  ****     }
+  55:Traitement.c  ****     mean = mean/dataLength;
+ 124              		.loc 1 55 0
+ 125 0022 07EE902A 		vmov	s15, r2	@ int
+ 126 0026 F8EE677A 		vcvt.f32.u32	s15, s15
+ 127 002a C7EE276A 		vdiv.f32	s13, s14, s15
+ 128              	.LVL11:
+ 129              	.LBB4:
+  56:Traitement.c  ****     
+  57:Traitement.c  **** 	//Boucle for pour soustraire la moyenne au signal pour le centrer a 0
+  58:Traitement.c  ****     for(uint16_t i = 0; i<dataLength; i++){
+ 130              		.loc 1 58 0
+ 131 002e 0023     		movs	r3, #0
+ 132              	.LVL12:
+ 133 0030 0AE0     		b	.L8
+ 134              	.LVL13:
+ 135              	.L9:
+  59:Traitement.c  ****         filteredSignal[i] = buffer[i] - mean;
+ 136              		.loc 1 59 0 discriminator 3
+ 137 0032 9A00     		lsls	r2, r3, #2
+ 138 0034 8C18     		adds	r4, r1, r2
+ 139 0036 0244     		add	r2, r2, r0
+ 140 0038 D2ED007A 		vldr.32	s15, [r2]
+ 141 003c 77EEE67A 		vsub.f32	s15, s15, s13
+ 142 0040 C4ED007A 		vstr.32	s15, [r4]
+  58:Traitement.c  ****         filteredSignal[i] = buffer[i] - mean;
+ 143              		.loc 1 58 0 discriminator 3
+ 144 0044 0133     		adds	r3, r3, #1
+ 145              	.LVL14:
+ 146 0046 9BB2     		uxth	r3, r3
+ 147              	.LVL15:
+ 148              	.L8:
+  58:Traitement.c  ****         filteredSignal[i] = buffer[i] - mean;
+ 149              		.loc 1 58 0 is_stmt 0 discriminator 1
+ 150 0048 044A     		ldr	r2, .L11+4
+ 151 004a 5268     		ldr	r2, [r2, #4]
+ 152 004c 9342     		cmp	r3, r2
+ 153 004e F0D3     		bcc	.L9
+ 154              	.LBE4:
+  60:Traitement.c  ****     } 
+  61:Traitement.c  **** }
+ 155              		.loc 1 61 0 is_stmt 1
+ 156 0050 5DF8044B 		ldr	r4, [sp], #4
+ 157              		.cfi_restore 4
+ 158              		.cfi_def_cfa_offset 0
+ 159 0054 7047     		bx	lr
+ 160              	.L12:
+ 161 0056 00BF     		.align	2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 5
+
+
+ 162              	.L11:
+ 163 0058 00000000 		.word	0
+ 164 005c 00000000 		.word	.LANCHOR2
+ 165              		.cfi_endproc
+ 166              	.LFE726:
+ 167              		.size	Center, .-Center
+ 168              		.global	__aeabi_f2d
+ 169              		.global	__aeabi_ddiv
+ 170              		.global	__aeabi_dmul
+ 171              		.global	__aeabi_dadd
+ 172              		.global	__aeabi_d2uiz
+ 173              		.section	.text.CalculSpO2,"ax",%progbits
+ 174              		.align	2
+ 175              		.global	CalculSpO2
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.type	CalculSpO2, %function
+ 179              	CalculSpO2:
+ 180              	.LFB727:
+  62:Traitement.c  **** 
+  63:Traitement.c  **** /* Fonction pour calculer le SpO2 prennant en paramètres les quatre signaux nécessaire au calcul*
+  64:Traitement.c  **** uint16_t CalculSpO2(float* signalRedDC, float* signalIRDC, float* signalRedAC, float* signalIRAC) {
+ 181              		.loc 1 64 0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 40
+ 184              		@ frame_needed = 0, uses_anonymous_args = 0
+ 185              	.LVL16:
+ 186 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 187              		.cfi_def_cfa_offset 32
+ 188              		.cfi_offset 4, -32
+ 189              		.cfi_offset 5, -28
+ 190              		.cfi_offset 6, -24
+ 191              		.cfi_offset 7, -20
+ 192              		.cfi_offset 8, -16
+ 193              		.cfi_offset 9, -12
+ 194              		.cfi_offset 10, -8
+ 195              		.cfi_offset 14, -4
+ 196 0004 8AB0     		sub	sp, sp, #40
+ 197              		.cfi_def_cfa_offset 72
+ 198 0006 8246     		mov	r10, r0
+ 199 0008 0D46     		mov	r5, r1
+ 200 000a 1746     		mov	r7, r2
+ 201 000c 1E46     		mov	r6, r3
+ 202              	.LVL17:
+  65:Traitement.c  ****     double R = 0;
+  66:Traitement.c  ****     double ACred = 0;
+  67:Traitement.c  ****     double ACinfrared = 0;
+  68:Traitement.c  ****     float32_t DCred = 0;
+ 203              		.loc 1 68 0
+ 204 000e 0023     		movs	r3, #0
+ 205              	.LVL18:
+ 206 0010 0993     		str	r3, [sp, #36]	@ float
+  69:Traitement.c  ****     float32_t DCinfrared = 0;
+ 207              		.loc 1 69 0
+ 208 0012 0893     		str	r3, [sp, #32]	@ float
+  70:Traitement.c  ****     
+  71:Traitement.c  ****     float32_t maxSignalRedAC = 0, minSignalRedAC = 0, maxSignalIRAC = 0, minSignalIRAC = 0;
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 6
+
+
+ 209              		.loc 1 71 0
+ 210 0014 0793     		str	r3, [sp, #28]	@ float
+ 211 0016 0693     		str	r3, [sp, #24]	@ float
+ 212 0018 0593     		str	r3, [sp, #20]	@ float
+ 213 001a 0493     		str	r3, [sp, #16]	@ float
+  72:Traitement.c  ****     uint32_t indexMaxSignalRedAC = 0, indexMinSignalRedAC = 0, indexMaxSignalIRAC = 0, indexMinSign
+ 214              		.loc 1 72 0
+ 215 001c 0023     		movs	r3, #0
+ 216 001e 0393     		str	r3, [sp, #12]
+ 217 0020 0293     		str	r3, [sp, #8]
+ 218 0022 0193     		str	r3, [sp, #4]
+ 219 0024 0093     		str	r3, [sp]
+  73:Traitement.c  ****     
+  74:Traitement.c  **** 	// Fonctions utilisées pour trouver les min et max des signaux
+  75:Traitement.c  ****     arm_max_f32(signalRedAC,dataLength,&maxSignalRedAC,&indexMaxSignalRedAC);
+ 220              		.loc 1 75 0
+ 221 0026 414C     		ldr	r4, .L16
+ 222 0028 03AB     		add	r3, sp, #12
+ 223 002a 07AA     		add	r2, sp, #28
+ 224              	.LVL19:
+ 225 002c 6168     		ldr	r1, [r4, #4]
+ 226              	.LVL20:
+ 227 002e 3846     		mov	r0, r7
+ 228              	.LVL21:
+ 229 0030 FFF7FEFF 		bl	arm_max_f32
+ 230              	.LVL22:
+  76:Traitement.c  ****     arm_min_f32(signalRedAC,dataLength,&minSignalRedAC,&indexMinSignalRedAC);
+ 231              		.loc 1 76 0
+ 232 0034 02AB     		add	r3, sp, #8
+ 233 0036 06AA     		add	r2, sp, #24
+ 234 0038 6168     		ldr	r1, [r4, #4]
+ 235 003a 3846     		mov	r0, r7
+ 236 003c FFF7FEFF 		bl	arm_min_f32
+ 237              	.LVL23:
+  77:Traitement.c  ****     arm_max_f32(signalIRAC,dataLength,&maxSignalIRAC,&indexMaxSignalIRAC);
+ 238              		.loc 1 77 0
+ 239 0040 01AB     		add	r3, sp, #4
+ 240 0042 05AA     		add	r2, sp, #20
+ 241 0044 6168     		ldr	r1, [r4, #4]
+ 242 0046 3046     		mov	r0, r6
+ 243 0048 FFF7FEFF 		bl	arm_max_f32
+ 244              	.LVL24:
+  78:Traitement.c  ****     arm_min_f32(signalIRAC,dataLength,&minSignalIRAC,&indexMinSignalIRAC);
+ 245              		.loc 1 78 0
+ 246 004c 6B46     		mov	r3, sp
+ 247 004e 04AA     		add	r2, sp, #16
+ 248 0050 6168     		ldr	r1, [r4, #4]
+ 249 0052 3046     		mov	r0, r6
+ 250 0054 FFF7FEFF 		bl	arm_min_f32
+ 251              	.LVL25:
+  79:Traitement.c  ****     
+  80:Traitement.c  ****     // Calcul des composantes du ration R
+  81:Traitement.c  **** 	ACred = maxSignalRedAC - minSignalRedAC;
+ 252              		.loc 1 81 0
+ 253 0058 DDED067A 		vldr.32	s15, [sp, #24]
+ 254 005c 9DED077A 		vldr.32	s14, [sp, #28]
+ 255 0060 77EE677A 		vsub.f32	s15, s14, s15
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 7
+
+
+ 256 0064 17EE900A 		vmov	r0, s15
+ 257 0068 FFF7FEFF 		bl	__aeabi_f2d
+ 258              	.LVL26:
+ 259 006c 8046     		mov	r8, r0
+ 260 006e 8946     		mov	r9, r1
+ 261              	.LVL27:
+  82:Traitement.c  ****     ACinfrared = maxSignalIRAC - minSignalIRAC;
+ 262              		.loc 1 82 0
+ 263 0070 DDED047A 		vldr.32	s15, [sp, #16]
+ 264 0074 9DED057A 		vldr.32	s14, [sp, #20]
+ 265 0078 77EE677A 		vsub.f32	s15, s14, s15
+ 266 007c 17EE900A 		vmov	r0, s15
+ 267 0080 FFF7FEFF 		bl	__aeabi_f2d
+ 268              	.LVL28:
+ 269 0084 0646     		mov	r6, r0
+ 270              	.LVL29:
+ 271 0086 0F46     		mov	r7, r1
+ 272              	.LVL30:
+  83:Traitement.c  ****     arm_mean_f32(signalRedDC,dataLength,&DCred);
+ 273              		.loc 1 83 0
+ 274 0088 09AA     		add	r2, sp, #36
+ 275 008a 6168     		ldr	r1, [r4, #4]
+ 276 008c 5046     		mov	r0, r10
+ 277 008e FFF7FEFF 		bl	arm_mean_f32
+ 278              	.LVL31:
+  84:Traitement.c  ****     arm_mean_f32(signalIRDC,dataLength,&DCinfrared);
+ 279              		.loc 1 84 0
+ 280 0092 08AA     		add	r2, sp, #32
+ 281 0094 6168     		ldr	r1, [r4, #4]
+ 282 0096 2846     		mov	r0, r5
+ 283 0098 FFF7FEFF 		bl	arm_mean_f32
+ 284              	.LVL32:
+  85:Traitement.c  ****     
+  86:Traitement.c  **** 	// Calcul de R et SpO2
+  87:Traitement.c  ****     R = (ACred/DCred)/(ACinfrared/DCinfrared);
+ 285              		.loc 1 87 0
+ 286 009c 0998     		ldr	r0, [sp, #36]	@ float
+ 287 009e FFF7FEFF 		bl	__aeabi_f2d
+ 288              	.LVL33:
+ 289 00a2 0246     		mov	r2, r0
+ 290 00a4 0B46     		mov	r3, r1
+ 291 00a6 4046     		mov	r0, r8
+ 292 00a8 4946     		mov	r1, r9
+ 293 00aa FFF7FEFF 		bl	__aeabi_ddiv
+ 294              	.LVL34:
+ 295 00ae 0446     		mov	r4, r0
+ 296 00b0 0D46     		mov	r5, r1
+ 297              	.LVL35:
+ 298 00b2 0898     		ldr	r0, [sp, #32]	@ float
+ 299 00b4 FFF7FEFF 		bl	__aeabi_f2d
+ 300              	.LVL36:
+ 301 00b8 0246     		mov	r2, r0
+ 302 00ba 0B46     		mov	r3, r1
+ 303 00bc 3046     		mov	r0, r6
+ 304 00be 3946     		mov	r1, r7
+ 305 00c0 FFF7FEFF 		bl	__aeabi_ddiv
+ 306              	.LVL37:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 8
+
+
+ 307 00c4 0246     		mov	r2, r0
+ 308 00c6 0B46     		mov	r3, r1
+ 309 00c8 2046     		mov	r0, r4
+ 310 00ca 2946     		mov	r1, r5
+ 311 00cc FFF7FEFF 		bl	__aeabi_ddiv
+ 312              	.LVL38:
+ 313 00d0 0446     		mov	r4, r0
+ 314 00d2 0D46     		mov	r5, r1
+ 315              	.LVL39:
+  88:Traitement.c  ****     SpO2 = round(-22*R*R + 15*R + 98);
+ 316              		.loc 1 88 0
+ 317 00d4 0022     		movs	r2, #0
+ 318 00d6 164B     		ldr	r3, .L16+4
+ 319 00d8 FFF7FEFF 		bl	__aeabi_dmul
+ 320              	.LVL40:
+ 321 00dc 0246     		mov	r2, r0
+ 322 00de 0B46     		mov	r3, r1
+ 323 00e0 2046     		mov	r0, r4
+ 324 00e2 2946     		mov	r1, r5
+ 325 00e4 FFF7FEFF 		bl	__aeabi_dmul
+ 326              	.LVL41:
+ 327 00e8 0646     		mov	r6, r0
+ 328              	.LVL42:
+ 329 00ea 0F46     		mov	r7, r1
+ 330 00ec 0022     		movs	r2, #0
+ 331 00ee 114B     		ldr	r3, .L16+8
+ 332 00f0 2046     		mov	r0, r4
+ 333 00f2 2946     		mov	r1, r5
+ 334 00f4 FFF7FEFF 		bl	__aeabi_dmul
+ 335              	.LVL43:
+ 336 00f8 0246     		mov	r2, r0
+ 337 00fa 0B46     		mov	r3, r1
+ 338 00fc 3046     		mov	r0, r6
+ 339 00fe 3946     		mov	r1, r7
+ 340 0100 FFF7FEFF 		bl	__aeabi_dadd
+ 341              	.LVL44:
+ 342 0104 0022     		movs	r2, #0
+ 343 0106 0C4B     		ldr	r3, .L16+12
+ 344 0108 FFF7FEFF 		bl	__aeabi_dadd
+ 345              	.LVL45:
+ 346 010c FFF7FEFF 		bl	round
+ 347              	.LVL46:
+ 348 0110 FFF7FEFF 		bl	__aeabi_d2uiz
+ 349              	.LVL47:
+ 350 0114 80B2     		uxth	r0, r0
+ 351 0116 094B     		ldr	r3, .L16+16
+ 352 0118 1880     		strh	r0, [r3]	@ movhi
+  89:Traitement.c  **** 
+  90:Traitement.c  **** 	if(SpO2>100){
+ 353              		.loc 1 90 0
+ 354 011a 6428     		cmp	r0, #100
+ 355 011c 01D9     		bls	.L14
+  91:Traitement.c  **** 		SpO2 = 100;
+ 356              		.loc 1 91 0
+ 357 011e 6422     		movs	r2, #100
+ 358 0120 1A80     		strh	r2, [r3]	@ movhi
+ 359              	.L14:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 9
+
+
+  92:Traitement.c  **** 	}
+  93:Traitement.c  ****     
+  94:Traitement.c  ****     return SpO2;
+  95:Traitement.c  **** }
+ 360              		.loc 1 95 0
+ 361 0122 064B     		ldr	r3, .L16+16
+ 362 0124 1888     		ldrh	r0, [r3]
+ 363 0126 0AB0     		add	sp, sp, #40
+ 364              		.cfi_def_cfa_offset 32
+ 365              		@ sp needed
+ 366 0128 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 367              	.LVL48:
+ 368              	.L17:
+ 369              		.align	2
+ 370              	.L16:
+ 371 012c 00000000 		.word	.LANCHOR2
+ 372 0130 000036C0 		.word	-1070202880
+ 373 0134 00002E40 		.word	1076756480
+ 374 0138 00805840 		.word	1079541760
+ 375 013c 00000000 		.word	SpO2
+ 376              		.cfi_endproc
+ 377              	.LFE727:
+ 378              		.size	CalculSpO2, .-CalculSpO2
+ 379              		.section	.text.CalculBPM,"ax",%progbits
+ 380              		.align	2
+ 381              		.global	CalculBPM
+ 382              		.thumb
+ 383              		.thumb_func
+ 384              		.type	CalculBPM, %function
+ 385              	CalculBPM:
+ 386              	.LFB728:
+  96:Traitement.c  **** 
+  97:Traitement.c  **** /* Fonction pour le calcul du BPM prennant en paramètre le signal rouge AC */
+  98:Traitement.c  **** uint16_t CalculBPM(float* signalRedAC) {
+ 387              		.loc 1 98 0
+ 388              		.cfi_startproc
+ 389              		@ args = 0, pretend = 0, frame = 16
+ 390              		@ frame_needed = 0, uses_anonymous_args = 0
+ 391              	.LVL49:
+ 392 0000 10B5     		push	{r4, lr}
+ 393              		.cfi_def_cfa_offset 8
+ 394              		.cfi_offset 4, -8
+ 395              		.cfi_offset 14, -4
+ 396 0002 84B0     		sub	sp, sp, #16
+ 397              		.cfi_def_cfa_offset 24
+  99:Traitement.c  ****     volatile float indexLastZero = 0;
+ 398              		.loc 1 99 0
+ 399 0004 0023     		movs	r3, #0
+ 400 0006 0393     		str	r3, [sp, #12]	@ float
+ 100:Traitement.c  ****     volatile float indexFirstZero = 0;
+ 401              		.loc 1 100 0
+ 402 0008 0293     		str	r3, [sp, #8]	@ float
+ 101:Traitement.c  ****     volatile uint16_t nZeros = 0;
+ 403              		.loc 1 101 0
+ 404 000a 0024     		movs	r4, #0
+ 405 000c ADF80640 		strh	r4, [sp, #6]	@ movhi
+ 406              	.LVL50:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 10
+
+
+ 407              	.LBB5:
+ 102:Traitement.c  ****     float difference = 0;
+ 103:Traitement.c  ****     bool isZero = false;
+ 104:Traitement.c  ****     
+ 105:Traitement.c  **** 	// Boucle for pour trouver le passage du signal a une certaine valeur pour tous les points
+ 106:Traitement.c  **** 	// Initialement la valeur cherchée était zéro, ce qui explique le nom des variables
+ 107:Traitement.c  ****     for(uint16_t i=0; i < dataLength-1; i++){         
+ 408              		.loc 1 107 0
+ 409 0010 2146     		mov	r1, r4
+ 410 0012 4EE0     		b	.L19
+ 411              	.LVL51:
+ 412              	.L26:
+ 108:Traitement.c  ****         if(signalRedAC[i] > 6 && signalRedAC[i+1] < 6) {
+ 413              		.loc 1 108 0
+ 414 0014 00EB8103 		add	r3, r0, r1, lsl #2
+ 415 0018 D3ED006A 		vldr.32	s13, [r3]
+ 416 001c F1EE087A 		vmov.f32	s15, #6.0e+0
+ 417 0020 F4EEE76A 		vcmpe.f32	s13, s15
+ 418 0024 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 419 0028 41DD     		ble	.L20
+ 420              		.loc 1 108 0 is_stmt 0 discriminator 1
+ 421 002a 0132     		adds	r2, r2, #1
+ 422 002c 00EB8202 		add	r2, r0, r2, lsl #2
+ 423 0030 92ED007A 		vldr.32	s14, [r2]
+ 424 0034 B4EEE77A 		vcmpe.f32	s14, s15
+ 425 0038 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 426 003c 12D4     		bmi	.L27
+ 427 003e 36E0     		b	.L20
+ 428              	.LVL52:
+ 429              	.L24:
+ 430              	.LBB6:
+ 109:Traitement.c  ****             // Boucle pour s'assurer d'une différence significative entre le point d'intéret et l
+ 110:Traitement.c  **** 			for(uint16_t j = 0; j<20; j++){
+ 111:Traitement.c  ****                 difference = signalRedAC[i] - signalRedAC[i+j]; 
+ 431              		.loc 1 111 0 is_stmt 1
+ 432 0040 CA18     		adds	r2, r1, r3
+ 433 0042 00EB8202 		add	r2, r0, r2, lsl #2
+ 434 0046 D2ED007A 		vldr.32	s15, [r2]
+ 435 004a 76EEE77A 		vsub.f32	s15, s13, s15
+ 436              	.LVL53:
+ 112:Traitement.c  ****                 if(difference > 12){
+ 437              		.loc 1 112 0
+ 438 004e B2EE087A 		vmov.f32	s14, #1.2e+1
+ 439 0052 F4EEC77A 		vcmpe.f32	s15, s14
+ 440 0056 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 441 005a 00DD     		ble	.L23
+ 113:Traitement.c  ****                     isZero = true;
+ 442              		.loc 1 113 0
+ 443 005c 0124     		movs	r4, #1
+ 444              	.LVL54:
+ 445              	.L23:
+ 110:Traitement.c  ****                 difference = signalRedAC[i] - signalRedAC[i+j]; 
+ 446              		.loc 1 110 0 discriminator 2
+ 447 005e 0133     		adds	r3, r3, #1
+ 448              	.LVL55:
+ 449 0060 9BB2     		uxth	r3, r3
+ 450              	.LVL56:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 11
+
+
+ 451 0062 00E0     		b	.L22
+ 452              	.LVL57:
+ 453              	.L27:
+ 454              	.LBE6:
+ 455 0064 0023     		movs	r3, #0
+ 456              	.L22:
+ 457              	.LVL58:
+ 458              	.LBB7:
+ 110:Traitement.c  ****                 difference = signalRedAC[i] - signalRedAC[i+j]; 
+ 459              		.loc 1 110 0 is_stmt 0 discriminator 1
+ 460 0066 132B     		cmp	r3, #19
+ 461 0068 EAD9     		bls	.L24
+ 462              	.LBE7:
+ 114:Traitement.c  ****                 }
+ 115:Traitement.c  ****             }
+ 116:Traitement.c  **** 			// Enregistrement du premier et dernier point d'intérêt du signal
+ 117:Traitement.c  ****             if(isZero == true){
+ 463              		.loc 1 117 0 is_stmt 1
+ 464 006a 04B3     		cbz	r4, .L20
+ 118:Traitement.c  ****                 nZeros++;
+ 465              		.loc 1 118 0
+ 466 006c BDF80630 		ldrh	r3, [sp, #6]
+ 467              	.LVL59:
+ 468 0070 9BB2     		uxth	r3, r3
+ 469 0072 0133     		adds	r3, r3, #1
+ 470 0074 9BB2     		uxth	r3, r3
+ 471 0076 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 119:Traitement.c  ****                 if (nZeros == 1){
+ 472              		.loc 1 119 0
+ 473 007a BDF80630 		ldrh	r3, [sp, #6]
+ 474 007e 9BB2     		uxth	r3, r3
+ 475 0080 012B     		cmp	r3, #1
+ 476 0082 07D1     		bne	.L25
+ 120:Traitement.c  ****                     indexFirstZero = i;
+ 477              		.loc 1 120 0
+ 478 0084 07EE901A 		vmov	s15, r1	@ int
+ 479 0088 F8EE677A 		vcvt.f32.u32	s15, s15
+ 480 008c CDED027A 		vstr.32	s15, [sp, #8]
+ 121:Traitement.c  ****                 }else if (nZeros >=1){                
+ 122:Traitement.c  ****                     indexLastZero = i;
+ 123:Traitement.c  ****                 }
+ 124:Traitement.c  ****                 isZero = false;
+ 481              		.loc 1 124 0
+ 482 0090 0024     		movs	r4, #0
+ 483              	.LVL60:
+ 484 0092 0CE0     		b	.L20
+ 485              	.LVL61:
+ 486              	.L25:
+ 121:Traitement.c  ****                 }else if (nZeros >=1){                
+ 487              		.loc 1 121 0
+ 488 0094 BDF80630 		ldrh	r3, [sp, #6]
+ 489 0098 9BB2     		uxth	r3, r3
+ 490 009a 3BB1     		cbz	r3, .L29
+ 122:Traitement.c  ****                 }
+ 491              		.loc 1 122 0
+ 492 009c 07EE901A 		vmov	s15, r1	@ int
+ 493 00a0 F8EE677A 		vcvt.f32.u32	s15, s15
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 12
+
+
+ 494 00a4 CDED037A 		vstr.32	s15, [sp, #12]
+ 495              		.loc 1 124 0
+ 496 00a8 0024     		movs	r4, #0
+ 497              	.LVL62:
+ 498 00aa 00E0     		b	.L20
+ 499              	.LVL63:
+ 500              	.L29:
+ 501 00ac 0024     		movs	r4, #0
+ 502              	.LVL64:
+ 503              	.L20:
+ 107:Traitement.c  ****         if(signalRedAC[i] > 6 && signalRedAC[i+1] < 6) {
+ 504              		.loc 1 107 0 discriminator 2
+ 505 00ae 0131     		adds	r1, r1, #1
+ 506              	.LVL65:
+ 507 00b0 89B2     		uxth	r1, r1
+ 508              	.LVL66:
+ 509              	.L19:
+ 107:Traitement.c  ****         if(signalRedAC[i] > 6 && signalRedAC[i+1] < 6) {
+ 510              		.loc 1 107 0 is_stmt 0 discriminator 1
+ 511 00b2 0A46     		mov	r2, r1
+ 512 00b4 144B     		ldr	r3, .L32
+ 513 00b6 5B68     		ldr	r3, [r3, #4]
+ 514 00b8 013B     		subs	r3, r3, #1
+ 515 00ba 9942     		cmp	r1, r3
+ 516 00bc AAD3     		bcc	.L26
+ 517              	.LBE5:
+ 125:Traitement.c  ****             }
+ 126:Traitement.c  ****         }
+ 127:Traitement.c  ****     }
+ 128:Traitement.c  ****     // Calcul du BPM        
+ 129:Traitement.c  ****     BPM = round(60*(nZeros-1)/((indexLastZero-indexFirstZero)/Fs));
+ 518              		.loc 1 129 0 is_stmt 1
+ 519 00be BDF80630 		ldrh	r3, [sp, #6]
+ 520 00c2 9BB2     		uxth	r3, r3
+ 521 00c4 013B     		subs	r3, r3, #1
+ 522 00c6 C3EB0313 		rsb	r3, r3, r3, lsl #4
+ 523 00ca 9A00     		lsls	r2, r3, #2
+ 524 00cc DDED037A 		vldr.32	s15, [sp, #12]
+ 525 00d0 9DED027A 		vldr.32	s14, [sp, #8]
+ 526 00d4 77EEC77A 		vsub.f32	s15, s15, s14
+ 527 00d8 0B4B     		ldr	r3, .L32
+ 528 00da D3ED026A 		vldr.32	s13, [r3, #8]
+ 529 00de 87EEA67A 		vdiv.f32	s14, s15, s13
+ 530 00e2 07EE902A 		vmov	s15, r2	@ int
+ 531 00e6 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 532 00ea C7EE876A 		vdiv.f32	s13, s15, s14
+ 533 00ee 16EE900A 		vmov	r0, s13
+ 534              	.LVL67:
+ 535 00f2 FFF7FEFF 		bl	__aeabi_f2d
+ 536              	.LVL68:
+ 537 00f6 FFF7FEFF 		bl	round
+ 538              	.LVL69:
+ 539 00fa FFF7FEFF 		bl	__aeabi_d2uiz
+ 540              	.LVL70:
+ 541 00fe 80B2     		uxth	r0, r0
+ 542 0100 024B     		ldr	r3, .L32+4
+ 543 0102 1880     		strh	r0, [r3]	@ movhi
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 13
+
+
+ 130:Traitement.c  ****     return BPM;
+ 131:Traitement.c  **** }
+ 544              		.loc 1 131 0
+ 545 0104 04B0     		add	sp, sp, #16
+ 546              		.cfi_def_cfa_offset 8
+ 547              		@ sp needed
+ 548 0106 10BD     		pop	{r4, pc}
+ 549              	.LVL71:
+ 550              	.L33:
+ 551              		.align	2
+ 552              	.L32:
+ 553 0108 00000000 		.word	.LANCHOR2
+ 554 010c 00000000 		.word	BPM
+ 555              		.cfi_endproc
+ 556              	.LFE728:
+ 557              		.size	CalculBPM, .-CalculBPM
+ 558              		.section	.text.traitement_task,"ax",%progbits
+ 559              		.align	2
+ 560              		.global	traitement_task
+ 561              		.thumb
+ 562              		.thumb_func
+ 563              		.type	traitement_task, %function
+ 564              	traitement_task:
+ 565              	.LFB729:
+ 132:Traitement.c  **** 
+ 133:Traitement.c  **** 
+ 134:Traitement.c  **** /*Fonction effectuant le traitement du signal et retournant le signal rouge et
+ 135:Traitement.c  **** infrarouge filtré, le SpO2 et le BPM.*/
+ 136:Traitement.c  **** void traitement_task(){
+ 566              		.loc 1 136 0
+ 567              		.cfi_startproc
+ 568              		@ Volatile: function does not return.
+ 569              		@ args = 0, pretend = 0, frame = 0
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+ 571 0000 80B5     		push	{r7, lr}
+ 572              		.cfi_def_cfa_offset 8
+ 573              		.cfi_offset 7, -8
+ 574              		.cfi_offset 14, -4
+ 575              	.L36:
+ 137:Traitement.c  ****     
+ 138:Traitement.c  ****        
+ 139:Traitement.c  ****     for(;;){
+ 140:Traitement.c  ****         if(flagTraitement){
+ 576              		.loc 1 140 0
+ 577 0002 1F4B     		ldr	r3, .L38
+ 578 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 579 0006 002B     		cmp	r3, #0
+ 580 0008 36D0     		beq	.L35
+ 141:Traitement.c  **** 			//Filtrage du signal DC pour éliminer le bruit
+ 142:Traitement.c  ****             FilterLP(&buffer_Red[indexLecture], signal_Red_DC);
+ 581              		.loc 1 142 0
+ 582 000a 1E4C     		ldr	r4, .L38+4
+ 583 000c 2088     		ldrh	r0, [r4]
+ 584 000e 1E4E     		ldr	r6, .L38+8
+ 585 0010 DFF89480 		ldr	r8, .L38+40
+ 586 0014 3146     		mov	r1, r6
+ 587 0016 08EB8000 		add	r0, r8, r0, lsl #2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 14
+
+
+ 588 001a FFF7FEFF 		bl	FilterLP
+ 589              	.LVL72:
+ 143:Traitement.c  ****             FilterLP(&buffer_IR[indexLecture], signal_IR_DC);
+ 590              		.loc 1 143 0
+ 591 001e 2088     		ldrh	r0, [r4]
+ 592 0020 1A4F     		ldr	r7, .L38+12
+ 593 0022 1B4C     		ldr	r4, .L38+16
+ 594 0024 3946     		mov	r1, r7
+ 595 0026 04EB8000 		add	r0, r4, r0, lsl #2
+ 596 002a FFF7FEFF 		bl	FilterLP
+ 597              	.LVL73:
+ 144:Traitement.c  ****             
+ 145:Traitement.c  **** 			//Centrage du signal pour obtenir le signal AC
+ 146:Traitement.c  ****             Center(buffer_IR, signal_IR_AC);
+ 598              		.loc 1 146 0
+ 599 002e 194D     		ldr	r5, .L38+20
+ 600 0030 2946     		mov	r1, r5
+ 601 0032 2046     		mov	r0, r4
+ 602 0034 FFF7FEFF 		bl	Center
+ 603              	.LVL74:
+ 147:Traitement.c  ****             Center(buffer_Red, signal_Red_AC);
+ 604              		.loc 1 147 0
+ 605 0038 174C     		ldr	r4, .L38+24
+ 606 003a 2146     		mov	r1, r4
+ 607 003c 4046     		mov	r0, r8
+ 608 003e FFF7FEFF 		bl	Center
+ 609              	.LVL75:
+ 148:Traitement.c  ****             
+ 149:Traitement.c  **** 			//Filtrage du signal AC pour éliminer le bruit
+ 150:Traitement.c  ****             FilterLP(signal_IR_AC, signal_IR_AC);
+ 610              		.loc 1 150 0
+ 611 0042 2946     		mov	r1, r5
+ 612 0044 2846     		mov	r0, r5
+ 613 0046 FFF7FEFF 		bl	FilterLP
+ 614              	.LVL76:
+ 151:Traitement.c  ****             FilterLP(signal_Red_AC, signal_Red_AC);
+ 615              		.loc 1 151 0
+ 616 004a 2146     		mov	r1, r4
+ 617 004c 2046     		mov	r0, r4
+ 618 004e FFF7FEFF 		bl	FilterLP
+ 619              	.LVL77:
+ 152:Traitement.c  ****             
+ 153:Traitement.c  **** 			//Calcul du BPM et SpO2
+ 154:Traitement.c  ****             BPM = CalculBPM(signal_Red_AC);
+ 620              		.loc 1 154 0
+ 621 0052 2046     		mov	r0, r4
+ 622 0054 FFF7FEFF 		bl	CalculBPM
+ 623              	.LVL78:
+ 624 0058 104B     		ldr	r3, .L38+28
+ 625 005a 1880     		strh	r0, [r3]	@ movhi
+ 155:Traitement.c  ****             SpO2 = CalculSpO2(signal_Red_DC, signal_IR_DC, signal_Red_AC, signal_IR_AC);
+ 626              		.loc 1 155 0
+ 627 005c 2B46     		mov	r3, r5
+ 628 005e 2246     		mov	r2, r4
+ 629 0060 3946     		mov	r1, r7
+ 630 0062 3046     		mov	r0, r6
+ 631 0064 FFF7FEFF 		bl	CalculSpO2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 15
+
+
+ 632              	.LVL79:
+ 633 0068 0D4B     		ldr	r3, .L38+32
+ 634 006a 1880     		strh	r0, [r3]	@ movhi
+ 156:Traitement.c  ****             
+ 157:Traitement.c  **** 			//Modification des flags pour arrêter le traitement et commencer l'affichage
+ 158:Traitement.c  ****             flagAffichage = true;
+ 635              		.loc 1 158 0
+ 636 006c 0122     		movs	r2, #1
+ 637 006e 0D4B     		ldr	r3, .L38+36
+ 638 0070 1A70     		strb	r2, [r3]
+ 159:Traitement.c  ****             flagTraitement = false;
+ 639              		.loc 1 159 0
+ 640 0072 0022     		movs	r2, #0
+ 641 0074 024B     		ldr	r3, .L38
+ 642 0076 1A70     		strb	r2, [r3]
+ 643              	.L35:
+ 160:Traitement.c  ****         }
+ 161:Traitement.c  ****         vTaskDelay(pdMS_TO_TICKS(100));
+ 644              		.loc 1 161 0
+ 645 0078 6420     		movs	r0, #100
+ 646 007a FFF7FEFF 		bl	vTaskDelay
+ 647              	.LVL80:
+ 162:Traitement.c  ****     }
+ 648              		.loc 1 162 0
+ 649 007e C0E7     		b	.L36
+ 650              	.L39:
+ 651              		.align	2
+ 652              	.L38:
+ 653 0080 00000000 		.word	flagTraitement
+ 654 0084 00000000 		.word	indexLecture
+ 655 0088 00000000 		.word	signal_Red_DC
+ 656 008c 00000000 		.word	signal_IR_DC
+ 657 0090 00000000 		.word	buffer_IR
+ 658 0094 00000000 		.word	signal_IR_AC
+ 659 0098 00000000 		.word	signal_Red_AC
+ 660 009c 00000000 		.word	BPM
+ 661 00a0 00000000 		.word	SpO2
+ 662 00a4 00000000 		.word	flagAffichage
+ 663 00a8 00000000 		.word	buffer_Red
+ 664              		.cfi_endproc
+ 665              	.LFE729:
+ 666              		.size	traitement_task, .-traitement_task
+ 667              		.global	Fs
+ 668              		.global	dataLength
+ 669              		.global	numBlocks
+ 670              		.global	blockSize
+ 671              		.global	firCoeffsLPF
+ 672              		.comm	acceleration,8,8
+ 673              		.comm	IntensiteDELs,1,1
+ 674              		.comm	indexLecture,2,2
+ 675              		.comm	debut,1,1
+ 676              		.comm	flagAffichage,1,1
+ 677              		.comm	flagTraitement,1,1
+ 678              		.comm	signal_IR_DC,2000,4
+ 679              		.comm	signal_Red_DC,2000,4
+ 680              		.comm	signal_IR_AC,2000,4
+ 681              		.comm	signal_Red_AC,2000,4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 16
+
+
+ 682              		.comm	buffer_IR,4000,4
+ 683              		.comm	buffer_Red,4000,4
+ 684              		.comm	SpO2,2,2
+ 685              		.comm	BPM,2,2
+ 686              		.section	.rodata
+ 687              		.align	2
+ 688              		.set	.LANCHOR1,. + 0
+ 689              		.type	firCoeffsLPF, %object
+ 690              		.size	firCoeffsLPF, 164
+ 691              	firCoeffsLPF:
+ 692 0000 00000000 		.word	0
+ 693 0004 F796E7B9 		.word	-1176004873
+ 694 0008 AF1C8BBA 		.word	-1165288273
+ 695 000c 5FAE00BB 		.word	-1157583265
+ 696 0010 2C4F4FBB 		.word	-1152430292
+ 697 0014 22B994BB 		.word	-1147881182
+ 698 0018 E148BEBB 		.word	-1145157407
+ 699 001c B21BD6BB 		.word	-1143596110
+ 700 0020 3475CABB 		.word	-1144359628
+ 701 0024 659988BB 		.word	-1148675739
+ 702 0028 00000000 		.word	0
+ 703 002c CC4ADA3B 		.word	1004161740
+ 704 0030 6B2C823C 		.word	1015164011
+ 705 0034 30C8E03C 		.word	1021364272
+ 706 0038 1FD0263D 		.word	1025953823
+ 707 003c 9DBB603D 		.word	1029749661
+ 708 0040 23D28C3D 		.word	1032639011
+ 709 0044 BB52A63D 		.word	1034310331
+ 710 0048 5588BA3D 		.word	1035634773
+ 711 004c 5483C73D 		.word	1036485460
+ 712 0050 02FDCB3D 		.word	1036778754
+ 713 0054 5483C73D 		.word	1036485460
+ 714 0058 5588BA3D 		.word	1035634773
+ 715 005c BB52A63D 		.word	1034310331
+ 716 0060 23D28C3D 		.word	1032639011
+ 717 0064 9DBB603D 		.word	1029749661
+ 718 0068 1FD0263D 		.word	1025953823
+ 719 006c 30C8E03C 		.word	1021364272
+ 720 0070 6B2C823C 		.word	1015164011
+ 721 0074 CC4ADA3B 		.word	1004161740
+ 722 0078 00000000 		.word	0
+ 723 007c 659988BB 		.word	-1148675739
+ 724 0080 3475CABB 		.word	-1144359628
+ 725 0084 B21BD6BB 		.word	-1143596110
+ 726 0088 E148BEBB 		.word	-1145157407
+ 727 008c 22B994BB 		.word	-1147881182
+ 728 0090 2C4F4FBB 		.word	-1152430292
+ 729 0094 5FAE00BB 		.word	-1157583265
+ 730 0098 AF1C8BBA 		.word	-1165288273
+ 731 009c F796E7B9 		.word	-1176004873
+ 732 00a0 00000000 		.word	0
+ 733              		.data
+ 734              		.align	2
+ 735              		.set	.LANCHOR2,. + 0
+ 736              		.type	blockSize, %object
+ 737              		.size	blockSize, 4
+ 738              	blockSize:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 17
+
+
+ 739 0000 F4010000 		.word	500
+ 740              		.type	dataLength, %object
+ 741              		.size	dataLength, 4
+ 742              	dataLength:
+ 743 0004 F4010000 		.word	500
+ 744              		.type	Fs, %object
+ 745              		.size	Fs, 4
+ 746              	Fs:
+ 747 0008 0000C842 		.word	1120403456
+ 748              		.type	numBlocks, %object
+ 749              		.size	numBlocks, 4
+ 750              	numBlocks:
+ 751 000c 01000000 		.word	1
+ 752              		.bss
+ 753              		.align	2
+ 754              		.set	.LANCHOR0,. + 0
+ 755              		.type	firStateF32_LP, %object
+ 756              		.size	firStateF32_LP, 2160
+ 757              	firStateF32_LP:
+ 758 0000 00000000 		.space	2160
+ 758      00000000 
+ 758      00000000 
+ 758      00000000 
+ 758      00000000 
+ 759              		.text
+ 760              	.Letext0:
+ 761              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 762              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 763              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/device/cy_device.h"
+ 764              		.file 5 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/syslib/cy_syslib.h"
+ 765              		.file 6 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_i2c.h"
+ 766              		.file 7 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_spi.h"
+ 767              		.file 8 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_uart.h"
+ 768              		.file 9 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/tcpwm/cy_tcpwm_counter.h"
+ 769              		.file 10 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/tcpwm/cy_tcpwm_pwm.h"
+ 770              		.file 11 ".\\CMSIS\\DSP\\Include/arm_math.h"
+ 771              		.file 12 "Generated_Source\\PSoC6\\pdl\\rtos/FreeRTOS/10.0.1/Source/portable/GCC/CM4F/portmacro.h"
+ 772              		.file 13 ".\\CMSIS\\Core\\Include/core_cm4.h"
+ 773              		.file 14 "Generated_Source\\PSoC6/PWM.h"
+ 774              		.file 15 "Generated_Source\\PSoC6/CY_EINK_Timer.h"
+ 775              		.file 16 "Generated_Source\\PSoC6/CY_EINK_SPIM.h"
+ 776              		.file 17 "Generated_Source\\PSoC6/I2C_1.h"
+ 777              		.file 18 "Generated_Source\\PSoC6/UART_1.h"
+ 778              		.file 19 "Generated_Source\\PSoC6/I2C_2.h"
+ 779              		.file 20 "./Commun.h"
+ 780              		.file 21 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4
+ 781              		.file 22 "Generated_Source\\PSoC6\\pdl\\rtos/FreeRTOS/10.0.1/Source/include/task.h"
+ 782              		.section	.debug_info,"",%progbits
+ 783              	.Ldebug_info0:
+ 784 0000 AB110000 		.4byte	0x11ab
+ 785 0004 0400     		.2byte	0x4
+ 786 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 787 000a 04       		.byte	0x4
+ 788 000b 01       		.uleb128 0x1
+ 789 000c 5E020000 		.4byte	.LASF266
+ 790 0010 0C       		.byte	0xc
+ 791 0011 1B0E0000 		.4byte	.LASF267
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 18
+
+
+ 792 0015 F50B0000 		.4byte	.LASF268
+ 793 0019 30000000 		.4byte	.Ldebug_ranges0+0x30
+ 794 001d 00000000 		.4byte	0
+ 795 0021 00000000 		.4byte	.Ldebug_line0
+ 796 0025 02       		.uleb128 0x2
+ 797 0026 02       		.byte	0x2
+ 798 0027 05       		.byte	0x5
+ 799 0028 580B0000 		.4byte	.LASF0
+ 800 002c 02       		.uleb128 0x2
+ 801 002d 01       		.byte	0x1
+ 802 002e 06       		.byte	0x6
+ 803 002f 5B0E0000 		.4byte	.LASF1
+ 804 0033 03       		.uleb128 0x3
+ 805 0034 690C0000 		.4byte	.LASF3
+ 806 0038 02       		.byte	0x2
+ 807 0039 1D       		.byte	0x1d
+ 808 003a 3E000000 		.4byte	0x3e
+ 809 003e 02       		.uleb128 0x2
+ 810 003f 01       		.byte	0x1
+ 811 0040 08       		.byte	0x8
+ 812 0041 800D0000 		.4byte	.LASF2
+ 813 0045 03       		.uleb128 0x3
+ 814 0046 AC080000 		.4byte	.LASF4
+ 815 004a 02       		.byte	0x2
+ 816 004b 29       		.byte	0x29
+ 817 004c 25000000 		.4byte	0x25
+ 818 0050 03       		.uleb128 0x3
+ 819 0051 58060000 		.4byte	.LASF5
+ 820 0055 02       		.byte	0x2
+ 821 0056 2B       		.byte	0x2b
+ 822 0057 5B000000 		.4byte	0x5b
+ 823 005b 02       		.uleb128 0x2
+ 824 005c 02       		.byte	0x2
+ 825 005d 07       		.byte	0x7
+ 826 005e 340A0000 		.4byte	.LASF6
+ 827 0062 03       		.uleb128 0x3
+ 828 0063 3A010000 		.4byte	.LASF7
+ 829 0067 02       		.byte	0x2
+ 830 0068 3F       		.byte	0x3f
+ 831 0069 6D000000 		.4byte	0x6d
+ 832 006d 02       		.uleb128 0x2
+ 833 006e 04       		.byte	0x4
+ 834 006f 05       		.byte	0x5
+ 835 0070 8E0B0000 		.4byte	.LASF8
+ 836 0074 03       		.uleb128 0x3
+ 837 0075 8E0D0000 		.4byte	.LASF9
+ 838 0079 02       		.byte	0x2
+ 839 007a 41       		.byte	0x41
+ 840 007b 7F000000 		.4byte	0x7f
+ 841 007f 02       		.uleb128 0x2
+ 842 0080 04       		.byte	0x4
+ 843 0081 07       		.byte	0x7
+ 844 0082 FE0C0000 		.4byte	.LASF10
+ 845 0086 02       		.uleb128 0x2
+ 846 0087 08       		.byte	0x8
+ 847 0088 05       		.byte	0x5
+ 848 0089 14080000 		.4byte	.LASF11
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 19
+
+
+ 849 008d 02       		.uleb128 0x2
+ 850 008e 08       		.byte	0x8
+ 851 008f 07       		.byte	0x7
+ 852 0090 71040000 		.4byte	.LASF12
+ 853 0094 04       		.uleb128 0x4
+ 854 0095 04       		.byte	0x4
+ 855 0096 05       		.byte	0x5
+ 856 0097 696E7400 		.ascii	"int\000"
+ 857 009b 02       		.uleb128 0x2
+ 858 009c 04       		.byte	0x4
+ 859 009d 07       		.byte	0x7
+ 860 009e 730C0000 		.4byte	.LASF13
+ 861 00a2 03       		.uleb128 0x3
+ 862 00a3 6C070000 		.4byte	.LASF14
+ 863 00a7 03       		.byte	0x3
+ 864 00a8 18       		.byte	0x18
+ 865 00a9 33000000 		.4byte	0x33
+ 866 00ad 03       		.uleb128 0x3
+ 867 00ae 38040000 		.4byte	.LASF15
+ 868 00b2 03       		.byte	0x3
+ 869 00b3 20       		.byte	0x20
+ 870 00b4 45000000 		.4byte	0x45
+ 871 00b8 03       		.uleb128 0x3
+ 872 00b9 5D0A0000 		.4byte	.LASF16
+ 873 00bd 03       		.byte	0x3
+ 874 00be 24       		.byte	0x24
+ 875 00bf 50000000 		.4byte	0x50
+ 876 00c3 03       		.uleb128 0x3
+ 877 00c4 220D0000 		.4byte	.LASF17
+ 878 00c8 03       		.byte	0x3
+ 879 00c9 2C       		.byte	0x2c
+ 880 00ca 62000000 		.4byte	0x62
+ 881 00ce 03       		.uleb128 0x3
+ 882 00cf A4030000 		.4byte	.LASF18
+ 883 00d3 03       		.byte	0x3
+ 884 00d4 30       		.byte	0x30
+ 885 00d5 74000000 		.4byte	0x74
+ 886 00d9 02       		.uleb128 0x2
+ 887 00da 04       		.byte	0x4
+ 888 00db 07       		.byte	0x7
+ 889 00dc 170B0000 		.4byte	.LASF19
+ 890 00e0 05       		.uleb128 0x5
+ 891 00e1 CE000000 		.4byte	0xce
+ 892 00e5 05       		.uleb128 0x5
+ 893 00e6 B8000000 		.4byte	0xb8
+ 894 00ea 02       		.uleb128 0x2
+ 895 00eb 08       		.byte	0x8
+ 896 00ec 04       		.byte	0x4
+ 897 00ed 510A0000 		.4byte	.LASF20
+ 898 00f1 06       		.uleb128 0x6
+ 899 00f2 B8       		.byte	0xb8
+ 900 00f3 04       		.byte	0x4
+ 901 00f4 34       		.byte	0x34
+ 902 00f5 02050000 		.4byte	0x502
+ 903 00f9 07       		.uleb128 0x7
+ 904 00fa 44010000 		.4byte	.LASF21
+ 905 00fe 04       		.byte	0x4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 20
+
+
+ 906 00ff 37       		.byte	0x37
+ 907 0100 CE000000 		.4byte	0xce
+ 908 0104 00       		.byte	0
+ 909 0105 07       		.uleb128 0x7
+ 910 0106 B9060000 		.4byte	.LASF22
+ 911 010a 04       		.byte	0x4
+ 912 010b 38       		.byte	0x38
+ 913 010c CE000000 		.4byte	0xce
+ 914 0110 04       		.byte	0x4
+ 915 0111 07       		.uleb128 0x7
+ 916 0112 B4000000 		.4byte	.LASF23
+ 917 0116 04       		.byte	0x4
+ 918 0117 39       		.byte	0x39
+ 919 0118 CE000000 		.4byte	0xce
+ 920 011c 08       		.byte	0x8
+ 921 011d 07       		.uleb128 0x7
+ 922 011e D1040000 		.4byte	.LASF24
+ 923 0122 04       		.byte	0x4
+ 924 0123 3A       		.byte	0x3a
+ 925 0124 CE000000 		.4byte	0xce
+ 926 0128 0C       		.byte	0xc
+ 927 0129 07       		.uleb128 0x7
+ 928 012a EC0B0000 		.4byte	.LASF25
+ 929 012e 04       		.byte	0x4
+ 930 012f 3B       		.byte	0x3b
+ 931 0130 CE000000 		.4byte	0xce
+ 932 0134 10       		.byte	0x10
+ 933 0135 07       		.uleb128 0x7
+ 934 0136 C3080000 		.4byte	.LASF26
+ 935 013a 04       		.byte	0x4
+ 936 013b 3C       		.byte	0x3c
+ 937 013c CE000000 		.4byte	0xce
+ 938 0140 14       		.byte	0x14
+ 939 0141 07       		.uleb128 0x7
+ 940 0142 E9050000 		.4byte	.LASF27
+ 941 0146 04       		.byte	0x4
+ 942 0147 3D       		.byte	0x3d
+ 943 0148 CE000000 		.4byte	0xce
+ 944 014c 18       		.byte	0x18
+ 945 014d 07       		.uleb128 0x7
+ 946 014e EF0E0000 		.4byte	.LASF28
+ 947 0152 04       		.byte	0x4
+ 948 0153 3E       		.byte	0x3e
+ 949 0154 CE000000 		.4byte	0xce
+ 950 0158 1C       		.byte	0x1c
+ 951 0159 07       		.uleb128 0x7
+ 952 015a 22080000 		.4byte	.LASF29
+ 953 015e 04       		.byte	0x4
+ 954 015f 3F       		.byte	0x3f
+ 955 0160 CE000000 		.4byte	0xce
+ 956 0164 20       		.byte	0x20
+ 957 0165 07       		.uleb128 0x7
+ 958 0166 72060000 		.4byte	.LASF30
+ 959 016a 04       		.byte	0x4
+ 960 016b 40       		.byte	0x40
+ 961 016c CE000000 		.4byte	0xce
+ 962 0170 24       		.byte	0x24
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 21
+
+
+ 963 0171 07       		.uleb128 0x7
+ 964 0172 970B0000 		.4byte	.LASF31
+ 965 0176 04       		.byte	0x4
+ 966 0177 43       		.byte	0x43
+ 967 0178 A2000000 		.4byte	0xa2
+ 968 017c 28       		.byte	0x28
+ 969 017d 07       		.uleb128 0x7
+ 970 017e D3030000 		.4byte	.LASF32
+ 971 0182 04       		.byte	0x4
+ 972 0183 44       		.byte	0x44
+ 973 0184 A2000000 		.4byte	0xa2
+ 974 0188 29       		.byte	0x29
+ 975 0189 07       		.uleb128 0x7
+ 976 018a E80A0000 		.4byte	.LASF33
+ 977 018e 04       		.byte	0x4
+ 978 018f 45       		.byte	0x45
+ 979 0190 A2000000 		.4byte	0xa2
+ 980 0194 2A       		.byte	0x2a
+ 981 0195 07       		.uleb128 0x7
+ 982 0196 CC0B0000 		.4byte	.LASF34
+ 983 019a 04       		.byte	0x4
+ 984 019b 46       		.byte	0x46
+ 985 019c A2000000 		.4byte	0xa2
+ 986 01a0 2B       		.byte	0x2b
+ 987 01a1 07       		.uleb128 0x7
+ 988 01a2 C00B0000 		.4byte	.LASF35
+ 989 01a6 04       		.byte	0x4
+ 990 01a7 47       		.byte	0x47
+ 991 01a8 A2000000 		.4byte	0xa2
+ 992 01ac 2C       		.byte	0x2c
+ 993 01ad 07       		.uleb128 0x7
+ 994 01ae F10C0000 		.4byte	.LASF36
+ 995 01b2 04       		.byte	0x4
+ 996 01b3 48       		.byte	0x48
+ 997 01b4 A2000000 		.4byte	0xa2
+ 998 01b8 2D       		.byte	0x2d
+ 999 01b9 07       		.uleb128 0x7
+ 1000 01ba 740F0000 		.4byte	.LASF37
+ 1001 01be 04       		.byte	0x4
+ 1002 01bf 49       		.byte	0x49
+ 1003 01c0 A2000000 		.4byte	0xa2
+ 1004 01c4 2E       		.byte	0x2e
+ 1005 01c5 07       		.uleb128 0x7
+ 1006 01c6 D60E0000 		.4byte	.LASF38
+ 1007 01ca 04       		.byte	0x4
+ 1008 01cb 4A       		.byte	0x4a
+ 1009 01cc A2000000 		.4byte	0xa2
+ 1010 01d0 2F       		.byte	0x2f
+ 1011 01d1 07       		.uleb128 0x7
+ 1012 01d2 11030000 		.4byte	.LASF39
+ 1013 01d6 04       		.byte	0x4
+ 1014 01d7 4B       		.byte	0x4b
+ 1015 01d8 A2000000 		.4byte	0xa2
+ 1016 01dc 30       		.byte	0x30
+ 1017 01dd 07       		.uleb128 0x7
+ 1018 01de 58090000 		.4byte	.LASF40
+ 1019 01e2 04       		.byte	0x4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 22
+
+
+ 1020 01e3 4E       		.byte	0x4e
+ 1021 01e4 A2000000 		.4byte	0xa2
+ 1022 01e8 31       		.byte	0x31
+ 1023 01e9 07       		.uleb128 0x7
+ 1024 01ea 790E0000 		.4byte	.LASF41
+ 1025 01ee 04       		.byte	0x4
+ 1026 01ef 4F       		.byte	0x4f
+ 1027 01f0 A2000000 		.4byte	0xa2
+ 1028 01f4 32       		.byte	0x32
+ 1029 01f5 07       		.uleb128 0x7
+ 1030 01f6 16090000 		.4byte	.LASF42
+ 1031 01fa 04       		.byte	0x4
+ 1032 01fb 50       		.byte	0x50
+ 1033 01fc A2000000 		.4byte	0xa2
+ 1034 0200 33       		.byte	0x33
+ 1035 0201 07       		.uleb128 0x7
+ 1036 0202 9B060000 		.4byte	.LASF43
+ 1037 0206 04       		.byte	0x4
+ 1038 0207 51       		.byte	0x51
+ 1039 0208 A2000000 		.4byte	0xa2
+ 1040 020c 34       		.byte	0x34
+ 1041 020d 07       		.uleb128 0x7
+ 1042 020e BC040000 		.4byte	.LASF44
+ 1043 0212 04       		.byte	0x4
+ 1044 0213 52       		.byte	0x52
+ 1045 0214 AD000000 		.4byte	0xad
+ 1046 0218 36       		.byte	0x36
+ 1047 0219 07       		.uleb128 0x7
+ 1048 021a 6F010000 		.4byte	.LASF45
+ 1049 021e 04       		.byte	0x4
+ 1050 021f 53       		.byte	0x53
+ 1051 0220 AD000000 		.4byte	0xad
+ 1052 0224 38       		.byte	0x38
+ 1053 0225 07       		.uleb128 0x7
+ 1054 0226 400F0000 		.4byte	.LASF46
+ 1055 022a 04       		.byte	0x4
+ 1056 022b 54       		.byte	0x54
+ 1057 022c AD000000 		.4byte	0xad
+ 1058 0230 3A       		.byte	0x3a
+ 1059 0231 07       		.uleb128 0x7
+ 1060 0232 040F0000 		.4byte	.LASF47
+ 1061 0236 04       		.byte	0x4
+ 1062 0237 55       		.byte	0x55
+ 1063 0238 A2000000 		.4byte	0xa2
+ 1064 023c 3C       		.byte	0x3c
+ 1065 023d 07       		.uleb128 0x7
+ 1066 023e 67050000 		.4byte	.LASF48
+ 1067 0242 04       		.byte	0x4
+ 1068 0243 56       		.byte	0x56
+ 1069 0244 A2000000 		.4byte	0xa2
+ 1070 0248 3D       		.byte	0x3d
+ 1071 0249 07       		.uleb128 0x7
+ 1072 024a BC0A0000 		.4byte	.LASF49
+ 1073 024e 04       		.byte	0x4
+ 1074 024f 57       		.byte	0x57
+ 1075 0250 A2000000 		.4byte	0xa2
+ 1076 0254 3E       		.byte	0x3e
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 23
+
+
+ 1077 0255 07       		.uleb128 0x7
+ 1078 0256 13050000 		.4byte	.LASF50
+ 1079 025a 04       		.byte	0x4
+ 1080 025b 58       		.byte	0x58
+ 1081 025c A2000000 		.4byte	0xa2
+ 1082 0260 3F       		.byte	0x3f
+ 1083 0261 07       		.uleb128 0x7
+ 1084 0262 02010000 		.4byte	.LASF51
+ 1085 0266 04       		.byte	0x4
+ 1086 0267 59       		.byte	0x59
+ 1087 0268 A2000000 		.4byte	0xa2
+ 1088 026c 40       		.byte	0x40
+ 1089 026d 07       		.uleb128 0x7
+ 1090 026e 7B090000 		.4byte	.LASF52
+ 1091 0272 04       		.byte	0x4
+ 1092 0273 5A       		.byte	0x5a
+ 1093 0274 A2000000 		.4byte	0xa2
+ 1094 0278 41       		.byte	0x41
+ 1095 0279 07       		.uleb128 0x7
+ 1096 027a FB030000 		.4byte	.LASF53
+ 1097 027e 04       		.byte	0x4
+ 1098 027f 5B       		.byte	0x5b
+ 1099 0280 A2000000 		.4byte	0xa2
+ 1100 0284 42       		.byte	0x42
+ 1101 0285 07       		.uleb128 0x7
+ 1102 0286 23060000 		.4byte	.LASF54
+ 1103 028a 04       		.byte	0x4
+ 1104 028b 5C       		.byte	0x5c
+ 1105 028c A2000000 		.4byte	0xa2
+ 1106 0290 43       		.byte	0x43
+ 1107 0291 07       		.uleb128 0x7
+ 1108 0292 01070000 		.4byte	.LASF55
+ 1109 0296 04       		.byte	0x4
+ 1110 0297 5D       		.byte	0x5d
+ 1111 0298 A2000000 		.4byte	0xa2
+ 1112 029c 44       		.byte	0x44
+ 1113 029d 07       		.uleb128 0x7
+ 1114 029e DA0B0000 		.4byte	.LASF56
+ 1115 02a2 04       		.byte	0x4
+ 1116 02a3 5E       		.byte	0x5e
+ 1117 02a4 CE000000 		.4byte	0xce
+ 1118 02a8 48       		.byte	0x48
+ 1119 02a9 07       		.uleb128 0x7
+ 1120 02aa F7010000 		.4byte	.LASF57
+ 1121 02ae 04       		.byte	0x4
+ 1122 02af 5F       		.byte	0x5f
+ 1123 02b0 CE000000 		.4byte	0xce
+ 1124 02b4 4C       		.byte	0x4c
+ 1125 02b5 07       		.uleb128 0x7
+ 1126 02b6 330E0000 		.4byte	.LASF58
+ 1127 02ba 04       		.byte	0x4
+ 1128 02bb 60       		.byte	0x60
+ 1129 02bc A2000000 		.4byte	0xa2
+ 1130 02c0 50       		.byte	0x50
+ 1131 02c1 07       		.uleb128 0x7
+ 1132 02c2 72050000 		.4byte	.LASF59
+ 1133 02c6 04       		.byte	0x4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 24
+
+
+ 1134 02c7 61       		.byte	0x61
+ 1135 02c8 A2000000 		.4byte	0xa2
+ 1136 02cc 51       		.byte	0x51
+ 1137 02cd 07       		.uleb128 0x7
+ 1138 02ce 7D080000 		.4byte	.LASF60
+ 1139 02d2 04       		.byte	0x4
+ 1140 02d3 62       		.byte	0x62
+ 1141 02d4 A2000000 		.4byte	0xa2
+ 1142 02d8 52       		.byte	0x52
+ 1143 02d9 07       		.uleb128 0x7
+ 1144 02da E6090000 		.4byte	.LASF61
+ 1145 02de 04       		.byte	0x4
+ 1146 02df 63       		.byte	0x63
+ 1147 02e0 A2000000 		.4byte	0xa2
+ 1148 02e4 53       		.byte	0x53
+ 1149 02e5 07       		.uleb128 0x7
+ 1150 02e6 E40D0000 		.4byte	.LASF62
+ 1151 02ea 04       		.byte	0x4
+ 1152 02eb 64       		.byte	0x64
+ 1153 02ec A2000000 		.4byte	0xa2
+ 1154 02f0 54       		.byte	0x54
+ 1155 02f1 07       		.uleb128 0x7
+ 1156 02f2 B7050000 		.4byte	.LASF63
+ 1157 02f6 04       		.byte	0x4
+ 1158 02f7 65       		.byte	0x65
+ 1159 02f8 A2000000 		.4byte	0xa2
+ 1160 02fc 55       		.byte	0x55
+ 1161 02fd 07       		.uleb128 0x7
+ 1162 02fe 00000000 		.4byte	.LASF64
+ 1163 0302 04       		.byte	0x4
+ 1164 0303 66       		.byte	0x66
+ 1165 0304 A2000000 		.4byte	0xa2
+ 1166 0308 56       		.byte	0x56
+ 1167 0309 07       		.uleb128 0x7
+ 1168 030a F20A0000 		.4byte	.LASF65
+ 1169 030e 04       		.byte	0x4
+ 1170 030f 67       		.byte	0x67
+ 1171 0310 A2000000 		.4byte	0xa2
+ 1172 0314 57       		.byte	0x57
+ 1173 0315 07       		.uleb128 0x7
+ 1174 0316 53050000 		.4byte	.LASF66
+ 1175 031a 04       		.byte	0x4
+ 1176 031b 68       		.byte	0x68
+ 1177 031c A2000000 		.4byte	0xa2
+ 1178 0320 58       		.byte	0x58
+ 1179 0321 07       		.uleb128 0x7
+ 1180 0322 2C0F0000 		.4byte	.LASF67
+ 1181 0326 04       		.byte	0x4
+ 1182 0327 69       		.byte	0x69
+ 1183 0328 A2000000 		.4byte	0xa2
+ 1184 032c 59       		.byte	0x59
+ 1185 032d 07       		.uleb128 0x7
+ 1186 032e 6E0E0000 		.4byte	.LASF68
+ 1187 0332 04       		.byte	0x4
+ 1188 0333 6E       		.byte	0x6e
+ 1189 0334 B8000000 		.4byte	0xb8
+ 1190 0338 5A       		.byte	0x5a
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 25
+
+
+ 1191 0339 07       		.uleb128 0x7
+ 1192 033a C4000000 		.4byte	.LASF69
+ 1193 033e 04       		.byte	0x4
+ 1194 033f 6F       		.byte	0x6f
+ 1195 0340 B8000000 		.4byte	0xb8
+ 1196 0344 5C       		.byte	0x5c
+ 1197 0345 07       		.uleb128 0x7
+ 1198 0346 2A080000 		.4byte	.LASF70
+ 1199 034a 04       		.byte	0x4
+ 1200 034b 70       		.byte	0x70
+ 1201 034c A2000000 		.4byte	0xa2
+ 1202 0350 5E       		.byte	0x5e
+ 1203 0351 07       		.uleb128 0x7
+ 1204 0352 A30E0000 		.4byte	.LASF71
+ 1205 0356 04       		.byte	0x4
+ 1206 0357 71       		.byte	0x71
+ 1207 0358 A2000000 		.4byte	0xa2
+ 1208 035c 5F       		.byte	0x5f
+ 1209 035d 07       		.uleb128 0x7
+ 1210 035e 47060000 		.4byte	.LASF72
+ 1211 0362 04       		.byte	0x4
+ 1212 0363 72       		.byte	0x72
+ 1213 0364 A2000000 		.4byte	0xa2
+ 1214 0368 60       		.byte	0x60
+ 1215 0369 07       		.uleb128 0x7
+ 1216 036a 5B070000 		.4byte	.LASF73
+ 1217 036e 04       		.byte	0x4
+ 1218 036f 73       		.byte	0x73
+ 1219 0370 CE000000 		.4byte	0xce
+ 1220 0374 64       		.byte	0x64
+ 1221 0375 07       		.uleb128 0x7
+ 1222 0376 7F0F0000 		.4byte	.LASF74
+ 1223 037a 04       		.byte	0x4
+ 1224 037b 76       		.byte	0x76
+ 1225 037c B8000000 		.4byte	0xb8
+ 1226 0380 68       		.byte	0x68
+ 1227 0381 07       		.uleb128 0x7
+ 1228 0382 9D0A0000 		.4byte	.LASF75
+ 1229 0386 04       		.byte	0x4
+ 1230 0387 77       		.byte	0x77
+ 1231 0388 B8000000 		.4byte	0xb8
+ 1232 038c 6A       		.byte	0x6a
+ 1233 038d 07       		.uleb128 0x7
+ 1234 038e D9080000 		.4byte	.LASF76
+ 1235 0392 04       		.byte	0x4
+ 1236 0393 78       		.byte	0x78
+ 1237 0394 B8000000 		.4byte	0xb8
+ 1238 0398 6C       		.byte	0x6c
+ 1239 0399 07       		.uleb128 0x7
+ 1240 039a C5010000 		.4byte	.LASF77
+ 1241 039e 04       		.byte	0x4
+ 1242 039f 79       		.byte	0x79
+ 1243 03a0 B8000000 		.4byte	0xb8
+ 1244 03a4 6E       		.byte	0x6e
+ 1245 03a5 07       		.uleb128 0x7
+ 1246 03a6 8C070000 		.4byte	.LASF78
+ 1247 03aa 04       		.byte	0x4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 26
+
+
+ 1248 03ab 7B       		.byte	0x7b
+ 1249 03ac A2000000 		.4byte	0xa2
+ 1250 03b0 70       		.byte	0x70
+ 1251 03b1 07       		.uleb128 0x7
+ 1252 03b2 4D030000 		.4byte	.LASF79
+ 1253 03b6 04       		.byte	0x4
+ 1254 03b7 7C       		.byte	0x7c
+ 1255 03b8 A2000000 		.4byte	0xa2
+ 1256 03bc 71       		.byte	0x71
+ 1257 03bd 07       		.uleb128 0x7
+ 1258 03be D2010000 		.4byte	.LASF80
+ 1259 03c2 04       		.byte	0x4
+ 1260 03c3 7D       		.byte	0x7d
+ 1261 03c4 A2000000 		.4byte	0xa2
+ 1262 03c8 72       		.byte	0x72
+ 1263 03c9 07       		.uleb128 0x7
+ 1264 03ca 0F010000 		.4byte	.LASF81
+ 1265 03ce 04       		.byte	0x4
+ 1266 03cf 7E       		.byte	0x7e
+ 1267 03d0 A2000000 		.4byte	0xa2
+ 1268 03d4 73       		.byte	0x73
+ 1269 03d5 07       		.uleb128 0x7
+ 1270 03d6 460B0000 		.4byte	.LASF82
+ 1271 03da 04       		.byte	0x4
+ 1272 03db 80       		.byte	0x80
+ 1273 03dc B8000000 		.4byte	0xb8
+ 1274 03e0 74       		.byte	0x74
+ 1275 03e1 07       		.uleb128 0x7
+ 1276 03e2 F8090000 		.4byte	.LASF83
+ 1277 03e6 04       		.byte	0x4
+ 1278 03e7 81       		.byte	0x81
+ 1279 03e8 B8000000 		.4byte	0xb8
+ 1280 03ec 76       		.byte	0x76
+ 1281 03ed 07       		.uleb128 0x7
+ 1282 03ee B5070000 		.4byte	.LASF84
+ 1283 03f2 04       		.byte	0x4
+ 1284 03f3 82       		.byte	0x82
+ 1285 03f4 B8000000 		.4byte	0xb8
+ 1286 03f8 78       		.byte	0x78
+ 1287 03f9 07       		.uleb128 0x7
+ 1288 03fa 88040000 		.4byte	.LASF85
+ 1289 03fe 04       		.byte	0x4
+ 1290 03ff 83       		.byte	0x83
+ 1291 0400 B8000000 		.4byte	0xb8
+ 1292 0404 7A       		.byte	0x7a
+ 1293 0405 07       		.uleb128 0x7
+ 1294 0406 A0070000 		.4byte	.LASF86
+ 1295 040a 04       		.byte	0x4
+ 1296 040b 86       		.byte	0x86
+ 1297 040c A2000000 		.4byte	0xa2
+ 1298 0410 7C       		.byte	0x7c
+ 1299 0411 07       		.uleb128 0x7
+ 1300 0412 440E0000 		.4byte	.LASF87
+ 1301 0416 04       		.byte	0x4
+ 1302 0417 87       		.byte	0x87
+ 1303 0418 A2000000 		.4byte	0xa2
+ 1304 041c 7D       		.byte	0x7d
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 27
+
+
+ 1305 041d 07       		.uleb128 0x7
+ 1306 041e 50040000 		.4byte	.LASF88
+ 1307 0422 04       		.byte	0x4
+ 1308 0423 88       		.byte	0x88
+ 1309 0424 A2000000 		.4byte	0xa2
+ 1310 0428 7E       		.byte	0x7e
+ 1311 0429 07       		.uleb128 0x7
+ 1312 042a B9030000 		.4byte	.LASF89
+ 1313 042e 04       		.byte	0x4
+ 1314 042f 89       		.byte	0x89
+ 1315 0430 A2000000 		.4byte	0xa2
+ 1316 0434 7F       		.byte	0x7f
+ 1317 0435 07       		.uleb128 0x7
+ 1318 0436 9D040000 		.4byte	.LASF90
+ 1319 043a 04       		.byte	0x4
+ 1320 043b 8A       		.byte	0x8a
+ 1321 043c A2000000 		.4byte	0xa2
+ 1322 0440 80       		.byte	0x80
+ 1323 0441 07       		.uleb128 0x7
+ 1324 0442 55000000 		.4byte	.LASF91
+ 1325 0446 04       		.byte	0x4
+ 1326 0447 8D       		.byte	0x8d
+ 1327 0448 CE000000 		.4byte	0xce
+ 1328 044c 84       		.byte	0x84
+ 1329 044d 07       		.uleb128 0x7
+ 1330 044e 950C0000 		.4byte	.LASF92
+ 1331 0452 04       		.byte	0x4
+ 1332 0453 8E       		.byte	0x8e
+ 1333 0454 CE000000 		.4byte	0xce
+ 1334 0458 88       		.byte	0x88
+ 1335 0459 07       		.uleb128 0x7
+ 1336 045a 800A0000 		.4byte	.LASF93
+ 1337 045e 04       		.byte	0x4
+ 1338 045f 8F       		.byte	0x8f
+ 1339 0460 CE000000 		.4byte	0xce
+ 1340 0464 8C       		.byte	0x8c
+ 1341 0465 07       		.uleb128 0x7
+ 1342 0466 A8010000 		.4byte	.LASF94
+ 1343 046a 04       		.byte	0x4
+ 1344 046b 90       		.byte	0x90
+ 1345 046c CE000000 		.4byte	0xce
+ 1346 0470 90       		.byte	0x90
+ 1347 0471 07       		.uleb128 0x7
+ 1348 0472 540C0000 		.4byte	.LASF95
+ 1349 0476 04       		.byte	0x4
+ 1350 0477 91       		.byte	0x91
+ 1351 0478 CE000000 		.4byte	0xce
+ 1352 047c 94       		.byte	0x94
+ 1353 047d 07       		.uleb128 0x7
+ 1354 047e 62030000 		.4byte	.LASF96
+ 1355 0482 04       		.byte	0x4
+ 1356 0483 92       		.byte	0x92
+ 1357 0484 CE000000 		.4byte	0xce
+ 1358 0488 98       		.byte	0x98
+ 1359 0489 07       		.uleb128 0x7
+ 1360 048a CD0C0000 		.4byte	.LASF97
+ 1361 048e 04       		.byte	0x4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 28
+
+
+ 1362 048f 93       		.byte	0x93
+ 1363 0490 CE000000 		.4byte	0xce
+ 1364 0494 9C       		.byte	0x9c
+ 1365 0495 07       		.uleb128 0x7
+ 1366 0496 0D060000 		.4byte	.LASF98
+ 1367 049a 04       		.byte	0x4
+ 1368 049b 94       		.byte	0x94
+ 1369 049c CE000000 		.4byte	0xce
+ 1370 04a0 A0       		.byte	0xa0
+ 1371 04a1 07       		.uleb128 0x7
+ 1372 04a2 800C0000 		.4byte	.LASF99
+ 1373 04a6 04       		.byte	0x4
+ 1374 04a7 95       		.byte	0x95
+ 1375 04a8 B8000000 		.4byte	0xb8
+ 1376 04ac A4       		.byte	0xa4
+ 1377 04ad 07       		.uleb128 0x7
+ 1378 04ae 200B0000 		.4byte	.LASF100
+ 1379 04b2 04       		.byte	0x4
+ 1380 04b3 96       		.byte	0x96
+ 1381 04b4 B8000000 		.4byte	0xb8
+ 1382 04b8 A6       		.byte	0xa6
+ 1383 04b9 07       		.uleb128 0x7
+ 1384 04ba 100D0000 		.4byte	.LASF101
+ 1385 04be 04       		.byte	0x4
+ 1386 04bf 97       		.byte	0x97
+ 1387 04c0 B8000000 		.4byte	0xb8
+ 1388 04c4 A8       		.byte	0xa8
+ 1389 04c5 07       		.uleb128 0x7
+ 1390 04c6 06080000 		.4byte	.LASF102
+ 1391 04ca 04       		.byte	0x4
+ 1392 04cb 98       		.byte	0x98
+ 1393 04cc B8000000 		.4byte	0xb8
+ 1394 04d0 AA       		.byte	0xaa
+ 1395 04d1 07       		.uleb128 0x7
+ 1396 04d2 05020000 		.4byte	.LASF103
+ 1397 04d6 04       		.byte	0x4
+ 1398 04d7 99       		.byte	0x99
+ 1399 04d8 B8000000 		.4byte	0xb8
+ 1400 04dc AC       		.byte	0xac
+ 1401 04dd 07       		.uleb128 0x7
+ 1402 04de 9C090000 		.4byte	.LASF104
+ 1403 04e2 04       		.byte	0x4
+ 1404 04e3 9A       		.byte	0x9a
+ 1405 04e4 B8000000 		.4byte	0xb8
+ 1406 04e8 AE       		.byte	0xae
+ 1407 04e9 07       		.uleb128 0x7
+ 1408 04ea 13020000 		.4byte	.LASF105
+ 1409 04ee 04       		.byte	0x4
+ 1410 04ef 9D       		.byte	0x9d
+ 1411 04f0 B8000000 		.4byte	0xb8
+ 1412 04f4 B0       		.byte	0xb0
+ 1413 04f5 07       		.uleb128 0x7
+ 1414 04f6 990D0000 		.4byte	.LASF106
+ 1415 04fa 04       		.byte	0x4
+ 1416 04fb 9E       		.byte	0x9e
+ 1417 04fc CE000000 		.4byte	0xce
+ 1418 0500 B4       		.byte	0xb4
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 29
+
+
+ 1419 0501 00       		.byte	0
+ 1420 0502 03       		.uleb128 0x3
+ 1421 0503 C60E0000 		.4byte	.LASF107
+ 1422 0507 04       		.byte	0x4
+ 1423 0508 9F       		.byte	0x9f
+ 1424 0509 F1000000 		.4byte	0xf1
+ 1425 050d 02       		.uleb128 0x2
+ 1426 050e 01       		.byte	0x1
+ 1427 050f 08       		.byte	0x8
+ 1428 0510 C4060000 		.4byte	.LASF108
+ 1429 0514 08       		.uleb128 0x8
+ 1430 0515 EB040000 		.4byte	.LASF109
+ 1431 0519 05       		.byte	0x5
+ 1432 051a F701     		.2byte	0x1f7
+ 1433 051c 20050000 		.4byte	0x520
+ 1434 0520 02       		.uleb128 0x2
+ 1435 0521 04       		.byte	0x4
+ 1436 0522 04       		.byte	0x4
+ 1437 0523 CD030000 		.4byte	.LASF110
+ 1438 0527 02       		.uleb128 0x2
+ 1439 0528 08       		.byte	0x8
+ 1440 0529 04       		.byte	0x4
+ 1441 052a E80E0000 		.4byte	.LASF111
+ 1442 052e 08       		.uleb128 0x8
+ 1443 052f E20E0000 		.4byte	.LASF112
+ 1444 0533 05       		.byte	0x5
+ 1445 0534 EA03     		.2byte	0x3ea
+ 1446 0536 A2000000 		.4byte	0xa2
+ 1447 053a 09       		.uleb128 0x9
+ 1448 053b 04       		.byte	0x4
+ 1449 053c 02       		.uleb128 0x2
+ 1450 053d 01       		.byte	0x1
+ 1451 053e 02       		.byte	0x2
+ 1452 053f F40D0000 		.4byte	.LASF113
+ 1453 0543 0A       		.uleb128 0xa
+ 1454 0544 01       		.byte	0x1
+ 1455 0545 3E000000 		.4byte	0x3e
+ 1456 0549 06       		.byte	0x6
+ 1457 054a 2402     		.2byte	0x224
+ 1458 054c 5D050000 		.4byte	0x55d
+ 1459 0550 0B       		.uleb128 0xb
+ 1460 0551 81010000 		.4byte	.LASF114
+ 1461 0555 00       		.byte	0
+ 1462 0556 0B       		.uleb128 0xb
+ 1463 0557 21020000 		.4byte	.LASF115
+ 1464 055b 01       		.byte	0x1
+ 1465 055c 00       		.byte	0
+ 1466 055d 08       		.uleb128 0x8
+ 1467 055e C60D0000 		.4byte	.LASF116
+ 1468 0562 06       		.byte	0x6
+ 1469 0563 2702     		.2byte	0x227
+ 1470 0565 43050000 		.4byte	0x543
+ 1471 0569 08       		.uleb128 0x8
+ 1472 056a D4000000 		.4byte	.LASF117
+ 1473 056e 06       		.byte	0x6
+ 1474 056f 3902     		.2byte	0x239
+ 1475 0571 75050000 		.4byte	0x575
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 30
+
+
+ 1476 0575 0C       		.uleb128 0xc
+ 1477 0576 04       		.byte	0x4
+ 1478 0577 7B050000 		.4byte	0x57b
+ 1479 057b 0D       		.uleb128 0xd
+ 1480 057c 86050000 		.4byte	0x586
+ 1481 0580 0E       		.uleb128 0xe
+ 1482 0581 CE000000 		.4byte	0xce
+ 1483 0585 00       		.byte	0
+ 1484 0586 08       		.uleb128 0x8
+ 1485 0587 30020000 		.4byte	.LASF118
+ 1486 058b 06       		.byte	0x6
+ 1487 058c 4402     		.2byte	0x244
+ 1488 058e 92050000 		.4byte	0x592
+ 1489 0592 0C       		.uleb128 0xc
+ 1490 0593 04       		.byte	0x4
+ 1491 0594 98050000 		.4byte	0x598
+ 1492 0598 0F       		.uleb128 0xf
+ 1493 0599 5D050000 		.4byte	0x55d
+ 1494 059d A7050000 		.4byte	0x5a7
+ 1495 05a1 0E       		.uleb128 0xe
+ 1496 05a2 CE000000 		.4byte	0xce
+ 1497 05a6 00       		.byte	0
+ 1498 05a7 10       		.uleb128 0x10
+ 1499 05a8 98050000 		.4byte	.LASF142
+ 1500 05ac 4C       		.byte	0x4c
+ 1501 05ad 06       		.byte	0x6
+ 1502 05ae C302     		.2byte	0x2c3
+ 1503 05b0 C6060000 		.4byte	0x6c6
+ 1504 05b4 11       		.uleb128 0x11
+ 1505 05b5 D5050000 		.4byte	.LASF119
+ 1506 05b9 06       		.byte	0x6
+ 1507 05ba C602     		.2byte	0x2c6
+ 1508 05bc 3C050000 		.4byte	0x53c
+ 1509 05c0 00       		.byte	0
+ 1510 05c1 11       		.uleb128 0x11
+ 1511 05c2 A2080000 		.4byte	.LASF120
+ 1512 05c6 06       		.byte	0x6
+ 1513 05c7 C702     		.2byte	0x2c7
+ 1514 05c9 3C050000 		.4byte	0x53c
+ 1515 05cd 01       		.byte	0x1
+ 1516 05ce 11       		.uleb128 0x11
+ 1517 05cf 0F0E0000 		.4byte	.LASF121
+ 1518 05d3 06       		.byte	0x6
+ 1519 05d4 C902     		.2byte	0x2c9
+ 1520 05d6 E0000000 		.4byte	0xe0
+ 1521 05da 04       		.byte	0x4
+ 1522 05db 11       		.uleb128 0x11
+ 1523 05dc 7A000000 		.4byte	.LASF122
+ 1524 05e0 06       		.byte	0x6
+ 1525 05e1 CB02     		.2byte	0x2cb
+ 1526 05e3 E0000000 		.4byte	0xe0
+ 1527 05e7 08       		.byte	0x8
+ 1528 05e8 11       		.uleb128 0x11
+ 1529 05e9 AA090000 		.4byte	.LASF123
+ 1530 05ed 06       		.byte	0x6
+ 1531 05ee CC02     		.2byte	0x2cc
+ 1532 05f0 3C050000 		.4byte	0x53c
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 31
+
+
+ 1533 05f4 0C       		.byte	0xc
+ 1534 05f5 11       		.uleb128 0x11
+ 1535 05f6 CD080000 		.4byte	.LASF124
+ 1536 05fa 06       		.byte	0x6
+ 1537 05fb CD02     		.2byte	0x2cd
+ 1538 05fd 3C050000 		.4byte	0x53c
+ 1539 0601 0D       		.byte	0xd
+ 1540 0602 11       		.uleb128 0x11
+ 1541 0603 AF0A0000 		.4byte	.LASF125
+ 1542 0607 06       		.byte	0x6
+ 1543 0608 CF02     		.2byte	0x2cf
+ 1544 060a C6060000 		.4byte	0x6c6
+ 1545 060e 10       		.byte	0x10
+ 1546 060f 11       		.uleb128 0x11
+ 1547 0610 12070000 		.4byte	.LASF126
+ 1548 0614 06       		.byte	0x6
+ 1549 0615 D002     		.2byte	0x2d0
+ 1550 0617 CE000000 		.4byte	0xce
+ 1551 061b 14       		.byte	0x14
+ 1552 061c 11       		.uleb128 0x11
+ 1553 061d F2000000 		.4byte	.LASF127
+ 1554 0621 06       		.byte	0x6
+ 1555 0622 D102     		.2byte	0x2d1
+ 1556 0624 E0000000 		.4byte	0xe0
+ 1557 0628 18       		.byte	0x18
+ 1558 0629 11       		.uleb128 0x11
+ 1559 062a 7D060000 		.4byte	.LASF128
+ 1560 062e 06       		.byte	0x6
+ 1561 062f D202     		.2byte	0x2d2
+ 1562 0631 E0000000 		.4byte	0xe0
+ 1563 0635 1C       		.byte	0x1c
+ 1564 0636 11       		.uleb128 0x11
+ 1565 0637 990F0000 		.4byte	.LASF129
+ 1566 063b 06       		.byte	0x6
+ 1567 063c D402     		.2byte	0x2d4
+ 1568 063e E0000000 		.4byte	0xe0
+ 1569 0642 20       		.byte	0x20
+ 1570 0643 11       		.uleb128 0x11
+ 1571 0644 F5040000 		.4byte	.LASF130
+ 1572 0648 06       		.byte	0x6
+ 1573 0649 D502     		.2byte	0x2d5
+ 1574 064b CC060000 		.4byte	0x6cc
+ 1575 064f 24       		.byte	0x24
+ 1576 0650 11       		.uleb128 0x11
+ 1577 0651 78030000 		.4byte	.LASF131
+ 1578 0655 06       		.byte	0x6
+ 1579 0656 D702     		.2byte	0x2d7
+ 1580 0658 C6060000 		.4byte	0x6c6
+ 1581 065c 28       		.byte	0x28
+ 1582 065d 11       		.uleb128 0x11
+ 1583 065e D9040000 		.4byte	.LASF132
+ 1584 0662 06       		.byte	0x6
+ 1585 0663 D802     		.2byte	0x2d8
+ 1586 0665 CE000000 		.4byte	0xce
+ 1587 0669 2C       		.byte	0x2c
+ 1588 066a 11       		.uleb128 0x11
+ 1589 066b 93030000 		.4byte	.LASF133
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 32
+
+
+ 1590 066f 06       		.byte	0x6
+ 1591 0670 D902     		.2byte	0x2d9
+ 1592 0672 E0000000 		.4byte	0xe0
+ 1593 0676 30       		.byte	0x30
+ 1594 0677 11       		.uleb128 0x11
+ 1595 0678 7B070000 		.4byte	.LASF134
+ 1596 067c 06       		.byte	0x6
+ 1597 067d DA02     		.2byte	0x2da
+ 1598 067f E0000000 		.4byte	0xe0
+ 1599 0683 34       		.byte	0x34
+ 1600 0684 11       		.uleb128 0x11
+ 1601 0685 4E010000 		.4byte	.LASF135
+ 1602 0689 06       		.byte	0x6
+ 1603 068a DC02     		.2byte	0x2dc
+ 1604 068c C6060000 		.4byte	0x6c6
+ 1605 0690 38       		.byte	0x38
+ 1606 0691 11       		.uleb128 0x11
+ 1607 0692 220A0000 		.4byte	.LASF136
+ 1608 0696 06       		.byte	0x6
+ 1609 0697 DD02     		.2byte	0x2dd
+ 1610 0699 CE000000 		.4byte	0xce
+ 1611 069d 3C       		.byte	0x3c
+ 1612 069e 11       		.uleb128 0x11
+ 1613 069f 8B090000 		.4byte	.LASF137
+ 1614 06a3 06       		.byte	0x6
+ 1615 06a4 DE02     		.2byte	0x2de
+ 1616 06a6 E0000000 		.4byte	0xe0
+ 1617 06aa 40       		.byte	0x40
+ 1618 06ab 11       		.uleb128 0x11
+ 1619 06ac 84050000 		.4byte	.LASF138
+ 1620 06b0 06       		.byte	0x6
+ 1621 06b1 E402     		.2byte	0x2e4
+ 1622 06b3 69050000 		.4byte	0x569
+ 1623 06b7 44       		.byte	0x44
+ 1624 06b8 11       		.uleb128 0x11
+ 1625 06b9 7A010000 		.4byte	.LASF139
+ 1626 06bd 06       		.byte	0x6
+ 1627 06be EB02     		.2byte	0x2eb
+ 1628 06c0 86050000 		.4byte	0x586
+ 1629 06c4 48       		.byte	0x48
+ 1630 06c5 00       		.byte	0
+ 1631 06c6 0C       		.uleb128 0xc
+ 1632 06c7 04       		.byte	0x4
+ 1633 06c8 A2000000 		.4byte	0xa2
+ 1634 06cc 05       		.uleb128 0x5
+ 1635 06cd 3C050000 		.4byte	0x53c
+ 1636 06d1 08       		.uleb128 0x8
+ 1637 06d2 130F0000 		.4byte	.LASF140
+ 1638 06d6 06       		.byte	0x6
+ 1639 06d7 EE02     		.2byte	0x2ee
+ 1640 06d9 A7050000 		.4byte	0x5a7
+ 1641 06dd 08       		.uleb128 0x8
+ 1642 06de 14000000 		.4byte	.LASF141
+ 1643 06e2 07       		.byte	0x7
+ 1644 06e3 F201     		.2byte	0x1f2
+ 1645 06e5 75050000 		.4byte	0x575
+ 1646 06e9 10       		.uleb128 0x10
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 33
+
+
+ 1647 06ea AC0C0000 		.4byte	.LASF143
+ 1648 06ee 24       		.byte	0x24
+ 1649 06ef 07       		.byte	0x7
+ 1650 06f0 7402     		.2byte	0x274
+ 1651 06f2 6C070000 		.4byte	0x76c
+ 1652 06f6 11       		.uleb128 0x11
+ 1653 06f7 74070000 		.4byte	.LASF144
+ 1654 06fb 07       		.byte	0x7
+ 1655 06fc 7702     		.2byte	0x277
+ 1656 06fe E0000000 		.4byte	0xe0
+ 1657 0702 00       		.byte	0
+ 1658 0703 11       		.uleb128 0x11
+ 1659 0704 550F0000 		.4byte	.LASF145
+ 1660 0708 07       		.byte	0x7
+ 1661 0709 7902     		.2byte	0x279
+ 1662 070b 3A050000 		.4byte	0x53a
+ 1663 070f 04       		.byte	0x4
+ 1664 0710 11       		.uleb128 0x11
+ 1665 0711 8F0F0000 		.4byte	.LASF146
+ 1666 0715 07       		.byte	0x7
+ 1667 0716 7A02     		.2byte	0x27a
+ 1668 0718 CE000000 		.4byte	0xce
+ 1669 071c 08       		.byte	0x8
+ 1670 071d 11       		.uleb128 0x11
+ 1671 071e 3E070000 		.4byte	.LASF147
+ 1672 0722 07       		.byte	0x7
+ 1673 0723 7B02     		.2byte	0x27b
+ 1674 0725 E0000000 		.4byte	0xe0
+ 1675 0729 0C       		.byte	0xc
+ 1676 072a 11       		.uleb128 0x11
+ 1677 072b C7090000 		.4byte	.LASF148
+ 1678 072f 07       		.byte	0x7
+ 1679 0730 7D02     		.2byte	0x27d
+ 1680 0732 3A050000 		.4byte	0x53a
+ 1681 0736 10       		.byte	0x10
+ 1682 0737 11       		.uleb128 0x11
+ 1683 0738 4E090000 		.4byte	.LASF149
+ 1684 073c 07       		.byte	0x7
+ 1685 073d 7E02     		.2byte	0x27e
+ 1686 073f CE000000 		.4byte	0xce
+ 1687 0743 14       		.byte	0x14
+ 1688 0744 11       		.uleb128 0x11
+ 1689 0745 26010000 		.4byte	.LASF150
+ 1690 0749 07       		.byte	0x7
+ 1691 074a 7F02     		.2byte	0x27f
+ 1692 074c E0000000 		.4byte	0xe0
+ 1693 0750 18       		.byte	0x18
+ 1694 0751 11       		.uleb128 0x11
+ 1695 0752 84050000 		.4byte	.LASF138
+ 1696 0756 07       		.byte	0x7
+ 1697 0757 8502     		.2byte	0x285
+ 1698 0759 DD060000 		.4byte	0x6dd
+ 1699 075d 1C       		.byte	0x1c
+ 1700 075e 11       		.uleb128 0x11
+ 1701 075f 53070000 		.4byte	.LASF151
+ 1702 0763 07       		.byte	0x7
+ 1703 0764 8802     		.2byte	0x288
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 34
+
+
+ 1704 0766 CE000000 		.4byte	0xce
+ 1705 076a 20       		.byte	0x20
+ 1706 076b 00       		.byte	0
+ 1707 076c 08       		.uleb128 0x8
+ 1708 076d EF080000 		.4byte	.LASF152
+ 1709 0771 07       		.byte	0x7
+ 1710 0772 8B02     		.2byte	0x28b
+ 1711 0774 E9060000 		.4byte	0x6e9
+ 1712 0778 08       		.uleb128 0x8
+ 1713 0779 CA070000 		.4byte	.LASF153
+ 1714 077d 08       		.byte	0x8
+ 1715 077e D901     		.2byte	0x1d9
+ 1716 0780 75050000 		.4byte	0x575
+ 1717 0784 10       		.uleb128 0x10
+ 1718 0785 14040000 		.4byte	.LASF154
+ 1719 0789 38       		.byte	0x38
+ 1720 078a 08       		.byte	0x8
+ 1721 078b 7502     		.2byte	0x275
+ 1722 078d 48080000 		.4byte	0x848
+ 1723 0791 11       		.uleb128 0x11
+ 1724 0792 AB000000 		.4byte	.LASF155
+ 1725 0796 08       		.byte	0x8
+ 1726 0797 7802     		.2byte	0x278
+ 1727 0799 E0000000 		.4byte	0xe0
+ 1728 079d 00       		.byte	0
+ 1729 079e 11       		.uleb128 0x11
+ 1730 079f 3F050000 		.4byte	.LASF156
+ 1731 07a3 08       		.byte	0x8
+ 1732 07a4 7902     		.2byte	0x279
+ 1733 07a6 E0000000 		.4byte	0xe0
+ 1734 07aa 04       		.byte	0x4
+ 1735 07ab 11       		.uleb128 0x11
+ 1736 07ac 470A0000 		.4byte	.LASF157
+ 1737 07b0 08       		.byte	0x8
+ 1738 07b1 7B02     		.2byte	0x27b
+ 1739 07b3 3A050000 		.4byte	0x53a
+ 1740 07b7 08       		.byte	0x8
+ 1741 07b8 11       		.uleb128 0x11
+ 1742 07b9 9A010000 		.4byte	.LASF158
+ 1743 07bd 08       		.byte	0x8
+ 1744 07be 7C02     		.2byte	0x27c
+ 1745 07c0 CE000000 		.4byte	0xce
+ 1746 07c4 0C       		.byte	0xc
+ 1747 07c5 11       		.uleb128 0x11
+ 1748 07c6 08090000 		.4byte	.LASF159
+ 1749 07ca 08       		.byte	0x8
+ 1750 07cb 7D02     		.2byte	0x27d
+ 1751 07cd E0000000 		.4byte	0xe0
+ 1752 07d1 10       		.byte	0x10
+ 1753 07d2 11       		.uleb128 0x11
+ 1754 07d3 E6060000 		.4byte	.LASF160
+ 1755 07d7 08       		.byte	0x8
+ 1756 07d8 7E02     		.2byte	0x27e
+ 1757 07da E0000000 		.4byte	0xe0
+ 1758 07de 14       		.byte	0x14
+ 1759 07df 11       		.uleb128 0x11
+ 1760 07e0 550F0000 		.4byte	.LASF145
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 35
+
+
+ 1761 07e4 08       		.byte	0x8
+ 1762 07e5 8002     		.2byte	0x280
+ 1763 07e7 3A050000 		.4byte	0x53a
+ 1764 07eb 18       		.byte	0x18
+ 1765 07ec 11       		.uleb128 0x11
+ 1766 07ed 8F0F0000 		.4byte	.LASF146
+ 1767 07f1 08       		.byte	0x8
+ 1768 07f2 8102     		.2byte	0x281
+ 1769 07f4 CE000000 		.4byte	0xce
+ 1770 07f8 1C       		.byte	0x1c
+ 1771 07f9 11       		.uleb128 0x11
+ 1772 07fa 3E070000 		.4byte	.LASF147
+ 1773 07fe 08       		.byte	0x8
+ 1774 07ff 8202     		.2byte	0x282
+ 1775 0801 E0000000 		.4byte	0xe0
+ 1776 0805 20       		.byte	0x20
+ 1777 0806 11       		.uleb128 0x11
+ 1778 0807 C7090000 		.4byte	.LASF148
+ 1779 080b 08       		.byte	0x8
+ 1780 080c 8402     		.2byte	0x284
+ 1781 080e 3A050000 		.4byte	0x53a
+ 1782 0812 24       		.byte	0x24
+ 1783 0813 11       		.uleb128 0x11
+ 1784 0814 4E090000 		.4byte	.LASF149
+ 1785 0818 08       		.byte	0x8
+ 1786 0819 8502     		.2byte	0x285
+ 1787 081b CE000000 		.4byte	0xce
+ 1788 081f 28       		.byte	0x28
+ 1789 0820 11       		.uleb128 0x11
+ 1790 0821 430C0000 		.4byte	.LASF161
+ 1791 0825 08       		.byte	0x8
+ 1792 0826 8602     		.2byte	0x286
+ 1793 0828 E0000000 		.4byte	0xe0
+ 1794 082c 2C       		.byte	0x2c
+ 1795 082d 11       		.uleb128 0x11
+ 1796 082e 84050000 		.4byte	.LASF138
+ 1797 0832 08       		.byte	0x8
+ 1798 0833 8B02     		.2byte	0x28b
+ 1799 0835 78070000 		.4byte	0x778
+ 1800 0839 30       		.byte	0x30
+ 1801 083a 11       		.uleb128 0x11
+ 1802 083b 53070000 		.4byte	.LASF151
+ 1803 083f 08       		.byte	0x8
+ 1804 0840 8E02     		.2byte	0x28e
+ 1805 0842 CE000000 		.4byte	0xce
+ 1806 0846 34       		.byte	0x34
+ 1807 0847 00       		.byte	0
+ 1808 0848 08       		.uleb128 0x8
+ 1809 0849 E1030000 		.4byte	.LASF162
+ 1810 084d 08       		.byte	0x8
+ 1811 084e 9102     		.2byte	0x291
+ 1812 0850 84070000 		.4byte	0x784
+ 1813 0854 12       		.uleb128 0x12
+ 1814 0855 870E0000 		.4byte	.LASF163
+ 1815 0859 4C       		.byte	0x4c
+ 1816 085a 09       		.byte	0x9
+ 1817 085b 2F       		.byte	0x2f
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 36
+
+
+ 1818 085c 45090000 		.4byte	0x945
+ 1819 0860 07       		.uleb128 0x7
+ 1820 0861 670E0000 		.4byte	.LASF164
+ 1821 0865 09       		.byte	0x9
+ 1822 0866 31       		.byte	0x31
+ 1823 0867 CE000000 		.4byte	0xce
+ 1824 086b 00       		.byte	0
+ 1825 086c 07       		.uleb128 0x7
+ 1826 086d 2F070000 		.4byte	.LASF165
+ 1827 0871 09       		.byte	0x9
+ 1828 0872 33       		.byte	0x33
+ 1829 0873 CE000000 		.4byte	0xce
+ 1830 0877 04       		.byte	0x4
+ 1831 0878 07       		.uleb128 0x7
+ 1832 0879 950A0000 		.4byte	.LASF166
+ 1833 087d 09       		.byte	0x9
+ 1834 087e 34       		.byte	0x34
+ 1835 087f CE000000 		.4byte	0xce
+ 1836 0883 08       		.byte	0x8
+ 1837 0884 07       		.uleb128 0x7
+ 1838 0885 340C0000 		.4byte	.LASF167
+ 1839 0889 09       		.byte	0x9
+ 1840 088a 35       		.byte	0x35
+ 1841 088b CE000000 		.4byte	0xce
+ 1842 088f 0C       		.byte	0xc
+ 1843 0890 07       		.uleb128 0x7
+ 1844 0891 350B0000 		.4byte	.LASF168
+ 1845 0895 09       		.byte	0x9
+ 1846 0896 37       		.byte	0x37
+ 1847 0897 CE000000 		.4byte	0xce
+ 1848 089b 10       		.byte	0x10
+ 1849 089c 07       		.uleb128 0x7
+ 1850 089d 4C020000 		.4byte	.LASF169
+ 1851 08a1 09       		.byte	0x9
+ 1852 08a2 38       		.byte	0x38
+ 1853 08a3 CE000000 		.4byte	0xce
+ 1854 08a7 14       		.byte	0x14
+ 1855 08a8 07       		.uleb128 0x7
+ 1856 08a9 55020000 		.4byte	.LASF170
+ 1857 08ad 09       		.byte	0x9
+ 1858 08ae 39       		.byte	0x39
+ 1859 08af CE000000 		.4byte	0xce
+ 1860 08b3 18       		.byte	0x18
+ 1861 08b4 07       		.uleb128 0x7
+ 1862 08b5 7C0B0000 		.4byte	.LASF171
+ 1863 08b9 09       		.byte	0x9
+ 1864 08ba 3A       		.byte	0x3a
+ 1865 08bb 3C050000 		.4byte	0x53c
+ 1866 08bf 1C       		.byte	0x1c
+ 1867 08c0 07       		.uleb128 0x7
+ 1868 08c1 6B0B0000 		.4byte	.LASF172
+ 1869 08c5 09       		.byte	0x9
+ 1870 08c6 3C       		.byte	0x3c
+ 1871 08c7 CE000000 		.4byte	0xce
+ 1872 08cb 20       		.byte	0x20
+ 1873 08cc 07       		.uleb128 0x7
+ 1874 08cd 2E050000 		.4byte	.LASF173
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 37
+
+
+ 1875 08d1 09       		.byte	0x9
+ 1876 08d2 3D       		.byte	0x3d
+ 1877 08d3 CE000000 		.4byte	0xce
+ 1878 08d7 24       		.byte	0x24
+ 1879 08d8 07       		.uleb128 0x7
+ 1880 08d9 AC060000 		.4byte	.LASF174
+ 1881 08dd 09       		.byte	0x9
+ 1882 08de 3F       		.byte	0x3f
+ 1883 08df CE000000 		.4byte	0xce
+ 1884 08e3 28       		.byte	0x28
+ 1885 08e4 07       		.uleb128 0x7
+ 1886 08e5 30090000 		.4byte	.LASF175
+ 1887 08e9 09       		.byte	0x9
+ 1888 08ea 40       		.byte	0x40
+ 1889 08eb CE000000 		.4byte	0xce
+ 1890 08ef 2C       		.byte	0x2c
+ 1891 08f0 07       		.uleb128 0x7
+ 1892 08f1 2C040000 		.4byte	.LASF176
+ 1893 08f5 09       		.byte	0x9
+ 1894 08f6 42       		.byte	0x42
+ 1895 08f7 CE000000 		.4byte	0xce
+ 1896 08fb 30       		.byte	0x30
+ 1897 08fc 07       		.uleb128 0x7
+ 1898 08fd 1F050000 		.4byte	.LASF177
+ 1899 0901 09       		.byte	0x9
+ 1900 0902 43       		.byte	0x43
+ 1901 0903 CE000000 		.4byte	0xce
+ 1902 0907 34       		.byte	0x34
+ 1903 0908 07       		.uleb128 0x7
+ 1904 0909 2F010000 		.4byte	.LASF178
+ 1905 090d 09       		.byte	0x9
+ 1906 090e 45       		.byte	0x45
+ 1907 090f CE000000 		.4byte	0xce
+ 1908 0913 38       		.byte	0x38
+ 1909 0914 07       		.uleb128 0x7
+ 1910 0915 32000000 		.4byte	.LASF179
+ 1911 0919 09       		.byte	0x9
+ 1912 091a 46       		.byte	0x46
+ 1913 091b CE000000 		.4byte	0xce
+ 1914 091f 3C       		.byte	0x3c
+ 1915 0920 07       		.uleb128 0x7
+ 1916 0921 90010000 		.4byte	.LASF180
+ 1917 0925 09       		.byte	0x9
+ 1918 0926 48       		.byte	0x48
+ 1919 0927 CE000000 		.4byte	0xce
+ 1920 092b 40       		.byte	0x40
+ 1921 092c 07       		.uleb128 0x7
+ 1922 092d B10B0000 		.4byte	.LASF181
+ 1923 0931 09       		.byte	0x9
+ 1924 0932 49       		.byte	0x49
+ 1925 0933 CE000000 		.4byte	0xce
+ 1926 0937 44       		.byte	0x44
+ 1927 0938 07       		.uleb128 0x7
+ 1928 0939 AD0D0000 		.4byte	.LASF182
+ 1929 093d 09       		.byte	0x9
+ 1930 093e 4B       		.byte	0x4b
+ 1931 093f CE000000 		.4byte	0xce
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 38
+
+
+ 1932 0943 48       		.byte	0x48
+ 1933 0944 00       		.byte	0
+ 1934 0945 03       		.uleb128 0x3
+ 1935 0946 CA0A0000 		.4byte	.LASF183
+ 1936 094a 09       		.byte	0x9
+ 1937 094b 4C       		.byte	0x4c
+ 1938 094c 54080000 		.4byte	0x854
+ 1939 0950 12       		.uleb128 0x12
+ 1940 0951 2A030000 		.4byte	.LASF184
+ 1941 0955 64       		.byte	0x64
+ 1942 0956 0A       		.byte	0xa
+ 1943 0957 2F       		.byte	0x2f
+ 1944 0958 890A0000 		.4byte	0xa89
+ 1945 095c 07       		.uleb128 0x7
+ 1946 095d BD010000 		.4byte	.LASF185
+ 1947 0961 0A       		.byte	0xa
+ 1948 0962 31       		.byte	0x31
+ 1949 0963 CE000000 		.4byte	0xce
+ 1950 0967 00       		.byte	0
+ 1951 0968 07       		.uleb128 0x7
+ 1952 0969 2F070000 		.4byte	.LASF165
+ 1953 096d 0A       		.byte	0xa
+ 1954 096e 33       		.byte	0x33
+ 1955 096f CE000000 		.4byte	0xce
+ 1956 0973 04       		.byte	0x4
+ 1957 0974 07       		.uleb128 0x7
+ 1958 0975 00060000 		.4byte	.LASF186
+ 1959 0979 0A       		.byte	0xa
+ 1960 097a 34       		.byte	0x34
+ 1961 097b CE000000 		.4byte	0xce
+ 1962 097f 08       		.byte	0x8
+ 1963 0980 07       		.uleb128 0x7
+ 1964 0981 51080000 		.4byte	.LASF187
+ 1965 0985 0A       		.byte	0xa
+ 1966 0986 35       		.byte	0x35
+ 1967 0987 CE000000 		.4byte	0xce
+ 1968 098b 0C       		.byte	0xc
+ 1969 098c 07       		.uleb128 0x7
+ 1970 098d 950A0000 		.4byte	.LASF166
+ 1971 0991 0A       		.byte	0xa
+ 1972 0992 36       		.byte	0x36
+ 1973 0993 CE000000 		.4byte	0xce
+ 1974 0997 10       		.byte	0x10
+ 1975 0998 07       		.uleb128 0x7
+ 1976 0999 9A080000 		.4byte	.LASF188
+ 1977 099d 0A       		.byte	0xa
+ 1978 099e 37       		.byte	0x37
+ 1979 099f CE000000 		.4byte	0xce
+ 1980 09a3 14       		.byte	0x14
+ 1981 09a4 07       		.uleb128 0x7
+ 1982 09a5 C9040000 		.4byte	.LASF189
+ 1983 09a9 0A       		.byte	0xa
+ 1984 09aa 38       		.byte	0x38
+ 1985 09ab CE000000 		.4byte	0xce
+ 1986 09af 18       		.byte	0x18
+ 1987 09b0 07       		.uleb128 0x7
+ 1988 09b1 40080000 		.4byte	.LASF190
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 39
+
+
+ 1989 09b5 0A       		.byte	0xa
+ 1990 09b6 39       		.byte	0x39
+ 1991 09b7 3C050000 		.4byte	0x53c
+ 1992 09bb 1C       		.byte	0x1c
+ 1993 09bc 07       		.uleb128 0x7
+ 1994 09bd 4C020000 		.4byte	.LASF169
+ 1995 09c1 0A       		.byte	0xa
+ 1996 09c2 3A       		.byte	0x3a
+ 1997 09c3 CE000000 		.4byte	0xce
+ 1998 09c7 20       		.byte	0x20
+ 1999 09c8 07       		.uleb128 0x7
+ 2000 09c9 55020000 		.4byte	.LASF170
+ 2001 09cd 0A       		.byte	0xa
+ 2002 09ce 3B       		.byte	0x3b
+ 2003 09cf CE000000 		.4byte	0xce
+ 2004 09d3 24       		.byte	0x24
+ 2005 09d4 07       		.uleb128 0x7
+ 2006 09d5 7C0B0000 		.4byte	.LASF171
+ 2007 09d9 0A       		.byte	0xa
+ 2008 09da 3C       		.byte	0x3c
+ 2009 09db 3C050000 		.4byte	0x53c
+ 2010 09df 28       		.byte	0x28
+ 2011 09e0 07       		.uleb128 0x7
+ 2012 09e1 6B0B0000 		.4byte	.LASF172
+ 2013 09e5 0A       		.byte	0xa
+ 2014 09e6 3E       		.byte	0x3e
+ 2015 09e7 CE000000 		.4byte	0xce
+ 2016 09eb 2C       		.byte	0x2c
+ 2017 09ec 07       		.uleb128 0x7
+ 2018 09ed B6080000 		.4byte	.LASF191
+ 2019 09f1 0A       		.byte	0xa
+ 2020 09f2 3F       		.byte	0x3f
+ 2021 09f3 CE000000 		.4byte	0xce
+ 2022 09f7 30       		.byte	0x30
+ 2023 09f8 07       		.uleb128 0x7
+ 2024 09f9 05050000 		.4byte	.LASF192
+ 2025 09fd 0A       		.byte	0xa
+ 2026 09fe 40       		.byte	0x40
+ 2027 09ff CE000000 		.4byte	0xce
+ 2028 0a03 34       		.byte	0x34
+ 2029 0a04 07       		.uleb128 0x7
+ 2030 0a05 620B0000 		.4byte	.LASF193
+ 2031 0a09 0A       		.byte	0xa
+ 2032 0a0a 41       		.byte	0x41
+ 2033 0a0b CE000000 		.4byte	0xce
+ 2034 0a0f 38       		.byte	0x38
+ 2035 0a10 07       		.uleb128 0x7
+ 2036 0a11 6F080000 		.4byte	.LASF194
+ 2037 0a15 0A       		.byte	0xa
+ 2038 0a16 42       		.byte	0x42
+ 2039 0a17 CE000000 		.4byte	0xce
+ 2040 0a1b 3C       		.byte	0x3c
+ 2041 0a1c 07       		.uleb128 0x7
+ 2042 0a1d CB050000 		.4byte	.LASF195
+ 2043 0a21 0A       		.byte	0xa
+ 2044 0a22 44       		.byte	0x44
+ 2045 0a23 CE000000 		.4byte	0xce
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 40
+
+
+ 2046 0a27 40       		.byte	0x40
+ 2047 0a28 07       		.uleb128 0x7
+ 2048 0a29 30090000 		.4byte	.LASF175
+ 2049 0a2d 0A       		.byte	0xa
+ 2050 0a2e 45       		.byte	0x45
+ 2051 0a2f CE000000 		.4byte	0xce
+ 2052 0a33 44       		.byte	0x44
+ 2053 0a34 07       		.uleb128 0x7
+ 2054 0a35 2C040000 		.4byte	.LASF176
+ 2055 0a39 0A       		.byte	0xa
+ 2056 0a3a 47       		.byte	0x47
+ 2057 0a3b CE000000 		.4byte	0xce
+ 2058 0a3f 48       		.byte	0x48
+ 2059 0a40 07       		.uleb128 0x7
+ 2060 0a41 1F050000 		.4byte	.LASF177
+ 2061 0a45 0A       		.byte	0xa
+ 2062 0a46 48       		.byte	0x48
+ 2063 0a47 CE000000 		.4byte	0xce
+ 2064 0a4b 4C       		.byte	0x4c
+ 2065 0a4c 07       		.uleb128 0x7
+ 2066 0a4d 2F010000 		.4byte	.LASF178
+ 2067 0a51 0A       		.byte	0xa
+ 2068 0a52 4A       		.byte	0x4a
+ 2069 0a53 CE000000 		.4byte	0xce
+ 2070 0a57 50       		.byte	0x50
+ 2071 0a58 07       		.uleb128 0x7
+ 2072 0a59 E30C0000 		.4byte	.LASF196
+ 2073 0a5d 0A       		.byte	0xa
+ 2074 0a5e 4B       		.byte	0x4b
+ 2075 0a5f CE000000 		.4byte	0xce
+ 2076 0a63 54       		.byte	0x54
+ 2077 0a64 07       		.uleb128 0x7
+ 2078 0a65 C30C0000 		.4byte	.LASF197
+ 2079 0a69 0A       		.byte	0xa
+ 2080 0a6a 4D       		.byte	0x4d
+ 2081 0a6b CE000000 		.4byte	0xce
+ 2082 0a6f 58       		.byte	0x58
+ 2083 0a70 07       		.uleb128 0x7
+ 2084 0a71 B10B0000 		.4byte	.LASF181
+ 2085 0a75 0A       		.byte	0xa
+ 2086 0a76 4E       		.byte	0x4e
+ 2087 0a77 CE000000 		.4byte	0xce
+ 2088 0a7b 5C       		.byte	0x5c
+ 2089 0a7c 07       		.uleb128 0x7
+ 2090 0a7d AD0D0000 		.4byte	.LASF182
+ 2091 0a81 0A       		.byte	0xa
+ 2092 0a82 50       		.byte	0x50
+ 2093 0a83 CE000000 		.4byte	0xce
+ 2094 0a87 60       		.byte	0x60
+ 2095 0a88 00       		.byte	0
+ 2096 0a89 03       		.uleb128 0x3
+ 2097 0a8a 660A0000 		.4byte	.LASF198
+ 2098 0a8e 0A       		.byte	0xa
+ 2099 0a8f 51       		.byte	0x51
+ 2100 0a90 50090000 		.4byte	0x950
+ 2101 0a94 13       		.uleb128 0x13
+ 2102 0a95 0C       		.byte	0xc
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 41
+
+
+ 2103 0a96 0B       		.byte	0xb
+ 2104 0a97 1004     		.2byte	0x410
+ 2105 0a99 C50A0000 		.4byte	0xac5
+ 2106 0a9d 11       		.uleb128 0x11
+ 2107 0a9e E9070000 		.4byte	.LASF199
+ 2108 0aa2 0B       		.byte	0xb
+ 2109 0aa3 1204     		.2byte	0x412
+ 2110 0aa5 B8000000 		.4byte	0xb8
+ 2111 0aa9 00       		.byte	0
+ 2112 0aaa 11       		.uleb128 0x11
+ 2113 0aab 39080000 		.4byte	.LASF200
+ 2114 0aaf 0B       		.byte	0xb
+ 2115 0ab0 1304     		.2byte	0x413
+ 2116 0ab2 C50A0000 		.4byte	0xac5
+ 2117 0ab6 04       		.byte	0x4
+ 2118 0ab7 11       		.uleb128 0x11
+ 2119 0ab8 AF050000 		.4byte	.LASF201
+ 2120 0abc 0B       		.byte	0xb
+ 2121 0abd 1404     		.2byte	0x414
+ 2122 0abf C50A0000 		.4byte	0xac5
+ 2123 0ac3 08       		.byte	0x8
+ 2124 0ac4 00       		.byte	0
+ 2125 0ac5 0C       		.uleb128 0xc
+ 2126 0ac6 04       		.byte	0x4
+ 2127 0ac7 14050000 		.4byte	0x514
+ 2128 0acb 08       		.uleb128 0x8
+ 2129 0acc 3E0D0000 		.4byte	.LASF202
+ 2130 0ad0 0B       		.byte	0xb
+ 2131 0ad1 1504     		.2byte	0x415
+ 2132 0ad3 940A0000 		.4byte	0xa94
+ 2133 0ad7 14       		.uleb128 0x14
+ 2134 0ad8 14050000 		.4byte	0x514
+ 2135 0adc 03       		.uleb128 0x3
+ 2136 0add DB090000 		.4byte	.LASF203
+ 2137 0ae1 0C       		.byte	0xc
+ 2138 0ae2 3F       		.byte	0x3f
+ 2139 0ae3 CE000000 		.4byte	0xce
+ 2140 0ae7 15       		.uleb128 0x15
+ 2141 0ae8 5B0F0000 		.4byte	.LASF206
+ 2142 0aec 01       		.byte	0x1
+ 2143 0aed 28       		.byte	0x28
+ 2144 0aee 00000000 		.4byte	.LFB725
+ 2145 0af2 38000000 		.4byte	.LFE725-.LFB725
+ 2146 0af6 01       		.uleb128 0x1
+ 2147 0af7 9C       		.byte	0x9c
+ 2148 0af8 6F0B0000 		.4byte	0xb6f
+ 2149 0afc 16       		.uleb128 0x16
+ 2150 0afd BD000000 		.4byte	.LASF204
+ 2151 0b01 01       		.byte	0x1
+ 2152 0b02 28       		.byte	0x28
+ 2153 0b03 6F0B0000 		.4byte	0xb6f
+ 2154 0b07 00000000 		.4byte	.LLST0
+ 2155 0b0b 16       		.uleb128 0x16
+ 2156 0b0c 60080000 		.4byte	.LASF205
+ 2157 0b10 01       		.byte	0x1
+ 2158 0b11 28       		.byte	0x28
+ 2159 0b12 6F0B0000 		.4byte	0xb6f
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 42
+
+
+ 2160 0b16 2C000000 		.4byte	.LLST1
+ 2161 0b1a 17       		.uleb128 0x17
+ 2162 0b1b 5300     		.ascii	"S\000"
+ 2163 0b1d 01       		.byte	0x1
+ 2164 0b1e 2B       		.byte	0x2b
+ 2165 0b1f CB0A0000 		.4byte	0xacb
+ 2166 0b23 02       		.uleb128 0x2
+ 2167 0b24 91       		.byte	0x91
+ 2168 0b25 64       		.sleb128 -28
+ 2169 0b26 18       		.uleb128 0x18
+ 2170 0b27 1A000000 		.4byte	.LVL3
+ 2171 0b2b 5A110000 		.4byte	0x115a
+ 2172 0b2f 520B0000 		.4byte	0xb52
+ 2173 0b33 19       		.uleb128 0x19
+ 2174 0b34 01       		.uleb128 0x1
+ 2175 0b35 50       		.byte	0x50
+ 2176 0b36 02       		.uleb128 0x2
+ 2177 0b37 91       		.byte	0x91
+ 2178 0b38 64       		.sleb128 -28
+ 2179 0b39 19       		.uleb128 0x19
+ 2180 0b3a 01       		.uleb128 0x1
+ 2181 0b3b 51       		.byte	0x51
+ 2182 0b3c 02       		.uleb128 0x2
+ 2183 0b3d 08       		.byte	0x8
+ 2184 0b3e 29       		.byte	0x29
+ 2185 0b3f 19       		.uleb128 0x19
+ 2186 0b40 01       		.uleb128 0x1
+ 2187 0b41 52       		.byte	0x52
+ 2188 0b42 05       		.uleb128 0x5
+ 2189 0b43 03       		.byte	0x3
+ 2190 0b44 00000000 		.4byte	.LANCHOR1
+ 2191 0b48 19       		.uleb128 0x19
+ 2192 0b49 01       		.uleb128 0x1
+ 2193 0b4a 53       		.byte	0x53
+ 2194 0b4b 05       		.uleb128 0x5
+ 2195 0b4c 03       		.byte	0x3
+ 2196 0b4d 00000000 		.4byte	.LANCHOR0
+ 2197 0b51 00       		.byte	0
+ 2198 0b52 1A       		.uleb128 0x1a
+ 2199 0b53 26000000 		.4byte	.LVL4
+ 2200 0b57 66110000 		.4byte	0x1166
+ 2201 0b5b 19       		.uleb128 0x19
+ 2202 0b5c 01       		.uleb128 0x1
+ 2203 0b5d 50       		.byte	0x50
+ 2204 0b5e 02       		.uleb128 0x2
+ 2205 0b5f 91       		.byte	0x91
+ 2206 0b60 64       		.sleb128 -28
+ 2207 0b61 19       		.uleb128 0x19
+ 2208 0b62 01       		.uleb128 0x1
+ 2209 0b63 51       		.byte	0x51
+ 2210 0b64 02       		.uleb128 0x2
+ 2211 0b65 75       		.byte	0x75
+ 2212 0b66 00       		.sleb128 0
+ 2213 0b67 19       		.uleb128 0x19
+ 2214 0b68 01       		.uleb128 0x1
+ 2215 0b69 52       		.byte	0x52
+ 2216 0b6a 02       		.uleb128 0x2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 43
+
+
+ 2217 0b6b 76       		.byte	0x76
+ 2218 0b6c 00       		.sleb128 0
+ 2219 0b6d 00       		.byte	0
+ 2220 0b6e 00       		.byte	0
+ 2221 0b6f 0C       		.uleb128 0xc
+ 2222 0b70 04       		.byte	0x4
+ 2223 0b71 20050000 		.4byte	0x520
+ 2224 0b75 15       		.uleb128 0x15
+ 2225 0b76 CD000000 		.4byte	.LASF207
+ 2226 0b7a 01       		.byte	0x1
+ 2227 0b7b 31       		.byte	0x31
+ 2228 0b7c 00000000 		.4byte	.LFB726
+ 2229 0b80 60000000 		.4byte	.LFE726-.LFB726
+ 2230 0b84 01       		.uleb128 0x1
+ 2231 0b85 9C       		.byte	0x9c
+ 2232 0b86 E20B0000 		.4byte	0xbe2
+ 2233 0b8a 1B       		.uleb128 0x1b
+ 2234 0b8b BD000000 		.4byte	.LASF204
+ 2235 0b8f 01       		.byte	0x1
+ 2236 0b90 31       		.byte	0x31
+ 2237 0b91 6F0B0000 		.4byte	0xb6f
+ 2238 0b95 01       		.uleb128 0x1
+ 2239 0b96 50       		.byte	0x50
+ 2240 0b97 1B       		.uleb128 0x1b
+ 2241 0b98 60080000 		.4byte	.LASF205
+ 2242 0b9c 01       		.byte	0x1
+ 2243 0b9d 31       		.byte	0x31
+ 2244 0b9e 6F0B0000 		.4byte	0xb6f
+ 2245 0ba2 01       		.uleb128 0x1
+ 2246 0ba3 51       		.byte	0x51
+ 2247 0ba4 1C       		.uleb128 0x1c
+ 2248 0ba5 6F0F0000 		.4byte	.LASF208
+ 2249 0ba9 01       		.byte	0x1
+ 2250 0baa 32       		.byte	0x32
+ 2251 0bab 20050000 		.4byte	0x520
+ 2252 0baf 58000000 		.4byte	.LLST2
+ 2253 0bb3 1D       		.uleb128 0x1d
+ 2254 0bb4 00000000 		.4byte	.Ldebug_ranges0+0
+ 2255 0bb8 CA0B0000 		.4byte	0xbca
+ 2256 0bbc 1E       		.uleb128 0x1e
+ 2257 0bbd 6900     		.ascii	"i\000"
+ 2258 0bbf 01       		.byte	0x1
+ 2259 0bc0 34       		.byte	0x34
+ 2260 0bc1 B8000000 		.4byte	0xb8
+ 2261 0bc5 88000000 		.4byte	.LLST3
+ 2262 0bc9 00       		.byte	0
+ 2263 0bca 1F       		.uleb128 0x1f
+ 2264 0bcb 2E000000 		.4byte	.LBB4
+ 2265 0bcf 22000000 		.4byte	.LBE4-.LBB4
+ 2266 0bd3 1E       		.uleb128 0x1e
+ 2267 0bd4 6900     		.ascii	"i\000"
+ 2268 0bd6 01       		.byte	0x1
+ 2269 0bd7 3A       		.byte	0x3a
+ 2270 0bd8 B8000000 		.4byte	0xb8
+ 2271 0bdc B2000000 		.4byte	.LLST4
+ 2272 0be0 00       		.byte	0
+ 2273 0be1 00       		.byte	0
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 44
+
+
+ 2274 0be2 20       		.uleb128 0x20
+ 2275 0be3 42030000 		.4byte	.LASF225
+ 2276 0be7 01       		.byte	0x1
+ 2277 0be8 40       		.byte	0x40
+ 2278 0be9 B8000000 		.4byte	0xb8
+ 2279 0bed 00000000 		.4byte	.LFB727
+ 2280 0bf1 40010000 		.4byte	.LFE727-.LFB727
+ 2281 0bf5 01       		.uleb128 0x1
+ 2282 0bf6 9C       		.byte	0x9c
+ 2283 0bf7 AF0D0000 		.4byte	0xdaf
+ 2284 0bfb 16       		.uleb128 0x16
+ 2285 0bfc 0B0A0000 		.4byte	.LASF209
+ 2286 0c00 01       		.byte	0x1
+ 2287 0c01 40       		.byte	0x40
+ 2288 0c02 6F0B0000 		.4byte	0xb6f
+ 2289 0c06 DC000000 		.4byte	.LLST5
+ 2290 0c0a 16       		.uleb128 0x16
+ 2291 0c0b 170A0000 		.4byte	.LASF210
+ 2292 0c0f 01       		.byte	0x1
+ 2293 0c10 40       		.byte	0x40
+ 2294 0c11 6F0B0000 		.4byte	0xb6f
+ 2295 0c15 08010000 		.4byte	.LLST6
+ 2296 0c19 16       		.uleb128 0x16
+ 2297 0c1a 23070000 		.4byte	.LASF211
+ 2298 0c1e 01       		.byte	0x1
+ 2299 0c1f 40       		.byte	0x40
+ 2300 0c20 6F0B0000 		.4byte	0xb6f
+ 2301 0c24 34010000 		.4byte	.LLST7
+ 2302 0c28 16       		.uleb128 0x16
+ 2303 0c29 530D0000 		.4byte	.LASF212
+ 2304 0c2d 01       		.byte	0x1
+ 2305 0c2e 40       		.byte	0x40
+ 2306 0c2f 6F0B0000 		.4byte	0xb6f
+ 2307 0c33 60010000 		.4byte	.LLST8
+ 2308 0c37 1E       		.uleb128 0x1e
+ 2309 0c38 5200     		.ascii	"R\000"
+ 2310 0c3a 01       		.byte	0x1
+ 2311 0c3b 41       		.byte	0x41
+ 2312 0c3c 27050000 		.4byte	0x527
+ 2313 0c40 8C010000 		.4byte	.LLST9
+ 2314 0c44 1C       		.uleb128 0x1c
+ 2315 0c45 550E0000 		.4byte	.LASF213
+ 2316 0c49 01       		.byte	0x1
+ 2317 0c4a 42       		.byte	0x42
+ 2318 0c4b 27050000 		.4byte	0x527
+ 2319 0c4f B8010000 		.4byte	.LLST10
+ 2320 0c53 1C       		.uleb128 0x1c
+ 2321 0c54 48050000 		.4byte	.LASF214
+ 2322 0c58 01       		.byte	0x1
+ 2323 0c59 43       		.byte	0x43
+ 2324 0c5a 27050000 		.4byte	0x527
+ 2325 0c5e E4010000 		.4byte	.LLST11
+ 2326 0c62 21       		.uleb128 0x21
+ 2327 0c63 DE0D0000 		.4byte	.LASF215
+ 2328 0c67 01       		.byte	0x1
+ 2329 0c68 44       		.byte	0x44
+ 2330 0c69 14050000 		.4byte	0x514
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 45
+
+
+ 2331 0c6d 02       		.uleb128 0x2
+ 2332 0c6e 91       		.byte	0x91
+ 2333 0c6f 5C       		.sleb128 -36
+ 2334 0c70 21       		.uleb128 0x21
+ 2335 0c71 640F0000 		.4byte	.LASF216
+ 2336 0c75 01       		.byte	0x1
+ 2337 0c76 45       		.byte	0x45
+ 2338 0c77 14050000 		.4byte	0x514
+ 2339 0c7b 02       		.uleb128 0x2
+ 2340 0c7c 91       		.byte	0x91
+ 2341 0c7d 58       		.sleb128 -40
+ 2342 0c7e 21       		.uleb128 0x21
+ 2343 0c7f 8C060000 		.4byte	.LASF217
+ 2344 0c83 01       		.byte	0x1
+ 2345 0c84 47       		.byte	0x47
+ 2346 0c85 14050000 		.4byte	0x514
+ 2347 0c89 02       		.uleb128 0x2
+ 2348 0c8a 91       		.byte	0x91
+ 2349 0c8b 54       		.sleb128 -44
+ 2350 0c8c 21       		.uleb128 0x21
+ 2351 0c8d E8010000 		.4byte	.LASF218
+ 2352 0c91 01       		.byte	0x1
+ 2353 0c92 47       		.byte	0x47
+ 2354 0c93 14050000 		.4byte	0x514
+ 2355 0c97 02       		.uleb128 0x2
+ 2356 0c98 91       		.byte	0x91
+ 2357 0c99 50       		.sleb128 -48
+ 2358 0c9a 21       		.uleb128 0x21
+ 2359 0c9b 6C000000 		.4byte	.LASF219
+ 2360 0c9f 01       		.byte	0x1
+ 2361 0ca0 47       		.byte	0x47
+ 2362 0ca1 14050000 		.4byte	0x514
+ 2363 0ca5 02       		.uleb128 0x2
+ 2364 0ca6 91       		.byte	0x91
+ 2365 0ca7 4C       		.sleb128 -52
+ 2366 0ca8 21       		.uleb128 0x21
+ 2367 0ca9 CD090000 		.4byte	.LASF220
+ 2368 0cad 01       		.byte	0x1
+ 2369 0cae 47       		.byte	0x47
+ 2370 0caf 14050000 		.4byte	0x514
+ 2371 0cb3 02       		.uleb128 0x2
+ 2372 0cb4 91       		.byte	0x91
+ 2373 0cb5 48       		.sleb128 -56
+ 2374 0cb6 21       		.uleb128 0x21
+ 2375 0cb7 2E060000 		.4byte	.LASF221
+ 2376 0cbb 01       		.byte	0x1
+ 2377 0cbc 48       		.byte	0x48
+ 2378 0cbd CE000000 		.4byte	0xce
+ 2379 0cc1 02       		.uleb128 0x2
+ 2380 0cc2 91       		.byte	0x91
+ 2381 0cc3 44       		.sleb128 -60
+ 2382 0cc4 21       		.uleb128 0x21
+ 2383 0cc5 2A0D0000 		.4byte	.LASF222
+ 2384 0cc9 01       		.byte	0x1
+ 2385 0cca 48       		.byte	0x48
+ 2386 0ccb CE000000 		.4byte	0xce
+ 2387 0ccf 02       		.uleb128 0x2
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 46
+
+
+ 2388 0cd0 91       		.byte	0x91
+ 2389 0cd1 40       		.sleb128 -64
+ 2390 0cd2 21       		.uleb128 0x21
+ 2391 0cd3 6D0D0000 		.4byte	.LASF223
+ 2392 0cd7 01       		.byte	0x1
+ 2393 0cd8 48       		.byte	0x48
+ 2394 0cd9 CE000000 		.4byte	0xce
+ 2395 0cdd 03       		.uleb128 0x3
+ 2396 0cde 91       		.byte	0x91
+ 2397 0cdf BC7F     		.sleb128 -68
+ 2398 0ce1 21       		.uleb128 0x21
+ 2399 0ce2 5C010000 		.4byte	.LASF224
+ 2400 0ce6 01       		.byte	0x1
+ 2401 0ce7 48       		.byte	0x48
+ 2402 0ce8 CE000000 		.4byte	0xce
+ 2403 0cec 03       		.uleb128 0x3
+ 2404 0ced 91       		.byte	0x91
+ 2405 0cee B87F     		.sleb128 -72
+ 2406 0cf0 18       		.uleb128 0x18
+ 2407 0cf1 34000000 		.4byte	.LVL22
+ 2408 0cf5 72110000 		.4byte	0x1172
+ 2409 0cf9 100D0000 		.4byte	0xd10
+ 2410 0cfd 19       		.uleb128 0x19
+ 2411 0cfe 01       		.uleb128 0x1
+ 2412 0cff 50       		.byte	0x50
+ 2413 0d00 02       		.uleb128 0x2
+ 2414 0d01 77       		.byte	0x77
+ 2415 0d02 00       		.sleb128 0
+ 2416 0d03 19       		.uleb128 0x19
+ 2417 0d04 01       		.uleb128 0x1
+ 2418 0d05 52       		.byte	0x52
+ 2419 0d06 02       		.uleb128 0x2
+ 2420 0d07 91       		.byte	0x91
+ 2421 0d08 54       		.sleb128 -44
+ 2422 0d09 19       		.uleb128 0x19
+ 2423 0d0a 01       		.uleb128 0x1
+ 2424 0d0b 53       		.byte	0x53
+ 2425 0d0c 02       		.uleb128 0x2
+ 2426 0d0d 91       		.byte	0x91
+ 2427 0d0e 44       		.sleb128 -60
+ 2428 0d0f 00       		.byte	0
+ 2429 0d10 18       		.uleb128 0x18
+ 2430 0d11 40000000 		.4byte	.LVL23
+ 2431 0d15 7E110000 		.4byte	0x117e
+ 2432 0d19 300D0000 		.4byte	0xd30
+ 2433 0d1d 19       		.uleb128 0x19
+ 2434 0d1e 01       		.uleb128 0x1
+ 2435 0d1f 50       		.byte	0x50
+ 2436 0d20 02       		.uleb128 0x2
+ 2437 0d21 77       		.byte	0x77
+ 2438 0d22 00       		.sleb128 0
+ 2439 0d23 19       		.uleb128 0x19
+ 2440 0d24 01       		.uleb128 0x1
+ 2441 0d25 52       		.byte	0x52
+ 2442 0d26 02       		.uleb128 0x2
+ 2443 0d27 91       		.byte	0x91
+ 2444 0d28 50       		.sleb128 -48
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 47
+
+
+ 2445 0d29 19       		.uleb128 0x19
+ 2446 0d2a 01       		.uleb128 0x1
+ 2447 0d2b 53       		.byte	0x53
+ 2448 0d2c 02       		.uleb128 0x2
+ 2449 0d2d 91       		.byte	0x91
+ 2450 0d2e 40       		.sleb128 -64
+ 2451 0d2f 00       		.byte	0
+ 2452 0d30 18       		.uleb128 0x18
+ 2453 0d31 4C000000 		.4byte	.LVL24
+ 2454 0d35 72110000 		.4byte	0x1172
+ 2455 0d39 510D0000 		.4byte	0xd51
+ 2456 0d3d 19       		.uleb128 0x19
+ 2457 0d3e 01       		.uleb128 0x1
+ 2458 0d3f 50       		.byte	0x50
+ 2459 0d40 02       		.uleb128 0x2
+ 2460 0d41 76       		.byte	0x76
+ 2461 0d42 00       		.sleb128 0
+ 2462 0d43 19       		.uleb128 0x19
+ 2463 0d44 01       		.uleb128 0x1
+ 2464 0d45 52       		.byte	0x52
+ 2465 0d46 02       		.uleb128 0x2
+ 2466 0d47 91       		.byte	0x91
+ 2467 0d48 4C       		.sleb128 -52
+ 2468 0d49 19       		.uleb128 0x19
+ 2469 0d4a 01       		.uleb128 0x1
+ 2470 0d4b 53       		.byte	0x53
+ 2471 0d4c 03       		.uleb128 0x3
+ 2472 0d4d 91       		.byte	0x91
+ 2473 0d4e BC7F     		.sleb128 -68
+ 2474 0d50 00       		.byte	0
+ 2475 0d51 18       		.uleb128 0x18
+ 2476 0d52 58000000 		.4byte	.LVL25
+ 2477 0d56 7E110000 		.4byte	0x117e
+ 2478 0d5a 710D0000 		.4byte	0xd71
+ 2479 0d5e 19       		.uleb128 0x19
+ 2480 0d5f 01       		.uleb128 0x1
+ 2481 0d60 50       		.byte	0x50
+ 2482 0d61 02       		.uleb128 0x2
+ 2483 0d62 76       		.byte	0x76
+ 2484 0d63 00       		.sleb128 0
+ 2485 0d64 19       		.uleb128 0x19
+ 2486 0d65 01       		.uleb128 0x1
+ 2487 0d66 52       		.byte	0x52
+ 2488 0d67 02       		.uleb128 0x2
+ 2489 0d68 91       		.byte	0x91
+ 2490 0d69 48       		.sleb128 -56
+ 2491 0d6a 19       		.uleb128 0x19
+ 2492 0d6b 01       		.uleb128 0x1
+ 2493 0d6c 53       		.byte	0x53
+ 2494 0d6d 02       		.uleb128 0x2
+ 2495 0d6e 7D       		.byte	0x7d
+ 2496 0d6f 00       		.sleb128 0
+ 2497 0d70 00       		.byte	0
+ 2498 0d71 18       		.uleb128 0x18
+ 2499 0d72 92000000 		.4byte	.LVL31
+ 2500 0d76 8A110000 		.4byte	0x118a
+ 2501 0d7a 8B0D0000 		.4byte	0xd8b
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 48
+
+
+ 2502 0d7e 19       		.uleb128 0x19
+ 2503 0d7f 01       		.uleb128 0x1
+ 2504 0d80 50       		.byte	0x50
+ 2505 0d81 02       		.uleb128 0x2
+ 2506 0d82 7A       		.byte	0x7a
+ 2507 0d83 00       		.sleb128 0
+ 2508 0d84 19       		.uleb128 0x19
+ 2509 0d85 01       		.uleb128 0x1
+ 2510 0d86 52       		.byte	0x52
+ 2511 0d87 02       		.uleb128 0x2
+ 2512 0d88 91       		.byte	0x91
+ 2513 0d89 5C       		.sleb128 -36
+ 2514 0d8a 00       		.byte	0
+ 2515 0d8b 18       		.uleb128 0x18
+ 2516 0d8c 9C000000 		.4byte	.LVL32
+ 2517 0d90 8A110000 		.4byte	0x118a
+ 2518 0d94 A50D0000 		.4byte	0xda5
+ 2519 0d98 19       		.uleb128 0x19
+ 2520 0d99 01       		.uleb128 0x1
+ 2521 0d9a 50       		.byte	0x50
+ 2522 0d9b 02       		.uleb128 0x2
+ 2523 0d9c 75       		.byte	0x75
+ 2524 0d9d 00       		.sleb128 0
+ 2525 0d9e 19       		.uleb128 0x19
+ 2526 0d9f 01       		.uleb128 0x1
+ 2527 0da0 52       		.byte	0x52
+ 2528 0da1 02       		.uleb128 0x2
+ 2529 0da2 91       		.byte	0x91
+ 2530 0da3 58       		.sleb128 -40
+ 2531 0da4 00       		.byte	0
+ 2532 0da5 22       		.uleb128 0x22
+ 2533 0da6 10010000 		.4byte	.LVL46
+ 2534 0daa 96110000 		.4byte	0x1196
+ 2535 0dae 00       		.byte	0
+ 2536 0daf 20       		.uleb128 0x20
+ 2537 0db0 060B0000 		.4byte	.LASF226
+ 2538 0db4 01       		.byte	0x1
+ 2539 0db5 62       		.byte	0x62
+ 2540 0db6 B8000000 		.4byte	0xb8
+ 2541 0dba 00000000 		.4byte	.LFB728
+ 2542 0dbe 10010000 		.4byte	.LFE728-.LFB728
+ 2543 0dc2 01       		.uleb128 0x1
+ 2544 0dc3 9C       		.byte	0x9c
+ 2545 0dc4 570E0000 		.4byte	0xe57
+ 2546 0dc8 16       		.uleb128 0x16
+ 2547 0dc9 23070000 		.4byte	.LASF211
+ 2548 0dcd 01       		.byte	0x1
+ 2549 0dce 62       		.byte	0x62
+ 2550 0dcf 6F0B0000 		.4byte	0xb6f
+ 2551 0dd3 10020000 		.4byte	.LLST12
+ 2552 0dd7 21       		.uleb128 0x21
+ 2553 0dd8 C9060000 		.4byte	.LASF227
+ 2554 0ddc 01       		.byte	0x1
+ 2555 0ddd 63       		.byte	0x63
+ 2556 0dde 570E0000 		.4byte	0xe57
+ 2557 0de2 02       		.uleb128 0x2
+ 2558 0de3 91       		.byte	0x91
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 49
+
+
+ 2559 0de4 74       		.sleb128 -12
+ 2560 0de5 21       		.uleb128 0x21
+ 2561 0de6 D7060000 		.4byte	.LASF228
+ 2562 0dea 01       		.byte	0x1
+ 2563 0deb 64       		.byte	0x64
+ 2564 0dec 570E0000 		.4byte	0xe57
+ 2565 0df0 02       		.uleb128 0x2
+ 2566 0df1 91       		.byte	0x91
+ 2567 0df2 70       		.sleb128 -16
+ 2568 0df3 21       		.uleb128 0x21
+ 2569 0df4 100B0000 		.4byte	.LASF229
+ 2570 0df8 01       		.byte	0x1
+ 2571 0df9 65       		.byte	0x65
+ 2572 0dfa E5000000 		.4byte	0xe5
+ 2573 0dfe 02       		.uleb128 0x2
+ 2574 0dff 91       		.byte	0x91
+ 2575 0e00 6E       		.sleb128 -18
+ 2576 0e01 1C       		.uleb128 0x1c
+ 2577 0e02 280E0000 		.4byte	.LASF230
+ 2578 0e06 01       		.byte	0x1
+ 2579 0e07 66       		.byte	0x66
+ 2580 0e08 20050000 		.4byte	0x520
+ 2581 0e0c 31020000 		.4byte	.LLST13
+ 2582 0e10 1C       		.uleb128 0x1c
+ 2583 0e11 E8080000 		.4byte	.LASF231
+ 2584 0e15 01       		.byte	0x1
+ 2585 0e16 67       		.byte	0x67
+ 2586 0e17 3C050000 		.4byte	0x53c
+ 2587 0e1b 55020000 		.4byte	.LLST14
+ 2588 0e1f 23       		.uleb128 0x23
+ 2589 0e20 10000000 		.4byte	.LBB5
+ 2590 0e24 AE000000 		.4byte	.LBE5-.LBB5
+ 2591 0e28 4D0E0000 		.4byte	0xe4d
+ 2592 0e2c 1E       		.uleb128 0x1e
+ 2593 0e2d 6900     		.ascii	"i\000"
+ 2594 0e2f 01       		.byte	0x1
+ 2595 0e30 6B       		.byte	0x6b
+ 2596 0e31 B8000000 		.4byte	0xb8
+ 2597 0e35 8A020000 		.4byte	.LLST15
+ 2598 0e39 24       		.uleb128 0x24
+ 2599 0e3a 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 2600 0e3e 1E       		.uleb128 0x1e
+ 2601 0e3f 6A00     		.ascii	"j\000"
+ 2602 0e41 01       		.byte	0x1
+ 2603 0e42 6E       		.byte	0x6e
+ 2604 0e43 B8000000 		.4byte	0xb8
+ 2605 0e47 B4020000 		.4byte	.LLST16
+ 2606 0e4b 00       		.byte	0
+ 2607 0e4c 00       		.byte	0
+ 2608 0e4d 22       		.uleb128 0x22
+ 2609 0e4e FA000000 		.4byte	.LVL69
+ 2610 0e52 96110000 		.4byte	0x1196
+ 2611 0e56 00       		.byte	0
+ 2612 0e57 05       		.uleb128 0x5
+ 2613 0e58 20050000 		.4byte	0x520
+ 2614 0e5c 25       		.uleb128 0x25
+ 2615 0e5d 40040000 		.4byte	.LASF232
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 50
+
+
+ 2616 0e61 01       		.byte	0x1
+ 2617 0e62 88       		.byte	0x88
+ 2618 0e63 00000000 		.4byte	.LFB729
+ 2619 0e67 AC000000 		.4byte	.LFE729-.LFB729
+ 2620 0e6b 01       		.uleb128 0x1
+ 2621 0e6c 9C       		.byte	0x9c
+ 2622 0e6d 4C0F0000 		.4byte	0xf4c
+ 2623 0e71 18       		.uleb128 0x18
+ 2624 0e72 1E000000 		.4byte	.LVL72
+ 2625 0e76 E70A0000 		.4byte	0xae7
+ 2626 0e7a 850E0000 		.4byte	0xe85
+ 2627 0e7e 19       		.uleb128 0x19
+ 2628 0e7f 01       		.uleb128 0x1
+ 2629 0e80 51       		.byte	0x51
+ 2630 0e81 02       		.uleb128 0x2
+ 2631 0e82 76       		.byte	0x76
+ 2632 0e83 00       		.sleb128 0
+ 2633 0e84 00       		.byte	0
+ 2634 0e85 18       		.uleb128 0x18
+ 2635 0e86 2E000000 		.4byte	.LVL73
+ 2636 0e8a E70A0000 		.4byte	0xae7
+ 2637 0e8e 990E0000 		.4byte	0xe99
+ 2638 0e92 19       		.uleb128 0x19
+ 2639 0e93 01       		.uleb128 0x1
+ 2640 0e94 51       		.byte	0x51
+ 2641 0e95 02       		.uleb128 0x2
+ 2642 0e96 77       		.byte	0x77
+ 2643 0e97 00       		.sleb128 0
+ 2644 0e98 00       		.byte	0
+ 2645 0e99 18       		.uleb128 0x18
+ 2646 0e9a 38000000 		.4byte	.LVL74
+ 2647 0e9e 750B0000 		.4byte	0xb75
+ 2648 0ea2 B30E0000 		.4byte	0xeb3
+ 2649 0ea6 19       		.uleb128 0x19
+ 2650 0ea7 01       		.uleb128 0x1
+ 2651 0ea8 50       		.byte	0x50
+ 2652 0ea9 02       		.uleb128 0x2
+ 2653 0eaa 74       		.byte	0x74
+ 2654 0eab 00       		.sleb128 0
+ 2655 0eac 19       		.uleb128 0x19
+ 2656 0ead 01       		.uleb128 0x1
+ 2657 0eae 51       		.byte	0x51
+ 2658 0eaf 02       		.uleb128 0x2
+ 2659 0eb0 75       		.byte	0x75
+ 2660 0eb1 00       		.sleb128 0
+ 2661 0eb2 00       		.byte	0
+ 2662 0eb3 18       		.uleb128 0x18
+ 2663 0eb4 42000000 		.4byte	.LVL75
+ 2664 0eb8 750B0000 		.4byte	0xb75
+ 2665 0ebc CD0E0000 		.4byte	0xecd
+ 2666 0ec0 19       		.uleb128 0x19
+ 2667 0ec1 01       		.uleb128 0x1
+ 2668 0ec2 50       		.byte	0x50
+ 2669 0ec3 02       		.uleb128 0x2
+ 2670 0ec4 78       		.byte	0x78
+ 2671 0ec5 00       		.sleb128 0
+ 2672 0ec6 19       		.uleb128 0x19
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 51
+
+
+ 2673 0ec7 01       		.uleb128 0x1
+ 2674 0ec8 51       		.byte	0x51
+ 2675 0ec9 02       		.uleb128 0x2
+ 2676 0eca 74       		.byte	0x74
+ 2677 0ecb 00       		.sleb128 0
+ 2678 0ecc 00       		.byte	0
+ 2679 0ecd 18       		.uleb128 0x18
+ 2680 0ece 4A000000 		.4byte	.LVL76
+ 2681 0ed2 E70A0000 		.4byte	0xae7
+ 2682 0ed6 E70E0000 		.4byte	0xee7
+ 2683 0eda 19       		.uleb128 0x19
+ 2684 0edb 01       		.uleb128 0x1
+ 2685 0edc 50       		.byte	0x50
+ 2686 0edd 02       		.uleb128 0x2
+ 2687 0ede 75       		.byte	0x75
+ 2688 0edf 00       		.sleb128 0
+ 2689 0ee0 19       		.uleb128 0x19
+ 2690 0ee1 01       		.uleb128 0x1
+ 2691 0ee2 51       		.byte	0x51
+ 2692 0ee3 02       		.uleb128 0x2
+ 2693 0ee4 75       		.byte	0x75
+ 2694 0ee5 00       		.sleb128 0
+ 2695 0ee6 00       		.byte	0
+ 2696 0ee7 18       		.uleb128 0x18
+ 2697 0ee8 52000000 		.4byte	.LVL77
+ 2698 0eec E70A0000 		.4byte	0xae7
+ 2699 0ef0 010F0000 		.4byte	0xf01
+ 2700 0ef4 19       		.uleb128 0x19
+ 2701 0ef5 01       		.uleb128 0x1
+ 2702 0ef6 50       		.byte	0x50
+ 2703 0ef7 02       		.uleb128 0x2
+ 2704 0ef8 74       		.byte	0x74
+ 2705 0ef9 00       		.sleb128 0
+ 2706 0efa 19       		.uleb128 0x19
+ 2707 0efb 01       		.uleb128 0x1
+ 2708 0efc 51       		.byte	0x51
+ 2709 0efd 02       		.uleb128 0x2
+ 2710 0efe 74       		.byte	0x74
+ 2711 0eff 00       		.sleb128 0
+ 2712 0f00 00       		.byte	0
+ 2713 0f01 18       		.uleb128 0x18
+ 2714 0f02 58000000 		.4byte	.LVL78
+ 2715 0f06 AF0D0000 		.4byte	0xdaf
+ 2716 0f0a 150F0000 		.4byte	0xf15
+ 2717 0f0e 19       		.uleb128 0x19
+ 2718 0f0f 01       		.uleb128 0x1
+ 2719 0f10 50       		.byte	0x50
+ 2720 0f11 02       		.uleb128 0x2
+ 2721 0f12 74       		.byte	0x74
+ 2722 0f13 00       		.sleb128 0
+ 2723 0f14 00       		.byte	0
+ 2724 0f15 18       		.uleb128 0x18
+ 2725 0f16 68000000 		.4byte	.LVL79
+ 2726 0f1a E20B0000 		.4byte	0xbe2
+ 2727 0f1e 3B0F0000 		.4byte	0xf3b
+ 2728 0f22 19       		.uleb128 0x19
+ 2729 0f23 01       		.uleb128 0x1
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 52
+
+
+ 2730 0f24 50       		.byte	0x50
+ 2731 0f25 02       		.uleb128 0x2
+ 2732 0f26 76       		.byte	0x76
+ 2733 0f27 00       		.sleb128 0
+ 2734 0f28 19       		.uleb128 0x19
+ 2735 0f29 01       		.uleb128 0x1
+ 2736 0f2a 51       		.byte	0x51
+ 2737 0f2b 02       		.uleb128 0x2
+ 2738 0f2c 77       		.byte	0x77
+ 2739 0f2d 00       		.sleb128 0
+ 2740 0f2e 19       		.uleb128 0x19
+ 2741 0f2f 01       		.uleb128 0x1
+ 2742 0f30 52       		.byte	0x52
+ 2743 0f31 02       		.uleb128 0x2
+ 2744 0f32 74       		.byte	0x74
+ 2745 0f33 00       		.sleb128 0
+ 2746 0f34 19       		.uleb128 0x19
+ 2747 0f35 01       		.uleb128 0x1
+ 2748 0f36 53       		.byte	0x53
+ 2749 0f37 02       		.uleb128 0x2
+ 2750 0f38 75       		.byte	0x75
+ 2751 0f39 00       		.sleb128 0
+ 2752 0f3a 00       		.byte	0
+ 2753 0f3b 1A       		.uleb128 0x1a
+ 2754 0f3c 7E000000 		.4byte	.LVL80
+ 2755 0f40 A2110000 		.4byte	0x11a2
+ 2756 0f44 19       		.uleb128 0x19
+ 2757 0f45 01       		.uleb128 0x1
+ 2758 0f46 50       		.byte	0x50
+ 2759 0f47 02       		.uleb128 0x2
+ 2760 0f48 08       		.byte	0x8
+ 2761 0f49 64       		.byte	0x64
+ 2762 0f4a 00       		.byte	0
+ 2763 0f4b 00       		.byte	0
+ 2764 0f4c 26       		.uleb128 0x26
+ 2765 0f4d 14050000 		.4byte	0x514
+ 2766 0f51 5D0F0000 		.4byte	0xf5d
+ 2767 0f55 27       		.uleb128 0x27
+ 2768 0f56 D9000000 		.4byte	0xd9
+ 2769 0f5a 1B02     		.2byte	0x21b
+ 2770 0f5c 00       		.byte	0
+ 2771 0f5d 21       		.uleb128 0x21
+ 2772 0f5e 9C000000 		.4byte	.LASF233
+ 2773 0f62 01       		.byte	0x1
+ 2774 0f63 1F       		.byte	0x1f
+ 2775 0f64 4C0F0000 		.4byte	0xf4c
+ 2776 0f68 05       		.uleb128 0x5
+ 2777 0f69 03       		.byte	0x3
+ 2778 0f6a 00000000 		.4byte	firStateF32_LP
+ 2779 0f6e 28       		.uleb128 0x28
+ 2780 0f6f A40B0000 		.4byte	.LASF234
+ 2781 0f73 0D       		.byte	0xd
+ 2782 0f74 0108     		.2byte	0x801
+ 2783 0f76 7A0F0000 		.4byte	0xf7a
+ 2784 0f7a 05       		.uleb128 0x5
+ 2785 0f7b C3000000 		.4byte	0xc3
+ 2786 0f7f 29       		.uleb128 0x29
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 53
+
+
+ 2787 0f80 4B000000 		.4byte	.LASF235
+ 2788 0f84 04       		.byte	0x4
+ 2789 0f85 A7       		.byte	0xa7
+ 2790 0f86 8A0F0000 		.4byte	0xf8a
+ 2791 0f8a 0C       		.uleb128 0xc
+ 2792 0f8b 04       		.byte	0x4
+ 2793 0f8c 900F0000 		.4byte	0xf90
+ 2794 0f90 14       		.uleb128 0x14
+ 2795 0f91 02050000 		.4byte	0x502
+ 2796 0f95 29       		.uleb128 0x29
+ 2797 0f96 B1040000 		.4byte	.LASF236
+ 2798 0f9a 0E       		.byte	0xe
+ 2799 0f9b 1F       		.byte	0x1f
+ 2800 0f9c A00F0000 		.4byte	0xfa0
+ 2801 0fa0 14       		.uleb128 0x14
+ 2802 0fa1 890A0000 		.4byte	0xa89
+ 2803 0fa5 29       		.uleb128 0x29
+ 2804 0fa6 F1070000 		.4byte	.LASF237
+ 2805 0faa 0F       		.byte	0xf
+ 2806 0fab 1F       		.byte	0x1f
+ 2807 0fac B00F0000 		.4byte	0xfb0
+ 2808 0fb0 14       		.uleb128 0x14
+ 2809 0fb1 45090000 		.4byte	0x945
+ 2810 0fb5 29       		.uleb128 0x29
+ 2811 0fb6 87000000 		.4byte	.LASF238
+ 2812 0fba 10       		.byte	0x10
+ 2813 0fbb 5E       		.byte	0x5e
+ 2814 0fbc 6C070000 		.4byte	0x76c
+ 2815 0fc0 29       		.uleb128 0x29
+ 2816 0fc1 40090000 		.4byte	.LASF239
+ 2817 0fc5 11       		.byte	0x11
+ 2818 0fc6 7F       		.byte	0x7f
+ 2819 0fc7 D1060000 		.4byte	0x6d1
+ 2820 0fcb 29       		.uleb128 0x29
+ 2821 0fcc 63060000 		.4byte	.LASF240
+ 2822 0fd0 12       		.byte	0x12
+ 2823 0fd1 87       		.byte	0x87
+ 2824 0fd2 48080000 		.4byte	0x848
+ 2825 0fd6 29       		.uleb128 0x29
+ 2826 0fd7 B80D0000 		.4byte	.LASF241
+ 2827 0fdb 13       		.byte	0x13
+ 2828 0fdc 7F       		.byte	0x7f
+ 2829 0fdd D1060000 		.4byte	0x6d1
+ 2830 0fe1 2A       		.uleb128 0x2a
+ 2831 0fe2 42504D00 		.ascii	"BPM\000"
+ 2832 0fe6 14       		.byte	0x14
+ 2833 0fe7 10       		.byte	0x10
+ 2834 0fe8 B8000000 		.4byte	0xb8
+ 2835 0fec 05       		.uleb128 0x5
+ 2836 0fed 03       		.byte	0x3
+ 2837 0fee 00000000 		.4byte	BPM
+ 2838 0ff2 2B       		.uleb128 0x2b
+ 2839 0ff3 42060000 		.4byte	.LASF242
+ 2840 0ff7 14       		.byte	0x14
+ 2841 0ff8 11       		.byte	0x11
+ 2842 0ff9 B8000000 		.4byte	0xb8
+ 2843 0ffd 05       		.uleb128 0x5
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 54
+
+
+ 2844 0ffe 03       		.byte	0x3
+ 2845 0fff 00000000 		.4byte	SpO2
+ 2846 1003 26       		.uleb128 0x26
+ 2847 1004 20050000 		.4byte	0x520
+ 2848 1008 14100000 		.4byte	0x1014
+ 2849 100c 27       		.uleb128 0x27
+ 2850 100d D9000000 		.4byte	0xd9
+ 2851 1011 E703     		.2byte	0x3e7
+ 2852 1013 00       		.byte	0
+ 2853 1014 2B       		.uleb128 0x2b
+ 2854 1015 40000000 		.4byte	.LASF243
+ 2855 1019 14       		.byte	0x14
+ 2856 101a 12       		.byte	0x12
+ 2857 101b 03100000 		.4byte	0x1003
+ 2858 101f 05       		.uleb128 0x5
+ 2859 1020 03       		.byte	0x3
+ 2860 1021 00000000 		.4byte	buffer_Red
+ 2861 1025 2B       		.uleb128 0x2b
+ 2862 1026 DF050000 		.4byte	.LASF244
+ 2863 102a 14       		.byte	0x14
+ 2864 102b 13       		.byte	0x13
+ 2865 102c 03100000 		.4byte	0x1003
+ 2866 1030 05       		.uleb128 0x5
+ 2867 1031 03       		.byte	0x3
+ 2868 1032 00000000 		.4byte	buffer_IR
+ 2869 1036 26       		.uleb128 0x26
+ 2870 1037 20050000 		.4byte	0x520
+ 2871 103b 47100000 		.4byte	0x1047
+ 2872 103f 27       		.uleb128 0x27
+ 2873 1040 D9000000 		.4byte	0xd9
+ 2874 1044 F301     		.2byte	0x1f3
+ 2875 1046 00       		.byte	0
+ 2876 1047 2B       		.uleb128 0x2b
+ 2877 1048 F2050000 		.4byte	.LASF245
+ 2878 104c 14       		.byte	0x14
+ 2879 104d 14       		.byte	0x14
+ 2880 104e 36100000 		.4byte	0x1036
+ 2881 1052 05       		.uleb128 0x5
+ 2882 1053 03       		.byte	0x3
+ 2883 1054 00000000 		.4byte	signal_Red_AC
+ 2884 1058 2B       		.uleb128 0x2b
+ 2885 1059 07040000 		.4byte	.LASF246
+ 2886 105d 14       		.byte	0x14
+ 2887 105e 15       		.byte	0x15
+ 2888 105f 36100000 		.4byte	0x1036
+ 2889 1063 05       		.uleb128 0x5
+ 2890 1064 03       		.byte	0x3
+ 2891 1065 00000000 		.4byte	signal_IR_AC
+ 2892 1069 2B       		.uleb128 0x2b
+ 2893 106a 22090000 		.4byte	.LASF247
+ 2894 106e 14       		.byte	0x14
+ 2895 106f 16       		.byte	0x16
+ 2896 1070 36100000 		.4byte	0x1036
+ 2897 1074 05       		.uleb128 0x5
+ 2898 1075 03       		.byte	0x3
+ 2899 1076 00000000 		.4byte	signal_Red_DC
+ 2900 107a 2B       		.uleb128 0x2b
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 55
+
+
+ 2901 107b F4060000 		.4byte	.LASF248
+ 2902 107f 14       		.byte	0x14
+ 2903 1080 17       		.byte	0x17
+ 2904 1081 36100000 		.4byte	0x1036
+ 2905 1085 05       		.uleb128 0x5
+ 2906 1086 03       		.byte	0x3
+ 2907 1087 00000000 		.4byte	signal_IR_DC
+ 2908 108b 2B       		.uleb128 0x2b
+ 2909 108c 5E0D0000 		.4byte	.LASF249
+ 2910 1090 14       		.byte	0x14
+ 2911 1091 18       		.byte	0x18
+ 2912 1092 3C050000 		.4byte	0x53c
+ 2913 1096 05       		.uleb128 0x5
+ 2914 1097 03       		.byte	0x3
+ 2915 1098 00000000 		.4byte	flagTraitement
+ 2916 109c 2B       		.uleb128 0x2b
+ 2917 109d 63040000 		.4byte	.LASF250
+ 2918 10a1 14       		.byte	0x14
+ 2919 10a2 19       		.byte	0x19
+ 2920 10a3 3C050000 		.4byte	0x53c
+ 2921 10a7 05       		.uleb128 0x5
+ 2922 10a8 03       		.byte	0x3
+ 2923 10a9 00000000 		.4byte	flagAffichage
+ 2924 10ad 2B       		.uleb128 0x2b
+ 2925 10ae 1C0D0000 		.4byte	.LASF251
+ 2926 10b2 14       		.byte	0x14
+ 2927 10b3 1A       		.byte	0x1a
+ 2928 10b4 3C050000 		.4byte	0x53c
+ 2929 10b8 05       		.uleb128 0x5
+ 2930 10b9 03       		.byte	0x3
+ 2931 10ba 00000000 		.4byte	debut
+ 2932 10be 2B       		.uleb128 0x2b
+ 2933 10bf 1D030000 		.4byte	.LASF252
+ 2934 10c3 14       		.byte	0x14
+ 2935 10c4 1B       		.byte	0x1b
+ 2936 10c5 B8000000 		.4byte	0xb8
+ 2937 10c9 05       		.uleb128 0x5
+ 2938 10ca 03       		.byte	0x3
+ 2939 10cb 00000000 		.4byte	indexLecture
+ 2940 10cf 2B       		.uleb128 0x2b
+ 2941 10d0 63090000 		.4byte	.LASF253
+ 2942 10d4 14       		.byte	0x14
+ 2943 10d5 1E       		.byte	0x1e
+ 2944 10d6 A2000000 		.4byte	0xa2
+ 2945 10da 05       		.uleb128 0x5
+ 2946 10db 03       		.byte	0x3
+ 2947 10dc 00000000 		.4byte	IntensiteDELs
+ 2948 10e0 2B       		.uleb128 0x2b
+ 2949 10e1 86030000 		.4byte	.LASF254
+ 2950 10e5 14       		.byte	0x14
+ 2951 10e6 1F       		.byte	0x1f
+ 2952 10e7 27050000 		.4byte	0x527
+ 2953 10eb 05       		.uleb128 0x5
+ 2954 10ec 03       		.byte	0x3
+ 2955 10ed 00000000 		.4byte	acceleration
+ 2956 10f1 26       		.uleb128 0x26
+ 2957 10f2 D70A0000 		.4byte	0xad7
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 56
+
+
+ 2958 10f6 01110000 		.4byte	0x1101
+ 2959 10fa 2C       		.uleb128 0x2c
+ 2960 10fb D9000000 		.4byte	0xd9
+ 2961 10ff 28       		.byte	0x28
+ 2962 1100 00       		.byte	0
+ 2963 1101 2B       		.uleb128 0x2b
+ 2964 1102 B90E0000 		.4byte	.LASF255
+ 2965 1106 01       		.byte	0x1
+ 2966 1107 20       		.byte	0x20
+ 2967 1108 12110000 		.4byte	0x1112
+ 2968 110c 05       		.uleb128 0x5
+ 2969 110d 03       		.byte	0x3
+ 2970 110e 00000000 		.4byte	firCoeffsLPF
+ 2971 1112 14       		.uleb128 0x14
+ 2972 1113 F1100000 		.4byte	0x10f1
+ 2973 1117 2B       		.uleb128 0x2b
+ 2974 1118 71090000 		.4byte	.LASF256
+ 2975 111c 01       		.byte	0x1
+ 2976 111d 21       		.byte	0x21
+ 2977 111e CE000000 		.4byte	0xce
+ 2978 1122 05       		.uleb128 0x5
+ 2979 1123 03       		.byte	0x3
+ 2980 1124 00000000 		.4byte	blockSize
+ 2981 1128 2B       		.uleb128 0x2b
+ 2982 1129 FA0D0000 		.4byte	.LASF257
+ 2983 112d 01       		.byte	0x1
+ 2984 112e 22       		.byte	0x22
+ 2985 112f CE000000 		.4byte	0xce
+ 2986 1133 05       		.uleb128 0x5
+ 2987 1134 03       		.byte	0x3
+ 2988 1135 00000000 		.4byte	numBlocks
+ 2989 1139 2B       		.uleb128 0x2b
+ 2990 113a 040E0000 		.4byte	.LASF258
+ 2991 113e 01       		.byte	0x1
+ 2992 113f 23       		.byte	0x23
+ 2993 1140 CE000000 		.4byte	0xce
+ 2994 1144 05       		.uleb128 0x5
+ 2995 1145 03       		.byte	0x3
+ 2996 1146 00000000 		.4byte	dataLength
+ 2997 114a 2A       		.uleb128 0x2a
+ 2998 114b 467300   		.ascii	"Fs\000"
+ 2999 114e 01       		.byte	0x1
+ 3000 114f 24       		.byte	0x24
+ 3001 1150 20050000 		.4byte	0x520
+ 3002 1154 05       		.uleb128 0x5
+ 3003 1155 03       		.byte	0x3
+ 3004 1156 00000000 		.4byte	Fs
+ 3005 115a 2D       		.uleb128 0x2d
+ 3006 115b B6090000 		.4byte	.LASF259
+ 3007 115f B6090000 		.4byte	.LASF259
+ 3008 1163 0B       		.byte	0xb
+ 3009 1164 A604     		.2byte	0x4a6
+ 3010 1166 2D       		.uleb128 0x2d
+ 3011 1167 AD030000 		.4byte	.LASF260
+ 3012 116b AD030000 		.4byte	.LASF260
+ 3013 116f 0B       		.byte	0xb
+ 3014 1170 9704     		.2byte	0x497
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 57
+
+
+ 3015 1172 2D       		.uleb128 0x2d
+ 3016 1173 F80E0000 		.4byte	.LASF261
+ 3017 1177 F80E0000 		.4byte	.LASF261
+ 3018 117b 0B       		.byte	0xb
+ 3019 117c 7619     		.2byte	0x1976
+ 3020 117e 2D       		.uleb128 0x2d
+ 3021 117f 47070000 		.4byte	.LASF262
+ 3022 1183 47070000 		.4byte	.LASF262
+ 3023 1187 0B       		.byte	0xb
+ 3024 1188 3E19     		.2byte	0x193e
+ 3025 118a 2D       		.uleb128 0x2d
+ 3026 118b 8D080000 		.4byte	.LASF263
+ 3027 118f 8D080000 		.4byte	.LASF263
+ 3028 1193 0B       		.byte	0xb
+ 3029 1194 1D18     		.2byte	0x181d
+ 3030 1196 2D       		.uleb128 0x2d
+ 3031 1197 150E0000 		.4byte	.LASF264
+ 3032 119b 150E0000 		.4byte	.LASF264
+ 3033 119f 15       		.byte	0x15
+ 3034 11a0 4B01     		.2byte	0x14b
+ 3035 11a2 2D       		.uleb128 0x2d
+ 3036 11a3 8D050000 		.4byte	.LASF265
+ 3037 11a7 8D050000 		.4byte	.LASF265
+ 3038 11ab 16       		.byte	0x16
+ 3039 11ac ED02     		.2byte	0x2ed
+ 3040 11ae 00       		.byte	0
+ 3041              		.section	.debug_abbrev,"",%progbits
+ 3042              	.Ldebug_abbrev0:
+ 3043 0000 01       		.uleb128 0x1
+ 3044 0001 11       		.uleb128 0x11
+ 3045 0002 01       		.byte	0x1
+ 3046 0003 25       		.uleb128 0x25
+ 3047 0004 0E       		.uleb128 0xe
+ 3048 0005 13       		.uleb128 0x13
+ 3049 0006 0B       		.uleb128 0xb
+ 3050 0007 03       		.uleb128 0x3
+ 3051 0008 0E       		.uleb128 0xe
+ 3052 0009 1B       		.uleb128 0x1b
+ 3053 000a 0E       		.uleb128 0xe
+ 3054 000b 55       		.uleb128 0x55
+ 3055 000c 17       		.uleb128 0x17
+ 3056 000d 11       		.uleb128 0x11
+ 3057 000e 01       		.uleb128 0x1
+ 3058 000f 10       		.uleb128 0x10
+ 3059 0010 17       		.uleb128 0x17
+ 3060 0011 00       		.byte	0
+ 3061 0012 00       		.byte	0
+ 3062 0013 02       		.uleb128 0x2
+ 3063 0014 24       		.uleb128 0x24
+ 3064 0015 00       		.byte	0
+ 3065 0016 0B       		.uleb128 0xb
+ 3066 0017 0B       		.uleb128 0xb
+ 3067 0018 3E       		.uleb128 0x3e
+ 3068 0019 0B       		.uleb128 0xb
+ 3069 001a 03       		.uleb128 0x3
+ 3070 001b 0E       		.uleb128 0xe
+ 3071 001c 00       		.byte	0
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 58
+
+
+ 3072 001d 00       		.byte	0
+ 3073 001e 03       		.uleb128 0x3
+ 3074 001f 16       		.uleb128 0x16
+ 3075 0020 00       		.byte	0
+ 3076 0021 03       		.uleb128 0x3
+ 3077 0022 0E       		.uleb128 0xe
+ 3078 0023 3A       		.uleb128 0x3a
+ 3079 0024 0B       		.uleb128 0xb
+ 3080 0025 3B       		.uleb128 0x3b
+ 3081 0026 0B       		.uleb128 0xb
+ 3082 0027 49       		.uleb128 0x49
+ 3083 0028 13       		.uleb128 0x13
+ 3084 0029 00       		.byte	0
+ 3085 002a 00       		.byte	0
+ 3086 002b 04       		.uleb128 0x4
+ 3087 002c 24       		.uleb128 0x24
+ 3088 002d 00       		.byte	0
+ 3089 002e 0B       		.uleb128 0xb
+ 3090 002f 0B       		.uleb128 0xb
+ 3091 0030 3E       		.uleb128 0x3e
+ 3092 0031 0B       		.uleb128 0xb
+ 3093 0032 03       		.uleb128 0x3
+ 3094 0033 08       		.uleb128 0x8
+ 3095 0034 00       		.byte	0
+ 3096 0035 00       		.byte	0
+ 3097 0036 05       		.uleb128 0x5
+ 3098 0037 35       		.uleb128 0x35
+ 3099 0038 00       		.byte	0
+ 3100 0039 49       		.uleb128 0x49
+ 3101 003a 13       		.uleb128 0x13
+ 3102 003b 00       		.byte	0
+ 3103 003c 00       		.byte	0
+ 3104 003d 06       		.uleb128 0x6
+ 3105 003e 13       		.uleb128 0x13
+ 3106 003f 01       		.byte	0x1
+ 3107 0040 0B       		.uleb128 0xb
+ 3108 0041 0B       		.uleb128 0xb
+ 3109 0042 3A       		.uleb128 0x3a
+ 3110 0043 0B       		.uleb128 0xb
+ 3111 0044 3B       		.uleb128 0x3b
+ 3112 0045 0B       		.uleb128 0xb
+ 3113 0046 01       		.uleb128 0x1
+ 3114 0047 13       		.uleb128 0x13
+ 3115 0048 00       		.byte	0
+ 3116 0049 00       		.byte	0
+ 3117 004a 07       		.uleb128 0x7
+ 3118 004b 0D       		.uleb128 0xd
+ 3119 004c 00       		.byte	0
+ 3120 004d 03       		.uleb128 0x3
+ 3121 004e 0E       		.uleb128 0xe
+ 3122 004f 3A       		.uleb128 0x3a
+ 3123 0050 0B       		.uleb128 0xb
+ 3124 0051 3B       		.uleb128 0x3b
+ 3125 0052 0B       		.uleb128 0xb
+ 3126 0053 49       		.uleb128 0x49
+ 3127 0054 13       		.uleb128 0x13
+ 3128 0055 38       		.uleb128 0x38
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 59
+
+
+ 3129 0056 0B       		.uleb128 0xb
+ 3130 0057 00       		.byte	0
+ 3131 0058 00       		.byte	0
+ 3132 0059 08       		.uleb128 0x8
+ 3133 005a 16       		.uleb128 0x16
+ 3134 005b 00       		.byte	0
+ 3135 005c 03       		.uleb128 0x3
+ 3136 005d 0E       		.uleb128 0xe
+ 3137 005e 3A       		.uleb128 0x3a
+ 3138 005f 0B       		.uleb128 0xb
+ 3139 0060 3B       		.uleb128 0x3b
+ 3140 0061 05       		.uleb128 0x5
+ 3141 0062 49       		.uleb128 0x49
+ 3142 0063 13       		.uleb128 0x13
+ 3143 0064 00       		.byte	0
+ 3144 0065 00       		.byte	0
+ 3145 0066 09       		.uleb128 0x9
+ 3146 0067 0F       		.uleb128 0xf
+ 3147 0068 00       		.byte	0
+ 3148 0069 0B       		.uleb128 0xb
+ 3149 006a 0B       		.uleb128 0xb
+ 3150 006b 00       		.byte	0
+ 3151 006c 00       		.byte	0
+ 3152 006d 0A       		.uleb128 0xa
+ 3153 006e 04       		.uleb128 0x4
+ 3154 006f 01       		.byte	0x1
+ 3155 0070 0B       		.uleb128 0xb
+ 3156 0071 0B       		.uleb128 0xb
+ 3157 0072 49       		.uleb128 0x49
+ 3158 0073 13       		.uleb128 0x13
+ 3159 0074 3A       		.uleb128 0x3a
+ 3160 0075 0B       		.uleb128 0xb
+ 3161 0076 3B       		.uleb128 0x3b
+ 3162 0077 05       		.uleb128 0x5
+ 3163 0078 01       		.uleb128 0x1
+ 3164 0079 13       		.uleb128 0x13
+ 3165 007a 00       		.byte	0
+ 3166 007b 00       		.byte	0
+ 3167 007c 0B       		.uleb128 0xb
+ 3168 007d 28       		.uleb128 0x28
+ 3169 007e 00       		.byte	0
+ 3170 007f 03       		.uleb128 0x3
+ 3171 0080 0E       		.uleb128 0xe
+ 3172 0081 1C       		.uleb128 0x1c
+ 3173 0082 0B       		.uleb128 0xb
+ 3174 0083 00       		.byte	0
+ 3175 0084 00       		.byte	0
+ 3176 0085 0C       		.uleb128 0xc
+ 3177 0086 0F       		.uleb128 0xf
+ 3178 0087 00       		.byte	0
+ 3179 0088 0B       		.uleb128 0xb
+ 3180 0089 0B       		.uleb128 0xb
+ 3181 008a 49       		.uleb128 0x49
+ 3182 008b 13       		.uleb128 0x13
+ 3183 008c 00       		.byte	0
+ 3184 008d 00       		.byte	0
+ 3185 008e 0D       		.uleb128 0xd
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 60
+
+
+ 3186 008f 15       		.uleb128 0x15
+ 3187 0090 01       		.byte	0x1
+ 3188 0091 27       		.uleb128 0x27
+ 3189 0092 19       		.uleb128 0x19
+ 3190 0093 01       		.uleb128 0x1
+ 3191 0094 13       		.uleb128 0x13
+ 3192 0095 00       		.byte	0
+ 3193 0096 00       		.byte	0
+ 3194 0097 0E       		.uleb128 0xe
+ 3195 0098 05       		.uleb128 0x5
+ 3196 0099 00       		.byte	0
+ 3197 009a 49       		.uleb128 0x49
+ 3198 009b 13       		.uleb128 0x13
+ 3199 009c 00       		.byte	0
+ 3200 009d 00       		.byte	0
+ 3201 009e 0F       		.uleb128 0xf
+ 3202 009f 15       		.uleb128 0x15
+ 3203 00a0 01       		.byte	0x1
+ 3204 00a1 27       		.uleb128 0x27
+ 3205 00a2 19       		.uleb128 0x19
+ 3206 00a3 49       		.uleb128 0x49
+ 3207 00a4 13       		.uleb128 0x13
+ 3208 00a5 01       		.uleb128 0x1
+ 3209 00a6 13       		.uleb128 0x13
+ 3210 00a7 00       		.byte	0
+ 3211 00a8 00       		.byte	0
+ 3212 00a9 10       		.uleb128 0x10
+ 3213 00aa 13       		.uleb128 0x13
+ 3214 00ab 01       		.byte	0x1
+ 3215 00ac 03       		.uleb128 0x3
+ 3216 00ad 0E       		.uleb128 0xe
+ 3217 00ae 0B       		.uleb128 0xb
+ 3218 00af 0B       		.uleb128 0xb
+ 3219 00b0 3A       		.uleb128 0x3a
+ 3220 00b1 0B       		.uleb128 0xb
+ 3221 00b2 3B       		.uleb128 0x3b
+ 3222 00b3 05       		.uleb128 0x5
+ 3223 00b4 01       		.uleb128 0x1
+ 3224 00b5 13       		.uleb128 0x13
+ 3225 00b6 00       		.byte	0
+ 3226 00b7 00       		.byte	0
+ 3227 00b8 11       		.uleb128 0x11
+ 3228 00b9 0D       		.uleb128 0xd
+ 3229 00ba 00       		.byte	0
+ 3230 00bb 03       		.uleb128 0x3
+ 3231 00bc 0E       		.uleb128 0xe
+ 3232 00bd 3A       		.uleb128 0x3a
+ 3233 00be 0B       		.uleb128 0xb
+ 3234 00bf 3B       		.uleb128 0x3b
+ 3235 00c0 05       		.uleb128 0x5
+ 3236 00c1 49       		.uleb128 0x49
+ 3237 00c2 13       		.uleb128 0x13
+ 3238 00c3 38       		.uleb128 0x38
+ 3239 00c4 0B       		.uleb128 0xb
+ 3240 00c5 00       		.byte	0
+ 3241 00c6 00       		.byte	0
+ 3242 00c7 12       		.uleb128 0x12
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 61
+
+
+ 3243 00c8 13       		.uleb128 0x13
+ 3244 00c9 01       		.byte	0x1
+ 3245 00ca 03       		.uleb128 0x3
+ 3246 00cb 0E       		.uleb128 0xe
+ 3247 00cc 0B       		.uleb128 0xb
+ 3248 00cd 0B       		.uleb128 0xb
+ 3249 00ce 3A       		.uleb128 0x3a
+ 3250 00cf 0B       		.uleb128 0xb
+ 3251 00d0 3B       		.uleb128 0x3b
+ 3252 00d1 0B       		.uleb128 0xb
+ 3253 00d2 01       		.uleb128 0x1
+ 3254 00d3 13       		.uleb128 0x13
+ 3255 00d4 00       		.byte	0
+ 3256 00d5 00       		.byte	0
+ 3257 00d6 13       		.uleb128 0x13
+ 3258 00d7 13       		.uleb128 0x13
+ 3259 00d8 01       		.byte	0x1
+ 3260 00d9 0B       		.uleb128 0xb
+ 3261 00da 0B       		.uleb128 0xb
+ 3262 00db 3A       		.uleb128 0x3a
+ 3263 00dc 0B       		.uleb128 0xb
+ 3264 00dd 3B       		.uleb128 0x3b
+ 3265 00de 05       		.uleb128 0x5
+ 3266 00df 01       		.uleb128 0x1
+ 3267 00e0 13       		.uleb128 0x13
+ 3268 00e1 00       		.byte	0
+ 3269 00e2 00       		.byte	0
+ 3270 00e3 14       		.uleb128 0x14
+ 3271 00e4 26       		.uleb128 0x26
+ 3272 00e5 00       		.byte	0
+ 3273 00e6 49       		.uleb128 0x49
+ 3274 00e7 13       		.uleb128 0x13
+ 3275 00e8 00       		.byte	0
+ 3276 00e9 00       		.byte	0
+ 3277 00ea 15       		.uleb128 0x15
+ 3278 00eb 2E       		.uleb128 0x2e
+ 3279 00ec 01       		.byte	0x1
+ 3280 00ed 3F       		.uleb128 0x3f
+ 3281 00ee 19       		.uleb128 0x19
+ 3282 00ef 03       		.uleb128 0x3
+ 3283 00f0 0E       		.uleb128 0xe
+ 3284 00f1 3A       		.uleb128 0x3a
+ 3285 00f2 0B       		.uleb128 0xb
+ 3286 00f3 3B       		.uleb128 0x3b
+ 3287 00f4 0B       		.uleb128 0xb
+ 3288 00f5 27       		.uleb128 0x27
+ 3289 00f6 19       		.uleb128 0x19
+ 3290 00f7 11       		.uleb128 0x11
+ 3291 00f8 01       		.uleb128 0x1
+ 3292 00f9 12       		.uleb128 0x12
+ 3293 00fa 06       		.uleb128 0x6
+ 3294 00fb 40       		.uleb128 0x40
+ 3295 00fc 18       		.uleb128 0x18
+ 3296 00fd 9742     		.uleb128 0x2117
+ 3297 00ff 19       		.uleb128 0x19
+ 3298 0100 01       		.uleb128 0x1
+ 3299 0101 13       		.uleb128 0x13
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 62
+
+
+ 3300 0102 00       		.byte	0
+ 3301 0103 00       		.byte	0
+ 3302 0104 16       		.uleb128 0x16
+ 3303 0105 05       		.uleb128 0x5
+ 3304 0106 00       		.byte	0
+ 3305 0107 03       		.uleb128 0x3
+ 3306 0108 0E       		.uleb128 0xe
+ 3307 0109 3A       		.uleb128 0x3a
+ 3308 010a 0B       		.uleb128 0xb
+ 3309 010b 3B       		.uleb128 0x3b
+ 3310 010c 0B       		.uleb128 0xb
+ 3311 010d 49       		.uleb128 0x49
+ 3312 010e 13       		.uleb128 0x13
+ 3313 010f 02       		.uleb128 0x2
+ 3314 0110 17       		.uleb128 0x17
+ 3315 0111 00       		.byte	0
+ 3316 0112 00       		.byte	0
+ 3317 0113 17       		.uleb128 0x17
+ 3318 0114 34       		.uleb128 0x34
+ 3319 0115 00       		.byte	0
+ 3320 0116 03       		.uleb128 0x3
+ 3321 0117 08       		.uleb128 0x8
+ 3322 0118 3A       		.uleb128 0x3a
+ 3323 0119 0B       		.uleb128 0xb
+ 3324 011a 3B       		.uleb128 0x3b
+ 3325 011b 0B       		.uleb128 0xb
+ 3326 011c 49       		.uleb128 0x49
+ 3327 011d 13       		.uleb128 0x13
+ 3328 011e 02       		.uleb128 0x2
+ 3329 011f 18       		.uleb128 0x18
+ 3330 0120 00       		.byte	0
+ 3331 0121 00       		.byte	0
+ 3332 0122 18       		.uleb128 0x18
+ 3333 0123 898201   		.uleb128 0x4109
+ 3334 0126 01       		.byte	0x1
+ 3335 0127 11       		.uleb128 0x11
+ 3336 0128 01       		.uleb128 0x1
+ 3337 0129 31       		.uleb128 0x31
+ 3338 012a 13       		.uleb128 0x13
+ 3339 012b 01       		.uleb128 0x1
+ 3340 012c 13       		.uleb128 0x13
+ 3341 012d 00       		.byte	0
+ 3342 012e 00       		.byte	0
+ 3343 012f 19       		.uleb128 0x19
+ 3344 0130 8A8201   		.uleb128 0x410a
+ 3345 0133 00       		.byte	0
+ 3346 0134 02       		.uleb128 0x2
+ 3347 0135 18       		.uleb128 0x18
+ 3348 0136 9142     		.uleb128 0x2111
+ 3349 0138 18       		.uleb128 0x18
+ 3350 0139 00       		.byte	0
+ 3351 013a 00       		.byte	0
+ 3352 013b 1A       		.uleb128 0x1a
+ 3353 013c 898201   		.uleb128 0x4109
+ 3354 013f 01       		.byte	0x1
+ 3355 0140 11       		.uleb128 0x11
+ 3356 0141 01       		.uleb128 0x1
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 63
+
+
+ 3357 0142 31       		.uleb128 0x31
+ 3358 0143 13       		.uleb128 0x13
+ 3359 0144 00       		.byte	0
+ 3360 0145 00       		.byte	0
+ 3361 0146 1B       		.uleb128 0x1b
+ 3362 0147 05       		.uleb128 0x5
+ 3363 0148 00       		.byte	0
+ 3364 0149 03       		.uleb128 0x3
+ 3365 014a 0E       		.uleb128 0xe
+ 3366 014b 3A       		.uleb128 0x3a
+ 3367 014c 0B       		.uleb128 0xb
+ 3368 014d 3B       		.uleb128 0x3b
+ 3369 014e 0B       		.uleb128 0xb
+ 3370 014f 49       		.uleb128 0x49
+ 3371 0150 13       		.uleb128 0x13
+ 3372 0151 02       		.uleb128 0x2
+ 3373 0152 18       		.uleb128 0x18
+ 3374 0153 00       		.byte	0
+ 3375 0154 00       		.byte	0
+ 3376 0155 1C       		.uleb128 0x1c
+ 3377 0156 34       		.uleb128 0x34
+ 3378 0157 00       		.byte	0
+ 3379 0158 03       		.uleb128 0x3
+ 3380 0159 0E       		.uleb128 0xe
+ 3381 015a 3A       		.uleb128 0x3a
+ 3382 015b 0B       		.uleb128 0xb
+ 3383 015c 3B       		.uleb128 0x3b
+ 3384 015d 0B       		.uleb128 0xb
+ 3385 015e 49       		.uleb128 0x49
+ 3386 015f 13       		.uleb128 0x13
+ 3387 0160 02       		.uleb128 0x2
+ 3388 0161 17       		.uleb128 0x17
+ 3389 0162 00       		.byte	0
+ 3390 0163 00       		.byte	0
+ 3391 0164 1D       		.uleb128 0x1d
+ 3392 0165 0B       		.uleb128 0xb
+ 3393 0166 01       		.byte	0x1
+ 3394 0167 55       		.uleb128 0x55
+ 3395 0168 17       		.uleb128 0x17
+ 3396 0169 01       		.uleb128 0x1
+ 3397 016a 13       		.uleb128 0x13
+ 3398 016b 00       		.byte	0
+ 3399 016c 00       		.byte	0
+ 3400 016d 1E       		.uleb128 0x1e
+ 3401 016e 34       		.uleb128 0x34
+ 3402 016f 00       		.byte	0
+ 3403 0170 03       		.uleb128 0x3
+ 3404 0171 08       		.uleb128 0x8
+ 3405 0172 3A       		.uleb128 0x3a
+ 3406 0173 0B       		.uleb128 0xb
+ 3407 0174 3B       		.uleb128 0x3b
+ 3408 0175 0B       		.uleb128 0xb
+ 3409 0176 49       		.uleb128 0x49
+ 3410 0177 13       		.uleb128 0x13
+ 3411 0178 02       		.uleb128 0x2
+ 3412 0179 17       		.uleb128 0x17
+ 3413 017a 00       		.byte	0
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 64
+
+
+ 3414 017b 00       		.byte	0
+ 3415 017c 1F       		.uleb128 0x1f
+ 3416 017d 0B       		.uleb128 0xb
+ 3417 017e 01       		.byte	0x1
+ 3418 017f 11       		.uleb128 0x11
+ 3419 0180 01       		.uleb128 0x1
+ 3420 0181 12       		.uleb128 0x12
+ 3421 0182 06       		.uleb128 0x6
+ 3422 0183 00       		.byte	0
+ 3423 0184 00       		.byte	0
+ 3424 0185 20       		.uleb128 0x20
+ 3425 0186 2E       		.uleb128 0x2e
+ 3426 0187 01       		.byte	0x1
+ 3427 0188 3F       		.uleb128 0x3f
+ 3428 0189 19       		.uleb128 0x19
+ 3429 018a 03       		.uleb128 0x3
+ 3430 018b 0E       		.uleb128 0xe
+ 3431 018c 3A       		.uleb128 0x3a
+ 3432 018d 0B       		.uleb128 0xb
+ 3433 018e 3B       		.uleb128 0x3b
+ 3434 018f 0B       		.uleb128 0xb
+ 3435 0190 27       		.uleb128 0x27
+ 3436 0191 19       		.uleb128 0x19
+ 3437 0192 49       		.uleb128 0x49
+ 3438 0193 13       		.uleb128 0x13
+ 3439 0194 11       		.uleb128 0x11
+ 3440 0195 01       		.uleb128 0x1
+ 3441 0196 12       		.uleb128 0x12
+ 3442 0197 06       		.uleb128 0x6
+ 3443 0198 40       		.uleb128 0x40
+ 3444 0199 18       		.uleb128 0x18
+ 3445 019a 9642     		.uleb128 0x2116
+ 3446 019c 19       		.uleb128 0x19
+ 3447 019d 01       		.uleb128 0x1
+ 3448 019e 13       		.uleb128 0x13
+ 3449 019f 00       		.byte	0
+ 3450 01a0 00       		.byte	0
+ 3451 01a1 21       		.uleb128 0x21
+ 3452 01a2 34       		.uleb128 0x34
+ 3453 01a3 00       		.byte	0
+ 3454 01a4 03       		.uleb128 0x3
+ 3455 01a5 0E       		.uleb128 0xe
+ 3456 01a6 3A       		.uleb128 0x3a
+ 3457 01a7 0B       		.uleb128 0xb
+ 3458 01a8 3B       		.uleb128 0x3b
+ 3459 01a9 0B       		.uleb128 0xb
+ 3460 01aa 49       		.uleb128 0x49
+ 3461 01ab 13       		.uleb128 0x13
+ 3462 01ac 02       		.uleb128 0x2
+ 3463 01ad 18       		.uleb128 0x18
+ 3464 01ae 00       		.byte	0
+ 3465 01af 00       		.byte	0
+ 3466 01b0 22       		.uleb128 0x22
+ 3467 01b1 898201   		.uleb128 0x4109
+ 3468 01b4 00       		.byte	0
+ 3469 01b5 11       		.uleb128 0x11
+ 3470 01b6 01       		.uleb128 0x1
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 65
+
+
+ 3471 01b7 31       		.uleb128 0x31
+ 3472 01b8 13       		.uleb128 0x13
+ 3473 01b9 00       		.byte	0
+ 3474 01ba 00       		.byte	0
+ 3475 01bb 23       		.uleb128 0x23
+ 3476 01bc 0B       		.uleb128 0xb
+ 3477 01bd 01       		.byte	0x1
+ 3478 01be 11       		.uleb128 0x11
+ 3479 01bf 01       		.uleb128 0x1
+ 3480 01c0 12       		.uleb128 0x12
+ 3481 01c1 06       		.uleb128 0x6
+ 3482 01c2 01       		.uleb128 0x1
+ 3483 01c3 13       		.uleb128 0x13
+ 3484 01c4 00       		.byte	0
+ 3485 01c5 00       		.byte	0
+ 3486 01c6 24       		.uleb128 0x24
+ 3487 01c7 0B       		.uleb128 0xb
+ 3488 01c8 01       		.byte	0x1
+ 3489 01c9 55       		.uleb128 0x55
+ 3490 01ca 17       		.uleb128 0x17
+ 3491 01cb 00       		.byte	0
+ 3492 01cc 00       		.byte	0
+ 3493 01cd 25       		.uleb128 0x25
+ 3494 01ce 2E       		.uleb128 0x2e
+ 3495 01cf 01       		.byte	0x1
+ 3496 01d0 3F       		.uleb128 0x3f
+ 3497 01d1 19       		.uleb128 0x19
+ 3498 01d2 03       		.uleb128 0x3
+ 3499 01d3 0E       		.uleb128 0xe
+ 3500 01d4 3A       		.uleb128 0x3a
+ 3501 01d5 0B       		.uleb128 0xb
+ 3502 01d6 3B       		.uleb128 0x3b
+ 3503 01d7 0B       		.uleb128 0xb
+ 3504 01d8 8701     		.uleb128 0x87
+ 3505 01da 19       		.uleb128 0x19
+ 3506 01db 11       		.uleb128 0x11
+ 3507 01dc 01       		.uleb128 0x1
+ 3508 01dd 12       		.uleb128 0x12
+ 3509 01de 06       		.uleb128 0x6
+ 3510 01df 40       		.uleb128 0x40
+ 3511 01e0 18       		.uleb128 0x18
+ 3512 01e1 9742     		.uleb128 0x2117
+ 3513 01e3 19       		.uleb128 0x19
+ 3514 01e4 01       		.uleb128 0x1
+ 3515 01e5 13       		.uleb128 0x13
+ 3516 01e6 00       		.byte	0
+ 3517 01e7 00       		.byte	0
+ 3518 01e8 26       		.uleb128 0x26
+ 3519 01e9 01       		.uleb128 0x1
+ 3520 01ea 01       		.byte	0x1
+ 3521 01eb 49       		.uleb128 0x49
+ 3522 01ec 13       		.uleb128 0x13
+ 3523 01ed 01       		.uleb128 0x1
+ 3524 01ee 13       		.uleb128 0x13
+ 3525 01ef 00       		.byte	0
+ 3526 01f0 00       		.byte	0
+ 3527 01f1 27       		.uleb128 0x27
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 66
+
+
+ 3528 01f2 21       		.uleb128 0x21
+ 3529 01f3 00       		.byte	0
+ 3530 01f4 49       		.uleb128 0x49
+ 3531 01f5 13       		.uleb128 0x13
+ 3532 01f6 2F       		.uleb128 0x2f
+ 3533 01f7 05       		.uleb128 0x5
+ 3534 01f8 00       		.byte	0
+ 3535 01f9 00       		.byte	0
+ 3536 01fa 28       		.uleb128 0x28
+ 3537 01fb 34       		.uleb128 0x34
+ 3538 01fc 00       		.byte	0
+ 3539 01fd 03       		.uleb128 0x3
+ 3540 01fe 0E       		.uleb128 0xe
+ 3541 01ff 3A       		.uleb128 0x3a
+ 3542 0200 0B       		.uleb128 0xb
+ 3543 0201 3B       		.uleb128 0x3b
+ 3544 0202 05       		.uleb128 0x5
+ 3545 0203 49       		.uleb128 0x49
+ 3546 0204 13       		.uleb128 0x13
+ 3547 0205 3F       		.uleb128 0x3f
+ 3548 0206 19       		.uleb128 0x19
+ 3549 0207 3C       		.uleb128 0x3c
+ 3550 0208 19       		.uleb128 0x19
+ 3551 0209 00       		.byte	0
+ 3552 020a 00       		.byte	0
+ 3553 020b 29       		.uleb128 0x29
+ 3554 020c 34       		.uleb128 0x34
+ 3555 020d 00       		.byte	0
+ 3556 020e 03       		.uleb128 0x3
+ 3557 020f 0E       		.uleb128 0xe
+ 3558 0210 3A       		.uleb128 0x3a
+ 3559 0211 0B       		.uleb128 0xb
+ 3560 0212 3B       		.uleb128 0x3b
+ 3561 0213 0B       		.uleb128 0xb
+ 3562 0214 49       		.uleb128 0x49
+ 3563 0215 13       		.uleb128 0x13
+ 3564 0216 3F       		.uleb128 0x3f
+ 3565 0217 19       		.uleb128 0x19
+ 3566 0218 3C       		.uleb128 0x3c
+ 3567 0219 19       		.uleb128 0x19
+ 3568 021a 00       		.byte	0
+ 3569 021b 00       		.byte	0
+ 3570 021c 2A       		.uleb128 0x2a
+ 3571 021d 34       		.uleb128 0x34
+ 3572 021e 00       		.byte	0
+ 3573 021f 03       		.uleb128 0x3
+ 3574 0220 08       		.uleb128 0x8
+ 3575 0221 3A       		.uleb128 0x3a
+ 3576 0222 0B       		.uleb128 0xb
+ 3577 0223 3B       		.uleb128 0x3b
+ 3578 0224 0B       		.uleb128 0xb
+ 3579 0225 49       		.uleb128 0x49
+ 3580 0226 13       		.uleb128 0x13
+ 3581 0227 3F       		.uleb128 0x3f
+ 3582 0228 19       		.uleb128 0x19
+ 3583 0229 02       		.uleb128 0x2
+ 3584 022a 18       		.uleb128 0x18
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 67
+
+
+ 3585 022b 00       		.byte	0
+ 3586 022c 00       		.byte	0
+ 3587 022d 2B       		.uleb128 0x2b
+ 3588 022e 34       		.uleb128 0x34
+ 3589 022f 00       		.byte	0
+ 3590 0230 03       		.uleb128 0x3
+ 3591 0231 0E       		.uleb128 0xe
+ 3592 0232 3A       		.uleb128 0x3a
+ 3593 0233 0B       		.uleb128 0xb
+ 3594 0234 3B       		.uleb128 0x3b
+ 3595 0235 0B       		.uleb128 0xb
+ 3596 0236 49       		.uleb128 0x49
+ 3597 0237 13       		.uleb128 0x13
+ 3598 0238 3F       		.uleb128 0x3f
+ 3599 0239 19       		.uleb128 0x19
+ 3600 023a 02       		.uleb128 0x2
+ 3601 023b 18       		.uleb128 0x18
+ 3602 023c 00       		.byte	0
+ 3603 023d 00       		.byte	0
+ 3604 023e 2C       		.uleb128 0x2c
+ 3605 023f 21       		.uleb128 0x21
+ 3606 0240 00       		.byte	0
+ 3607 0241 49       		.uleb128 0x49
+ 3608 0242 13       		.uleb128 0x13
+ 3609 0243 2F       		.uleb128 0x2f
+ 3610 0244 0B       		.uleb128 0xb
+ 3611 0245 00       		.byte	0
+ 3612 0246 00       		.byte	0
+ 3613 0247 2D       		.uleb128 0x2d
+ 3614 0248 2E       		.uleb128 0x2e
+ 3615 0249 00       		.byte	0
+ 3616 024a 3F       		.uleb128 0x3f
+ 3617 024b 19       		.uleb128 0x19
+ 3618 024c 3C       		.uleb128 0x3c
+ 3619 024d 19       		.uleb128 0x19
+ 3620 024e 6E       		.uleb128 0x6e
+ 3621 024f 0E       		.uleb128 0xe
+ 3622 0250 03       		.uleb128 0x3
+ 3623 0251 0E       		.uleb128 0xe
+ 3624 0252 3A       		.uleb128 0x3a
+ 3625 0253 0B       		.uleb128 0xb
+ 3626 0254 3B       		.uleb128 0x3b
+ 3627 0255 05       		.uleb128 0x5
+ 3628 0256 00       		.byte	0
+ 3629 0257 00       		.byte	0
+ 3630 0258 00       		.byte	0
+ 3631              		.section	.debug_loc,"",%progbits
+ 3632              	.Ldebug_loc0:
+ 3633              	.LLST0:
+ 3634 0000 00000000 		.4byte	.LVL0
+ 3635 0004 16000000 		.4byte	.LVL2
+ 3636 0008 0100     		.2byte	0x1
+ 3637 000a 50       		.byte	0x50
+ 3638 000b 16000000 		.4byte	.LVL2
+ 3639 000f 2A000000 		.4byte	.LVL5
+ 3640 0013 0100     		.2byte	0x1
+ 3641 0015 55       		.byte	0x55
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 68
+
+
+ 3642 0016 2A000000 		.4byte	.LVL5
+ 3643 001a 38000000 		.4byte	.LFE725
+ 3644 001e 0400     		.2byte	0x4
+ 3645 0020 F3       		.byte	0xf3
+ 3646 0021 01       		.uleb128 0x1
+ 3647 0022 50       		.byte	0x50
+ 3648 0023 9F       		.byte	0x9f
+ 3649 0024 00000000 		.4byte	0
+ 3650 0028 00000000 		.4byte	0
+ 3651              	.LLST1:
+ 3652 002c 00000000 		.4byte	.LVL0
+ 3653 0030 14000000 		.4byte	.LVL1
+ 3654 0034 0100     		.2byte	0x1
+ 3655 0036 51       		.byte	0x51
+ 3656 0037 14000000 		.4byte	.LVL1
+ 3657 003b 2A000000 		.4byte	.LVL5
+ 3658 003f 0100     		.2byte	0x1
+ 3659 0041 56       		.byte	0x56
+ 3660 0042 2A000000 		.4byte	.LVL5
+ 3661 0046 38000000 		.4byte	.LFE725
+ 3662 004a 0400     		.2byte	0x4
+ 3663 004c F3       		.byte	0xf3
+ 3664 004d 01       		.uleb128 0x1
+ 3665 004e 51       		.byte	0x51
+ 3666 004f 9F       		.byte	0x9f
+ 3667 0050 00000000 		.4byte	0
+ 3668 0054 00000000 		.4byte	0
+ 3669              	.LLST2:
+ 3670 0058 00000000 		.4byte	.LVL6
+ 3671 005c 08000000 		.4byte	.LVL7
+ 3672 0060 0600     		.2byte	0x6
+ 3673 0062 9E       		.byte	0x9e
+ 3674 0063 04       		.uleb128 0x4
+ 3675 0064 00000000 		.4byte	0
+ 3676 0068 08000000 		.4byte	.LVL7
+ 3677 006c 2E000000 		.4byte	.LVL11
+ 3678 0070 0200     		.2byte	0x2
+ 3679 0072 90       		.byte	0x90
+ 3680 0073 4E       		.uleb128 0x4e
+ 3681 0074 2E000000 		.4byte	.LVL11
+ 3682 0078 60000000 		.4byte	.LFE726
+ 3683 007c 0200     		.2byte	0x2
+ 3684 007e 90       		.byte	0x90
+ 3685 007f 4D       		.uleb128 0x4d
+ 3686 0080 00000000 		.4byte	0
+ 3687 0084 00000000 		.4byte	0
+ 3688              	.LLST3:
+ 3689 0088 00000000 		.4byte	.LVL6
+ 3690 008c 08000000 		.4byte	.LVL7
+ 3691 0090 0200     		.2byte	0x2
+ 3692 0092 30       		.byte	0x30
+ 3693 0093 9F       		.byte	0x9f
+ 3694 0094 08000000 		.4byte	.LVL7
+ 3695 0098 16000000 		.4byte	.LVL9
+ 3696 009c 0100     		.2byte	0x1
+ 3697 009e 53       		.byte	0x53
+ 3698 009f 18000000 		.4byte	.LVL10
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 69
+
+
+ 3699 00a3 30000000 		.4byte	.LVL12
+ 3700 00a7 0100     		.2byte	0x1
+ 3701 00a9 53       		.byte	0x53
+ 3702 00aa 00000000 		.4byte	0
+ 3703 00ae 00000000 		.4byte	0
+ 3704              	.LLST4:
+ 3705 00b2 2E000000 		.4byte	.LVL11
+ 3706 00b6 32000000 		.4byte	.LVL13
+ 3707 00ba 0200     		.2byte	0x2
+ 3708 00bc 30       		.byte	0x30
+ 3709 00bd 9F       		.byte	0x9f
+ 3710 00be 32000000 		.4byte	.LVL13
+ 3711 00c2 46000000 		.4byte	.LVL14
+ 3712 00c6 0100     		.2byte	0x1
+ 3713 00c8 53       		.byte	0x53
+ 3714 00c9 48000000 		.4byte	.LVL15
+ 3715 00cd 60000000 		.4byte	.LFE726
+ 3716 00d1 0100     		.2byte	0x1
+ 3717 00d3 53       		.byte	0x53
+ 3718 00d4 00000000 		.4byte	0
+ 3719 00d8 00000000 		.4byte	0
+ 3720              	.LLST5:
+ 3721 00dc 00000000 		.4byte	.LVL16
+ 3722 00e0 30000000 		.4byte	.LVL21
+ 3723 00e4 0100     		.2byte	0x1
+ 3724 00e6 50       		.byte	0x50
+ 3725 00e7 30000000 		.4byte	.LVL21
+ 3726 00eb 2C010000 		.4byte	.LVL48
+ 3727 00ef 0100     		.2byte	0x1
+ 3728 00f1 5A       		.byte	0x5a
+ 3729 00f2 2C010000 		.4byte	.LVL48
+ 3730 00f6 40010000 		.4byte	.LFE727
+ 3731 00fa 0400     		.2byte	0x4
+ 3732 00fc F3       		.byte	0xf3
+ 3733 00fd 01       		.uleb128 0x1
+ 3734 00fe 50       		.byte	0x50
+ 3735 00ff 9F       		.byte	0x9f
+ 3736 0100 00000000 		.4byte	0
+ 3737 0104 00000000 		.4byte	0
+ 3738              	.LLST6:
+ 3739 0108 00000000 		.4byte	.LVL16
+ 3740 010c 2E000000 		.4byte	.LVL20
+ 3741 0110 0100     		.2byte	0x1
+ 3742 0112 51       		.byte	0x51
+ 3743 0113 2E000000 		.4byte	.LVL20
+ 3744 0117 B2000000 		.4byte	.LVL35
+ 3745 011b 0100     		.2byte	0x1
+ 3746 011d 55       		.byte	0x55
+ 3747 011e B2000000 		.4byte	.LVL35
+ 3748 0122 40010000 		.4byte	.LFE727
+ 3749 0126 0400     		.2byte	0x4
+ 3750 0128 F3       		.byte	0xf3
+ 3751 0129 01       		.uleb128 0x1
+ 3752 012a 51       		.byte	0x51
+ 3753 012b 9F       		.byte	0x9f
+ 3754 012c 00000000 		.4byte	0
+ 3755 0130 00000000 		.4byte	0
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 70
+
+
+ 3756              	.LLST7:
+ 3757 0134 00000000 		.4byte	.LVL16
+ 3758 0138 2C000000 		.4byte	.LVL19
+ 3759 013c 0100     		.2byte	0x1
+ 3760 013e 52       		.byte	0x52
+ 3761 013f 2C000000 		.4byte	.LVL19
+ 3762 0143 88000000 		.4byte	.LVL30
+ 3763 0147 0100     		.2byte	0x1
+ 3764 0149 57       		.byte	0x57
+ 3765 014a 88000000 		.4byte	.LVL30
+ 3766 014e 40010000 		.4byte	.LFE727
+ 3767 0152 0400     		.2byte	0x4
+ 3768 0154 F3       		.byte	0xf3
+ 3769 0155 01       		.uleb128 0x1
+ 3770 0156 52       		.byte	0x52
+ 3771 0157 9F       		.byte	0x9f
+ 3772 0158 00000000 		.4byte	0
+ 3773 015c 00000000 		.4byte	0
+ 3774              	.LLST8:
+ 3775 0160 00000000 		.4byte	.LVL16
+ 3776 0164 10000000 		.4byte	.LVL18
+ 3777 0168 0100     		.2byte	0x1
+ 3778 016a 53       		.byte	0x53
+ 3779 016b 10000000 		.4byte	.LVL18
+ 3780 016f 86000000 		.4byte	.LVL29
+ 3781 0173 0100     		.2byte	0x1
+ 3782 0175 56       		.byte	0x56
+ 3783 0176 86000000 		.4byte	.LVL29
+ 3784 017a 40010000 		.4byte	.LFE727
+ 3785 017e 0400     		.2byte	0x4
+ 3786 0180 F3       		.byte	0xf3
+ 3787 0181 01       		.uleb128 0x1
+ 3788 0182 53       		.byte	0x53
+ 3789 0183 9F       		.byte	0x9f
+ 3790 0184 00000000 		.4byte	0
+ 3791 0188 00000000 		.4byte	0
+ 3792              	.LLST9:
+ 3793 018c 0E000000 		.4byte	.LVL17
+ 3794 0190 D4000000 		.4byte	.LVL39
+ 3795 0194 0A00     		.2byte	0xa
+ 3796 0196 9E       		.byte	0x9e
+ 3797 0197 08       		.uleb128 0x8
+ 3798 0198 00000000 		.4byte	0
+ 3799 019c 00000000 		.4byte	0
+ 3800 01a0 D4000000 		.4byte	.LVL39
+ 3801 01a4 2C010000 		.4byte	.LVL48
+ 3802 01a8 0600     		.2byte	0x6
+ 3803 01aa 54       		.byte	0x54
+ 3804 01ab 93       		.byte	0x93
+ 3805 01ac 04       		.uleb128 0x4
+ 3806 01ad 55       		.byte	0x55
+ 3807 01ae 93       		.byte	0x93
+ 3808 01af 04       		.uleb128 0x4
+ 3809 01b0 00000000 		.4byte	0
+ 3810 01b4 00000000 		.4byte	0
+ 3811              	.LLST10:
+ 3812 01b8 0E000000 		.4byte	.LVL17
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 71
+
+
+ 3813 01bc 70000000 		.4byte	.LVL27
+ 3814 01c0 0A00     		.2byte	0xa
+ 3815 01c2 9E       		.byte	0x9e
+ 3816 01c3 08       		.uleb128 0x8
+ 3817 01c4 00000000 		.4byte	0
+ 3818 01c8 00000000 		.4byte	0
+ 3819 01cc 70000000 		.4byte	.LVL27
+ 3820 01d0 2C010000 		.4byte	.LVL48
+ 3821 01d4 0600     		.2byte	0x6
+ 3822 01d6 58       		.byte	0x58
+ 3823 01d7 93       		.byte	0x93
+ 3824 01d8 04       		.uleb128 0x4
+ 3825 01d9 59       		.byte	0x59
+ 3826 01da 93       		.byte	0x93
+ 3827 01db 04       		.uleb128 0x4
+ 3828 01dc 00000000 		.4byte	0
+ 3829 01e0 00000000 		.4byte	0
+ 3830              	.LLST11:
+ 3831 01e4 0E000000 		.4byte	.LVL17
+ 3832 01e8 88000000 		.4byte	.LVL30
+ 3833 01ec 0A00     		.2byte	0xa
+ 3834 01ee 9E       		.byte	0x9e
+ 3835 01ef 08       		.uleb128 0x8
+ 3836 01f0 00000000 		.4byte	0
+ 3837 01f4 00000000 		.4byte	0
+ 3838 01f8 88000000 		.4byte	.LVL30
+ 3839 01fc EA000000 		.4byte	.LVL42
+ 3840 0200 0600     		.2byte	0x6
+ 3841 0202 56       		.byte	0x56
+ 3842 0203 93       		.byte	0x93
+ 3843 0204 04       		.uleb128 0x4
+ 3844 0205 57       		.byte	0x57
+ 3845 0206 93       		.byte	0x93
+ 3846 0207 04       		.uleb128 0x4
+ 3847 0208 00000000 		.4byte	0
+ 3848 020c 00000000 		.4byte	0
+ 3849              	.LLST12:
+ 3850 0210 00000000 		.4byte	.LVL49
+ 3851 0214 F2000000 		.4byte	.LVL67
+ 3852 0218 0100     		.2byte	0x1
+ 3853 021a 50       		.byte	0x50
+ 3854 021b F2000000 		.4byte	.LVL67
+ 3855 021f 10010000 		.4byte	.LFE728
+ 3856 0223 0400     		.2byte	0x4
+ 3857 0225 F3       		.byte	0xf3
+ 3858 0226 01       		.uleb128 0x1
+ 3859 0227 50       		.byte	0x50
+ 3860 0228 9F       		.byte	0x9f
+ 3861 0229 00000000 		.4byte	0
+ 3862 022d 00000000 		.4byte	0
+ 3863              	.LLST13:
+ 3864 0231 10000000 		.4byte	.LVL50
+ 3865 0235 14000000 		.4byte	.LVL51
+ 3866 0239 0600     		.2byte	0x6
+ 3867 023b 9E       		.byte	0x9e
+ 3868 023c 04       		.uleb128 0x4
+ 3869 023d 00000000 		.4byte	0
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 72
+
+
+ 3870 0241 4E000000 		.4byte	.LVL53
+ 3871 0245 64000000 		.4byte	.LVL57
+ 3872 0249 0200     		.2byte	0x2
+ 3873 024b 90       		.byte	0x90
+ 3874 024c 4F       		.uleb128 0x4f
+ 3875 024d 00000000 		.4byte	0
+ 3876 0251 00000000 		.4byte	0
+ 3877              	.LLST14:
+ 3878 0255 10000000 		.4byte	.LVL50
+ 3879 0259 14000000 		.4byte	.LVL51
+ 3880 025d 0200     		.2byte	0x2
+ 3881 025f 30       		.byte	0x30
+ 3882 0260 9F       		.byte	0x9f
+ 3883 0261 14000000 		.4byte	.LVL51
+ 3884 0265 92000000 		.4byte	.LVL60
+ 3885 0269 0100     		.2byte	0x1
+ 3886 026b 54       		.byte	0x54
+ 3887 026c 94000000 		.4byte	.LVL61
+ 3888 0270 AA000000 		.4byte	.LVL62
+ 3889 0274 0100     		.2byte	0x1
+ 3890 0276 54       		.byte	0x54
+ 3891 0277 AC000000 		.4byte	.LVL63
+ 3892 027b 08010000 		.4byte	.LVL71
+ 3893 027f 0100     		.2byte	0x1
+ 3894 0281 54       		.byte	0x54
+ 3895 0282 00000000 		.4byte	0
+ 3896 0286 00000000 		.4byte	0
+ 3897              	.LLST15:
+ 3898 028a 10000000 		.4byte	.LVL50
+ 3899 028e 14000000 		.4byte	.LVL51
+ 3900 0292 0200     		.2byte	0x2
+ 3901 0294 30       		.byte	0x30
+ 3902 0295 9F       		.byte	0x9f
+ 3903 0296 14000000 		.4byte	.LVL51
+ 3904 029a B0000000 		.4byte	.LVL65
+ 3905 029e 0100     		.2byte	0x1
+ 3906 02a0 51       		.byte	0x51
+ 3907 02a1 B2000000 		.4byte	.LVL66
+ 3908 02a5 F5000000 		.4byte	.LVL68-1
+ 3909 02a9 0100     		.2byte	0x1
+ 3910 02ab 51       		.byte	0x51
+ 3911 02ac 00000000 		.4byte	0
+ 3912 02b0 00000000 		.4byte	0
+ 3913              	.LLST16:
+ 3914 02b4 40000000 		.4byte	.LVL52
+ 3915 02b8 60000000 		.4byte	.LVL55
+ 3916 02bc 0100     		.2byte	0x1
+ 3917 02be 53       		.byte	0x53
+ 3918 02bf 62000000 		.4byte	.LVL56
+ 3919 02c3 64000000 		.4byte	.LVL57
+ 3920 02c7 0100     		.2byte	0x1
+ 3921 02c9 53       		.byte	0x53
+ 3922 02ca 66000000 		.4byte	.LVL58
+ 3923 02ce 70000000 		.4byte	.LVL59
+ 3924 02d2 0100     		.2byte	0x1
+ 3925 02d4 53       		.byte	0x53
+ 3926 02d5 00000000 		.4byte	0
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 73
+
+
+ 3927 02d9 00000000 		.4byte	0
+ 3928              		.section	.debug_aranges,"",%progbits
+ 3929 0000 3C000000 		.4byte	0x3c
+ 3930 0004 0200     		.2byte	0x2
+ 3931 0006 00000000 		.4byte	.Ldebug_info0
+ 3932 000a 04       		.byte	0x4
+ 3933 000b 00       		.byte	0
+ 3934 000c 0000     		.2byte	0
+ 3935 000e 0000     		.2byte	0
+ 3936 0010 00000000 		.4byte	.LFB725
+ 3937 0014 38000000 		.4byte	.LFE725-.LFB725
+ 3938 0018 00000000 		.4byte	.LFB726
+ 3939 001c 60000000 		.4byte	.LFE726-.LFB726
+ 3940 0020 00000000 		.4byte	.LFB727
+ 3941 0024 40010000 		.4byte	.LFE727-.LFB727
+ 3942 0028 00000000 		.4byte	.LFB728
+ 3943 002c 10010000 		.4byte	.LFE728-.LFB728
+ 3944 0030 00000000 		.4byte	.LFB729
+ 3945 0034 AC000000 		.4byte	.LFE729-.LFB729
+ 3946 0038 00000000 		.4byte	0
+ 3947 003c 00000000 		.4byte	0
+ 3948              		.section	.debug_ranges,"",%progbits
+ 3949              	.Ldebug_ranges0:
+ 3950 0000 00000000 		.4byte	.LBB2
+ 3951 0004 02000000 		.4byte	.LBE2
+ 3952 0008 06000000 		.4byte	.LBB3
+ 3953 000c 20000000 		.4byte	.LBE3
+ 3954 0010 00000000 		.4byte	0
+ 3955 0014 00000000 		.4byte	0
+ 3956 0018 40000000 		.4byte	.LBB6
+ 3957 001c 64000000 		.4byte	.LBE6
+ 3958 0020 66000000 		.4byte	.LBB7
+ 3959 0024 6A000000 		.4byte	.LBE7
+ 3960 0028 00000000 		.4byte	0
+ 3961 002c 00000000 		.4byte	0
+ 3962 0030 00000000 		.4byte	.LFB725
+ 3963 0034 38000000 		.4byte	.LFE725
+ 3964 0038 00000000 		.4byte	.LFB726
+ 3965 003c 60000000 		.4byte	.LFE726
+ 3966 0040 00000000 		.4byte	.LFB727
+ 3967 0044 40010000 		.4byte	.LFE727
+ 3968 0048 00000000 		.4byte	.LFB728
+ 3969 004c 10010000 		.4byte	.LFE728
+ 3970 0050 00000000 		.4byte	.LFB729
+ 3971 0054 AC000000 		.4byte	.LFE729
+ 3972 0058 00000000 		.4byte	0
+ 3973 005c 00000000 		.4byte	0
+ 3974              		.section	.debug_line,"",%progbits
+ 3975              	.Ldebug_line0:
+ 3976 0000 0B050000 		.section	.debug_str,"MS",%progbits,1
+ 3976      02003404 
+ 3976      00000201 
+ 3976      FB0E0D00 
+ 3976      01010101 
+ 3977              	.LASF64:
+ 3978 0000 666C6173 		.ascii	"flashCtlMainWs1Freq\000"
+ 3978      6843746C 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 74
+
+
+ 3978      4D61696E 
+ 3978      57733146 
+ 3978      72657100 
+ 3979              	.LASF141:
+ 3980 0014 63795F63 		.ascii	"cy_cb_scb_spi_handle_events_t\000"
+ 3980      625F7363 
+ 3980      625F7370 
+ 3980      695F6861 
+ 3980      6E646C65 
+ 3981              	.LASF179:
+ 3982 0032 73746F70 		.ascii	"stopInputMode\000"
+ 3982      496E7075 
+ 3982      744D6F64 
+ 3982      6500
+ 3983              	.LASF243:
+ 3984 0040 62756666 		.ascii	"buffer_Red\000"
+ 3984      65725F52 
+ 3984      656400
+ 3985              	.LASF235:
+ 3986 004b 63795F64 		.ascii	"cy_device\000"
+ 3986      65766963 
+ 3986      6500
+ 3987              	.LASF91:
+ 3988 0055 63707573 		.ascii	"cpussCm0ClockCtlOffset\000"
+ 3988      73436D30 
+ 3988      436C6F63 
+ 3988      6B43746C 
+ 3988      4F666673 
+ 3989              	.LASF219:
+ 3990 006c 6D617853 		.ascii	"maxSignalIRAC\000"
+ 3990      69676E61 
+ 3990      6C495241 
+ 3990      4300
+ 3991              	.LASF122:
+ 3992 007a 6D617374 		.ascii	"masterStatus\000"
+ 3992      65725374 
+ 3992      61747573 
+ 3992      00
+ 3993              	.LASF238:
+ 3994 0087 43595F45 		.ascii	"CY_EINK_SPIM_context\000"
+ 3994      494E4B5F 
+ 3994      5350494D 
+ 3994      5F636F6E 
+ 3994      74657874 
+ 3995              	.LASF233:
+ 3996 009c 66697253 		.ascii	"firStateF32_LP\000"
+ 3996      74617465 
+ 3996      4633325F 
+ 3996      4C5000
+ 3997              	.LASF155:
+ 3998 00ab 74785374 		.ascii	"txStatus\000"
+ 3998      61747573 
+ 3998      00
+ 3999              	.LASF23:
+ 4000 00b4 70657269 		.ascii	"periBase\000"
+ 4000      42617365 
+ 4000      00
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 75
+
+
+ 4001              	.LASF204:
+ 4002 00bd 62756666 		.ascii	"buffer\000"
+ 4002      657200
+ 4003              	.LASF69:
+ 4004 00c4 64774368 		.ascii	"dwChSize\000"
+ 4004      53697A65 
+ 4004      00
+ 4005              	.LASF207:
+ 4006 00cd 43656E74 		.ascii	"Center\000"
+ 4006      657200
+ 4007              	.LASF117:
+ 4008 00d4 63795F63 		.ascii	"cy_cb_scb_i2c_handle_events_t\000"
+ 4008      625F7363 
+ 4008      625F6932 
+ 4008      635F6861 
+ 4008      6E646C65 
+ 4009              	.LASF127:
+ 4010 00f2 6D617374 		.ascii	"masterBufferIdx\000"
+ 4010      65724275 
+ 4010      66666572 
+ 4010      49647800 
+ 4011              	.LASF51:
+ 4012 0102 736D6966 		.ascii	"smifDeviceNr\000"
+ 4012      44657669 
+ 4012      63654E72 
+ 4012      00
+ 4013              	.LASF81:
+ 4014 010f 70657269 		.ascii	"periDivCmdPaTypeSelPos\000"
+ 4014      44697643 
+ 4014      6D645061 
+ 4014      54797065 
+ 4014      53656C50 
+ 4015              	.LASF150:
+ 4016 0126 74784275 		.ascii	"txBufIdx\000"
+ 4016      66496478 
+ 4016      00
+ 4017              	.LASF178:
+ 4018 012f 73746172 		.ascii	"startInput\000"
+ 4018      74496E70 
+ 4018      757400
+ 4019              	.LASF7:
+ 4020 013a 5F5F696E 		.ascii	"__int32_t\000"
+ 4020      7433325F 
+ 4020      7400
+ 4021              	.LASF21:
+ 4022 0144 63707573 		.ascii	"cpussBase\000"
+ 4022      73426173 
+ 4022      6500
+ 4023              	.LASF135:
+ 4024 014e 736C6176 		.ascii	"slaveRxBuffer\000"
+ 4024      65527842 
+ 4024      75666665 
+ 4024      7200
+ 4025              	.LASF224:
+ 4026 015c 696E6465 		.ascii	"indexMinSignalIRAC\000"
+ 4026      784D696E 
+ 4026      5369676E 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 76
+
+
+ 4026      616C4952 
+ 4026      414300
+ 4027              	.LASF45:
+ 4028 016f 63707573 		.ascii	"cpussFmIrq\000"
+ 4028      73466D49 
+ 4028      727100
+ 4029              	.LASF139:
+ 4030 017a 63624164 		.ascii	"cbAddr\000"
+ 4030      647200
+ 4031              	.LASF114:
+ 4032 0181 43595F53 		.ascii	"CY_SCB_I2C_ACK\000"
+ 4032      43425F49 
+ 4032      32435F41 
+ 4032      434B00
+ 4033              	.LASF180:
+ 4034 0190 73746F70 		.ascii	"stopInput\000"
+ 4034      496E7075 
+ 4034      7400
+ 4035              	.LASF158:
+ 4036 019a 72785269 		.ascii	"rxRingBufSize\000"
+ 4036      6E674275 
+ 4036      6653697A 
+ 4036      6500
+ 4037              	.LASF94:
+ 4038 01a8 63707573 		.ascii	"cpussCm0StatusOffset\000"
+ 4038      73436D30 
+ 4038      53746174 
+ 4038      75734F66 
+ 4038      66736574 
+ 4039              	.LASF185:
+ 4040 01bd 70776D4D 		.ascii	"pwmMode\000"
+ 4040      6F646500 
+ 4041              	.LASF77:
+ 4042 01c5 70657269 		.ascii	"periTrGrSize\000"
+ 4042      54724772 
+ 4042      53697A65 
+ 4042      00
+ 4043              	.LASF80:
+ 4044 01d2 70657269 		.ascii	"periDivCmdPaDivSelPos\000"
+ 4044      44697643 
+ 4044      6D645061 
+ 4044      44697653 
+ 4044      656C506F 
+ 4045              	.LASF218:
+ 4046 01e8 6D696E53 		.ascii	"minSignalRedAC\000"
+ 4046      69676E61 
+ 4046      6C526564 
+ 4046      414300
+ 4047              	.LASF57:
+ 4048 01f7 63727970 		.ascii	"cryptoMemSize\000"
+ 4048      746F4D65 
+ 4048      6D53697A 
+ 4048      6500
+ 4049              	.LASF103:
+ 4050 0205 63707573 		.ascii	"cpussRam1Ctl0\000"
+ 4050      7352616D 
+ 4050      3143746C 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 77
+
+
+ 4050      3000
+ 4051              	.LASF105:
+ 4052 0213 69706353 		.ascii	"ipcStructSize\000"
+ 4052      74727563 
+ 4052      7453697A 
+ 4052      6500
+ 4053              	.LASF115:
+ 4054 0221 43595F53 		.ascii	"CY_SCB_I2C_NAK\000"
+ 4054      43425F49 
+ 4054      32435F4E 
+ 4054      414B00
+ 4055              	.LASF118:
+ 4056 0230 63795F63 		.ascii	"cy_cb_scb_i2c_handle_addr_t\000"
+ 4056      625F7363 
+ 4056      625F6932 
+ 4056      635F6861 
+ 4056      6E646C65 
+ 4057              	.LASF169:
+ 4058 024c 636F6D70 		.ascii	"compare0\000"
+ 4058      61726530 
+ 4058      00
+ 4059              	.LASF170:
+ 4060 0255 636F6D70 		.ascii	"compare1\000"
+ 4060      61726531 
+ 4060      00
+ 4061              	.LASF266:
+ 4062 025e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 4062      43313120 
+ 4062      352E342E 
+ 4062      31203230 
+ 4062      31363036 
+ 4063 0291 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 4063      20726576 
+ 4063      6973696F 
+ 4063      6E203233 
+ 4063      37373135 
+ 4064 02c4 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -Og -ffunction-s"
+ 4064      70202D6D 
+ 4064      6670753D 
+ 4064      66707634 
+ 4064      2D73702D 
+ 4065 02f7 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 4065      6F6E7320 
+ 4065      2D666661 
+ 4065      742D6C74 
+ 4065      6F2D6F62 
+ 4066              	.LASF39:
+ 4067 0311 70726F74 		.ascii	"protVersion\000"
+ 4067      56657273 
+ 4067      696F6E00 
+ 4068              	.LASF252:
+ 4069 031d 696E6465 		.ascii	"indexLecture\000"
+ 4069      784C6563 
+ 4069      74757265 
+ 4069      00
+ 4070              	.LASF184:
+ 4071 032a 63795F73 		.ascii	"cy_stc_tcpwm_pwm_config\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 78
+
+
+ 4071      74635F74 
+ 4071      6370776D 
+ 4071      5F70776D 
+ 4071      5F636F6E 
+ 4072              	.LASF225:
+ 4073 0342 43616C63 		.ascii	"CalculSpO2\000"
+ 4073      756C5370 
+ 4073      4F3200
+ 4074              	.LASF79:
+ 4075 034d 70657269 		.ascii	"periDivCmdTypeSelPos\000"
+ 4075      44697643 
+ 4075      6D645479 
+ 4075      70655365 
+ 4075      6C506F73 
+ 4076              	.LASF96:
+ 4077 0362 63707573 		.ascii	"cpussTrimRamCtlOffset\000"
+ 4077      73547269 
+ 4077      6D52616D 
+ 4077      43746C4F 
+ 4077      66667365 
+ 4078              	.LASF131:
+ 4079 0378 736C6176 		.ascii	"slaveTxBuffer\000"
+ 4079      65547842 
+ 4079      75666665 
+ 4079      7200
+ 4080              	.LASF254:
+ 4081 0386 61636365 		.ascii	"acceleration\000"
+ 4081      6C657261 
+ 4081      74696F6E 
+ 4081      00
+ 4082              	.LASF133:
+ 4083 0393 736C6176 		.ascii	"slaveTxBufferIdx\000"
+ 4083      65547842 
+ 4083      75666665 
+ 4083      72496478 
+ 4083      00
+ 4084              	.LASF18:
+ 4085 03a4 75696E74 		.ascii	"uint32_t\000"
+ 4085      33325F74 
+ 4085      00
+ 4086              	.LASF260:
+ 4087 03ad 61726D5F 		.ascii	"arm_fir_f32\000"
+ 4087      6669725F 
+ 4087      66333200 
+ 4088              	.LASF89:
+ 4089 03b9 6770696F 		.ascii	"gpioPrtCfgOutOffset\000"
+ 4089      50727443 
+ 4089      66674F75 
+ 4089      744F6666 
+ 4089      73657400 
+ 4090              	.LASF110:
+ 4091 03cd 666C6F61 		.ascii	"float\000"
+ 4091      7400
+ 4092              	.LASF32:
+ 4093 03d3 63727970 		.ascii	"cryptoVersion\000"
+ 4093      746F5665 
+ 4093      7273696F 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 79
+
+
+ 4093      6E00
+ 4094              	.LASF162:
+ 4095 03e1 63795F73 		.ascii	"cy_stc_scb_uart_context_t\000"
+ 4095      74635F73 
+ 4095      63625F75 
+ 4095      6172745F 
+ 4095      636F6E74 
+ 4096              	.LASF53:
+ 4097 03fb 65704D6F 		.ascii	"epMonitorNr\000"
+ 4097      6E69746F 
+ 4097      724E7200 
+ 4098              	.LASF246:
+ 4099 0407 7369676E 		.ascii	"signal_IR_AC\000"
+ 4099      616C5F49 
+ 4099      525F4143 
+ 4099      00
+ 4100              	.LASF154:
+ 4101 0414 63795F73 		.ascii	"cy_stc_scb_uart_context\000"
+ 4101      74635F73 
+ 4101      63625F75 
+ 4101      6172745F 
+ 4101      636F6E74 
+ 4102              	.LASF176:
+ 4103 042c 72656C6F 		.ascii	"reloadInput\000"
+ 4103      6164496E 
+ 4103      70757400 
+ 4104              	.LASF15:
+ 4105 0438 696E7431 		.ascii	"int16_t\000"
+ 4105      365F7400 
+ 4106              	.LASF232:
+ 4107 0440 74726169 		.ascii	"traitement_task\000"
+ 4107      74656D65 
+ 4107      6E745F74 
+ 4107      61736B00 
+ 4108              	.LASF88:
+ 4109 0450 6770696F 		.ascii	"gpioPrtCfgInOffset\000"
+ 4109      50727443 
+ 4109      6667496E 
+ 4109      4F666673 
+ 4109      657400
+ 4110              	.LASF250:
+ 4111 0463 666C6167 		.ascii	"flagAffichage\000"
+ 4111      41666669 
+ 4111      63686167 
+ 4111      6500
+ 4112              	.LASF12:
+ 4113 0471 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 4113      206C6F6E 
+ 4113      6720756E 
+ 4113      7369676E 
+ 4113      65642069 
+ 4114              	.LASF85:
+ 4115 0488 70657269 		.ascii	"periDiv24_5CtlOffset\000"
+ 4115      44697632 
+ 4115      345F3543 
+ 4115      746C4F66 
+ 4115      66736574 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 80
+
+
+ 4116              	.LASF90:
+ 4117 049d 6770696F 		.ascii	"gpioPrtCfgSioOffset\000"
+ 4117      50727443 
+ 4117      66675369 
+ 4117      6F4F6666 
+ 4117      73657400 
+ 4118              	.LASF236:
+ 4119 04b1 50574D5F 		.ascii	"PWM_config\000"
+ 4119      636F6E66 
+ 4119      696700
+ 4120              	.LASF44:
+ 4121 04bc 63707573 		.ascii	"cpussIpc0Irq\000"
+ 4121      73497063 
+ 4121      30497271 
+ 4121      00
+ 4122              	.LASF189:
+ 4123 04c9 70657269 		.ascii	"period1\000"
+ 4123      6F643100 
+ 4124              	.LASF24:
+ 4125 04d1 75646242 		.ascii	"udbBase\000"
+ 4125      61736500 
+ 4126              	.LASF132:
+ 4127 04d9 736C6176 		.ascii	"slaveTxBufferSize\000"
+ 4127      65547842 
+ 4127      75666665 
+ 4127      7253697A 
+ 4127      6500
+ 4128              	.LASF109:
+ 4129 04eb 666C6F61 		.ascii	"float32_t\000"
+ 4129      7433325F 
+ 4129      7400
+ 4130              	.LASF130:
+ 4131 04f5 736C6176 		.ascii	"slaveRdBufEmpty\000"
+ 4131      65526442 
+ 4131      7566456D 
+ 4131      70747900 
+ 4132              	.LASF192:
+ 4133 0505 696E7665 		.ascii	"invertPWMOutN\000"
+ 4133      72745057 
+ 4133      4D4F7574 
+ 4133      4E00
+ 4134              	.LASF50:
+ 4135 0513 70657269 		.ascii	"periClockNr\000"
+ 4135      436C6F63 
+ 4135      6B4E7200 
+ 4136              	.LASF177:
+ 4137 051f 73746172 		.ascii	"startInputMode\000"
+ 4137      74496E70 
+ 4137      75744D6F 
+ 4137      646500
+ 4138              	.LASF173:
+ 4139 052e 63617074 		.ascii	"captureInputMode\000"
+ 4139      75726549 
+ 4139      6E707574 
+ 4139      4D6F6465 
+ 4139      00
+ 4140              	.LASF156:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 81
+
+
+ 4141 053f 72785374 		.ascii	"rxStatus\000"
+ 4141      61747573 
+ 4141      00
+ 4142              	.LASF214:
+ 4143 0548 4143696E 		.ascii	"ACinfrared\000"
+ 4143      66726172 
+ 4143      656400
+ 4144              	.LASF66:
+ 4145 0553 666C6173 		.ascii	"flashCtlMainWs3Freq\000"
+ 4145      6843746C 
+ 4145      4D61696E 
+ 4145      57733346 
+ 4145      72657100 
+ 4146              	.LASF48:
+ 4147 0567 73727373 		.ascii	"srssNumPll\000"
+ 4147      4E756D50 
+ 4147      6C6C00
+ 4148              	.LASF59:
+ 4149 0572 666C6173 		.ascii	"flashPipeRequired\000"
+ 4149      68506970 
+ 4149      65526571 
+ 4149      75697265 
+ 4149      6400
+ 4150              	.LASF138:
+ 4151 0584 63624576 		.ascii	"cbEvents\000"
+ 4151      656E7473 
+ 4151      00
+ 4152              	.LASF265:
+ 4153 058d 76546173 		.ascii	"vTaskDelay\000"
+ 4153      6B44656C 
+ 4153      617900
+ 4154              	.LASF142:
+ 4155 0598 63795F73 		.ascii	"cy_stc_scb_i2c_context\000"
+ 4155      74635F73 
+ 4155      63625F69 
+ 4155      32635F63 
+ 4155      6F6E7465 
+ 4156              	.LASF201:
+ 4157 05af 70436F65 		.ascii	"pCoeffs\000"
+ 4157      66667300 
+ 4158              	.LASF63:
+ 4159 05b7 666C6173 		.ascii	"flashCtlMainWs0Freq\000"
+ 4159      6843746C 
+ 4159      4D61696E 
+ 4159      57733046 
+ 4159      72657100 
+ 4160              	.LASF195:
+ 4161 05cb 73776170 		.ascii	"swapInput\000"
+ 4161      496E7075 
+ 4161      7400
+ 4162              	.LASF119:
+ 4163 05d5 75736552 		.ascii	"useRxFifo\000"
+ 4163      78466966 
+ 4163      6F00
+ 4164              	.LASF244:
+ 4165 05df 62756666 		.ascii	"buffer_IR\000"
+ 4165      65725F49 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 82
+
+
+ 4165      5200
+ 4166              	.LASF27:
+ 4167 05e9 6770696F 		.ascii	"gpioBase\000"
+ 4167      42617365 
+ 4167      00
+ 4168              	.LASF245:
+ 4169 05f2 7369676E 		.ascii	"signal_Red_AC\000"
+ 4169      616C5F52 
+ 4169      65645F41 
+ 4169      4300
+ 4170              	.LASF186:
+ 4171 0600 70776D41 		.ascii	"pwmAlignment\000"
+ 4171      6C69676E 
+ 4171      6D656E74 
+ 4171      00
+ 4172              	.LASF98:
+ 4173 060d 63707573 		.ascii	"cpussSysTickCtlOffset\000"
+ 4173      73537973 
+ 4173      5469636B 
+ 4173      43746C4F 
+ 4173      66667365 
+ 4174              	.LASF54:
+ 4175 0623 75646250 		.ascii	"udbPresent\000"
+ 4175      72657365 
+ 4175      6E7400
+ 4176              	.LASF221:
+ 4177 062e 696E6465 		.ascii	"indexMaxSignalRedAC\000"
+ 4177      784D6178 
+ 4177      5369676E 
+ 4177      616C5265 
+ 4177      64414300 
+ 4178              	.LASF242:
+ 4179 0642 53704F32 		.ascii	"SpO2\000"
+ 4179      00
+ 4180              	.LASF72:
+ 4181 0647 64775374 		.ascii	"dwStatusChIdxPos\000"
+ 4181      61747573 
+ 4181      43684964 
+ 4181      78506F73 
+ 4181      00
+ 4182              	.LASF5:
+ 4183 0658 5F5F7569 		.ascii	"__uint16_t\000"
+ 4183      6E743136 
+ 4183      5F7400
+ 4184              	.LASF240:
+ 4185 0663 55415254 		.ascii	"UART_1_context\000"
+ 4185      5F315F63 
+ 4185      6F6E7465 
+ 4185      787400
+ 4186              	.LASF30:
+ 4187 0672 63727970 		.ascii	"cryptoBase\000"
+ 4187      746F4261 
+ 4187      736500
+ 4188              	.LASF128:
+ 4189 067d 6D617374 		.ascii	"masterNumBytes\000"
+ 4189      65724E75 
+ 4189      6D427974 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 83
+
+
+ 4189      657300
+ 4190              	.LASF217:
+ 4191 068c 6D617853 		.ascii	"maxSignalRedAC\000"
+ 4191      69676E61 
+ 4191      6C526564 
+ 4191      414300
+ 4192              	.LASF43:
+ 4193 069b 63707573 		.ascii	"cpussFlashPaSize\000"
+ 4193      73466C61 
+ 4193      73685061 
+ 4193      53697A65 
+ 4193      00
+ 4194              	.LASF174:
+ 4195 06ac 63617074 		.ascii	"captureInput\000"
+ 4195      75726549 
+ 4195      6E707574 
+ 4195      00
+ 4196              	.LASF22:
+ 4197 06b9 666C6173 		.ascii	"flashcBase\000"
+ 4197      68634261 
+ 4197      736500
+ 4198              	.LASF108:
+ 4199 06c4 63686172 		.ascii	"char\000"
+ 4199      00
+ 4200              	.LASF227:
+ 4201 06c9 696E6465 		.ascii	"indexLastZero\000"
+ 4201      784C6173 
+ 4201      745A6572 
+ 4201      6F00
+ 4202              	.LASF228:
+ 4203 06d7 696E6465 		.ascii	"indexFirstZero\000"
+ 4203      78466972 
+ 4203      73745A65 
+ 4203      726F00
+ 4204              	.LASF160:
+ 4205 06e6 72785269 		.ascii	"rxRingBufTail\000"
+ 4205      6E674275 
+ 4205      66546169 
+ 4205      6C00
+ 4206              	.LASF248:
+ 4207 06f4 7369676E 		.ascii	"signal_IR_DC\000"
+ 4207      616C5F49 
+ 4207      525F4443 
+ 4207      00
+ 4208              	.LASF55:
+ 4209 0701 73797350 		.ascii	"sysPmSimoPresent\000"
+ 4209      6D53696D 
+ 4209      6F507265 
+ 4209      73656E74 
+ 4209      00
+ 4210              	.LASF126:
+ 4211 0712 6D617374 		.ascii	"masterBufferSize\000"
+ 4211      65724275 
+ 4211      66666572 
+ 4211      53697A65 
+ 4211      00
+ 4212              	.LASF211:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 84
+
+
+ 4213 0723 7369676E 		.ascii	"signalRedAC\000"
+ 4213      616C5265 
+ 4213      64414300 
+ 4214              	.LASF165:
+ 4215 072f 636C6F63 		.ascii	"clockPrescaler\000"
+ 4215      6B507265 
+ 4215      7363616C 
+ 4215      657200
+ 4216              	.LASF147:
+ 4217 073e 72784275 		.ascii	"rxBufIdx\000"
+ 4217      66496478 
+ 4217      00
+ 4218              	.LASF262:
+ 4219 0747 61726D5F 		.ascii	"arm_min_f32\000"
+ 4219      6D696E5F 
+ 4219      66333200 
+ 4220              	.LASF151:
+ 4221 0753 696E6974 		.ascii	"initKey\000"
+ 4221      4B657900 
+ 4222              	.LASF73:
+ 4223 075b 64775374 		.ascii	"dwStatusChIdxMsk\000"
+ 4223      61747573 
+ 4223      43684964 
+ 4223      784D736B 
+ 4223      00
+ 4224              	.LASF14:
+ 4225 076c 75696E74 		.ascii	"uint8_t\000"
+ 4225      385F7400 
+ 4226              	.LASF144:
+ 4227 0774 73746174 		.ascii	"status\000"
+ 4227      757300
+ 4228              	.LASF134:
+ 4229 077b 736C6176 		.ascii	"slaveTxBufferCnt\000"
+ 4229      65547842 
+ 4229      75666665 
+ 4229      72436E74 
+ 4229      00
+ 4230              	.LASF78:
+ 4231 078c 70657269 		.ascii	"periDivCmdDivSelMsk\000"
+ 4231      44697643 
+ 4231      6D644469 
+ 4231      7653656C 
+ 4231      4D736B00 
+ 4232              	.LASF86:
+ 4233 07a0 6770696F 		.ascii	"gpioPrtIntrCfgOffset\000"
+ 4233      50727449 
+ 4233      6E747243 
+ 4233      66674F66 
+ 4233      66736574 
+ 4234              	.LASF84:
+ 4235 07b5 70657269 		.ascii	"periDiv16_5CtlOffset\000"
+ 4235      44697631 
+ 4235      365F3543 
+ 4235      746C4F66 
+ 4235      66736574 
+ 4236              	.LASF153:
+ 4237 07ca 63795F63 		.ascii	"cy_cb_scb_uart_handle_events_t\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 85
+
+
+ 4237      625F7363 
+ 4237      625F7561 
+ 4237      72745F68 
+ 4237      616E646C 
+ 4238              	.LASF199:
+ 4239 07e9 6E756D54 		.ascii	"numTaps\000"
+ 4239      61707300 
+ 4240              	.LASF237:
+ 4241 07f1 43595F45 		.ascii	"CY_EINK_Timer_config\000"
+ 4241      494E4B5F 
+ 4241      54696D65 
+ 4241      725F636F 
+ 4241      6E666967 
+ 4242              	.LASF102:
+ 4243 0806 63707573 		.ascii	"cpussRam0Ctl0\000"
+ 4243      7352616D 
+ 4243      3043746C 
+ 4243      3000
+ 4244              	.LASF11:
+ 4245 0814 6C6F6E67 		.ascii	"long long int\000"
+ 4245      206C6F6E 
+ 4245      6720696E 
+ 4245      7400
+ 4246              	.LASF29:
+ 4247 0822 69706342 		.ascii	"ipcBase\000"
+ 4247      61736500 
+ 4248              	.LASF70:
+ 4249 082a 64774368 		.ascii	"dwChCtlPrioPos\000"
+ 4249      43746C50 
+ 4249      72696F50 
+ 4249      6F7300
+ 4250              	.LASF200:
+ 4251 0839 70537461 		.ascii	"pState\000"
+ 4251      746500
+ 4252              	.LASF190:
+ 4253 0840 656E6162 		.ascii	"enablePeriodSwap\000"
+ 4253      6C655065 
+ 4253      72696F64 
+ 4253      53776170 
+ 4253      00
+ 4254              	.LASF187:
+ 4255 0851 64656164 		.ascii	"deadTimeClocks\000"
+ 4255      54696D65 
+ 4255      436C6F63 
+ 4255      6B7300
+ 4256              	.LASF205:
+ 4257 0860 66696C74 		.ascii	"filteredSignal\000"
+ 4257      65726564 
+ 4257      5369676E 
+ 4257      616C00
+ 4258              	.LASF194:
+ 4259 086f 73776170 		.ascii	"swapInputMode\000"
+ 4259      496E7075 
+ 4259      744D6F64 
+ 4259      6500
+ 4260              	.LASF60:
+ 4261 087d 666C6173 		.ascii	"flashWriteDelay\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 86
+
+
+ 4261      68577269 
+ 4261      74654465 
+ 4261      6C617900 
+ 4262              	.LASF263:
+ 4263 088d 61726D5F 		.ascii	"arm_mean_f32\000"
+ 4263      6D65616E 
+ 4263      5F663332 
+ 4263      00
+ 4264              	.LASF188:
+ 4265 089a 70657269 		.ascii	"period0\000"
+ 4265      6F643000 
+ 4266              	.LASF120:
+ 4267 08a2 75736554 		.ascii	"useTxFifo\000"
+ 4267      78466966 
+ 4267      6F00
+ 4268              	.LASF4:
+ 4269 08ac 5F5F696E 		.ascii	"__int16_t\000"
+ 4269      7431365F 
+ 4269      7400
+ 4270              	.LASF191:
+ 4271 08b6 696E7665 		.ascii	"invertPWMOut\000"
+ 4271      72745057 
+ 4271      4D4F7574 
+ 4271      00
+ 4272              	.LASF26:
+ 4273 08c3 6873696F 		.ascii	"hsiomBase\000"
+ 4273      6D426173 
+ 4273      6500
+ 4274              	.LASF124:
+ 4275 08cd 6D617374 		.ascii	"masterRdDir\000"
+ 4275      65725264 
+ 4275      44697200 
+ 4276              	.LASF76:
+ 4277 08d9 70657269 		.ascii	"periTrGrOffset\000"
+ 4277      54724772 
+ 4277      4F666673 
+ 4277      657400
+ 4278              	.LASF231:
+ 4279 08e8 69735A65 		.ascii	"isZero\000"
+ 4279      726F00
+ 4280              	.LASF152:
+ 4281 08ef 63795F73 		.ascii	"cy_stc_scb_spi_context_t\000"
+ 4281      74635F73 
+ 4281      63625F73 
+ 4281      70695F63 
+ 4281      6F6E7465 
+ 4282              	.LASF159:
+ 4283 0908 72785269 		.ascii	"rxRingBufHead\000"
+ 4283      6E674275 
+ 4283      66486561 
+ 4283      6400
+ 4284              	.LASF42:
+ 4285 0916 63707573 		.ascii	"cpussDwChNr\000"
+ 4285      73447743 
+ 4285      684E7200 
+ 4286              	.LASF247:
+ 4287 0922 7369676E 		.ascii	"signal_Red_DC\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 87
+
+
+ 4287      616C5F52 
+ 4287      65645F44 
+ 4287      4300
+ 4288              	.LASF175:
+ 4289 0930 72656C6F 		.ascii	"reloadInputMode\000"
+ 4289      6164496E 
+ 4289      7075744D 
+ 4289      6F646500 
+ 4290              	.LASF239:
+ 4291 0940 4932435F 		.ascii	"I2C_1_context\000"
+ 4291      315F636F 
+ 4291      6E746578 
+ 4291      7400
+ 4292              	.LASF149:
+ 4293 094e 74784275 		.ascii	"txBufSize\000"
+ 4293      6653697A 
+ 4293      6500
+ 4294              	.LASF40:
+ 4295 0958 63707573 		.ascii	"cpussIpcNr\000"
+ 4295      73497063 
+ 4295      4E7200
+ 4296              	.LASF253:
+ 4297 0963 496E7465 		.ascii	"IntensiteDELs\000"
+ 4297      6E736974 
+ 4297      6544454C 
+ 4297      7300
+ 4298              	.LASF256:
+ 4299 0971 626C6F63 		.ascii	"blockSize\000"
+ 4299      6B53697A 
+ 4299      6500
+ 4300              	.LASF52:
+ 4301 097b 70617373 		.ascii	"passSarChannels\000"
+ 4301      53617243 
+ 4301      68616E6E 
+ 4301      656C7300 
+ 4302              	.LASF137:
+ 4303 098b 736C6176 		.ascii	"slaveRxBufferIdx\000"
+ 4303      65527842 
+ 4303      75666665 
+ 4303      72496478 
+ 4303      00
+ 4304              	.LASF104:
+ 4305 099c 63707573 		.ascii	"cpussRam2Ctl0\000"
+ 4305      7352616D 
+ 4305      3243746C 
+ 4305      3000
+ 4306              	.LASF123:
+ 4307 09aa 6D617374 		.ascii	"masterPause\000"
+ 4307      65725061 
+ 4307      75736500 
+ 4308              	.LASF259:
+ 4309 09b6 61726D5F 		.ascii	"arm_fir_init_f32\000"
+ 4309      6669725F 
+ 4309      696E6974 
+ 4309      5F663332 
+ 4309      00
+ 4310              	.LASF148:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 88
+
+
+ 4311 09c7 74784275 		.ascii	"txBuf\000"
+ 4311      6600
+ 4312              	.LASF220:
+ 4313 09cd 6D696E53 		.ascii	"minSignalIRAC\000"
+ 4313      69676E61 
+ 4313      6C495241 
+ 4313      4300
+ 4314              	.LASF203:
+ 4315 09db 5469636B 		.ascii	"TickType_t\000"
+ 4315      54797065 
+ 4315      5F7400
+ 4316              	.LASF61:
+ 4317 09e6 666C6173 		.ascii	"flashProgramDelay\000"
+ 4317      6850726F 
+ 4317      6772616D 
+ 4317      44656C61 
+ 4317      7900
+ 4318              	.LASF83:
+ 4319 09f8 70657269 		.ascii	"periDiv16CtlOffset\000"
+ 4319      44697631 
+ 4319      3643746C 
+ 4319      4F666673 
+ 4319      657400
+ 4320              	.LASF209:
+ 4321 0a0b 7369676E 		.ascii	"signalRedDC\000"
+ 4321      616C5265 
+ 4321      64444300 
+ 4322              	.LASF210:
+ 4323 0a17 7369676E 		.ascii	"signalIRDC\000"
+ 4323      616C4952 
+ 4323      444300
+ 4324              	.LASF136:
+ 4325 0a22 736C6176 		.ascii	"slaveRxBufferSize\000"
+ 4325      65527842 
+ 4325      75666665 
+ 4325      7253697A 
+ 4325      6500
+ 4326              	.LASF6:
+ 4327 0a34 73686F72 		.ascii	"short unsigned int\000"
+ 4327      7420756E 
+ 4327      7369676E 
+ 4327      65642069 
+ 4327      6E7400
+ 4328              	.LASF157:
+ 4329 0a47 72785269 		.ascii	"rxRingBuf\000"
+ 4329      6E674275 
+ 4329      6600
+ 4330              	.LASF20:
+ 4331 0a51 6C6F6E67 		.ascii	"long double\000"
+ 4331      20646F75 
+ 4331      626C6500 
+ 4332              	.LASF16:
+ 4333 0a5d 75696E74 		.ascii	"uint16_t\000"
+ 4333      31365F74 
+ 4333      00
+ 4334              	.LASF198:
+ 4335 0a66 63795F73 		.ascii	"cy_stc_tcpwm_pwm_config_t\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 89
+
+
+ 4335      74635F74 
+ 4335      6370776D 
+ 4335      5F70776D 
+ 4335      5F636F6E 
+ 4336              	.LASF93:
+ 4337 0a80 63707573 		.ascii	"cpussCm4StatusOffset\000"
+ 4337      73436D34 
+ 4337      53746174 
+ 4337      75734F66 
+ 4337      66736574 
+ 4338              	.LASF166:
+ 4339 0a95 72756E4D 		.ascii	"runMode\000"
+ 4339      6F646500 
+ 4340              	.LASF75:
+ 4341 0a9d 70657269 		.ascii	"periTrCmdGrSelMsk\000"
+ 4341      5472436D 
+ 4341      64477253 
+ 4341      656C4D73 
+ 4341      6B00
+ 4342              	.LASF125:
+ 4343 0aaf 6D617374 		.ascii	"masterBuffer\000"
+ 4343      65724275 
+ 4343      66666572 
+ 4343      00
+ 4344              	.LASF49:
+ 4345 0abc 73727373 		.ascii	"srssNumHfroot\000"
+ 4345      4E756D48 
+ 4345      66726F6F 
+ 4345      7400
+ 4346              	.LASF183:
+ 4347 0aca 63795F73 		.ascii	"cy_stc_tcpwm_counter_config_t\000"
+ 4347      74635F74 
+ 4347      6370776D 
+ 4347      5F636F75 
+ 4347      6E746572 
+ 4348              	.LASF33:
+ 4349 0ae8 64775665 		.ascii	"dwVersion\000"
+ 4349      7273696F 
+ 4349      6E00
+ 4350              	.LASF65:
+ 4351 0af2 666C6173 		.ascii	"flashCtlMainWs2Freq\000"
+ 4351      6843746C 
+ 4351      4D61696E 
+ 4351      57733246 
+ 4351      72657100 
+ 4352              	.LASF226:
+ 4353 0b06 43616C63 		.ascii	"CalculBPM\000"
+ 4353      756C4250 
+ 4353      4D00
+ 4354              	.LASF229:
+ 4355 0b10 6E5A6572 		.ascii	"nZeros\000"
+ 4355      6F7300
+ 4356              	.LASF19:
+ 4357 0b17 73697A65 		.ascii	"sizetype\000"
+ 4357      74797065 
+ 4357      00
+ 4358              	.LASF100:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 90
+
+
+ 4359 0b20 63707573 		.ascii	"cpussCm4NmiCtlOffset\000"
+ 4359      73436D34 
+ 4359      4E6D6943 
+ 4359      746C4F66 
+ 4359      66736574 
+ 4360              	.LASF168:
+ 4361 0b35 636F6D70 		.ascii	"compareOrCapture\000"
+ 4361      6172654F 
+ 4361      72436170 
+ 4361      74757265 
+ 4361      00
+ 4362              	.LASF82:
+ 4363 0b46 70657269 		.ascii	"periDiv8CtlOffset\000"
+ 4363      44697638 
+ 4363      43746C4F 
+ 4363      66667365 
+ 4363      7400
+ 4364              	.LASF0:
+ 4365 0b58 73686F72 		.ascii	"short int\000"
+ 4365      7420696E 
+ 4365      7400
+ 4366              	.LASF193:
+ 4367 0b62 6B696C6C 		.ascii	"killMode\000"
+ 4367      4D6F6465 
+ 4367      00
+ 4368              	.LASF172:
+ 4369 0b6b 696E7465 		.ascii	"interruptSources\000"
+ 4369      72727570 
+ 4369      74536F75 
+ 4369      72636573 
+ 4369      00
+ 4370              	.LASF171:
+ 4371 0b7c 656E6162 		.ascii	"enableCompareSwap\000"
+ 4371      6C65436F 
+ 4371      6D706172 
+ 4371      65537761 
+ 4371      7000
+ 4372              	.LASF8:
+ 4373 0b8e 6C6F6E67 		.ascii	"long int\000"
+ 4373      20696E74 
+ 4373      00
+ 4374              	.LASF31:
+ 4375 0b97 63707573 		.ascii	"cpussVersion\000"
+ 4375      73566572 
+ 4375      73696F6E 
+ 4375      00
+ 4376              	.LASF234:
+ 4377 0ba4 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 4377      52784275 
+ 4377      66666572 
+ 4377      00
+ 4378              	.LASF181:
+ 4379 0bb1 636F756E 		.ascii	"countInputMode\000"
+ 4379      74496E70 
+ 4379      75744D6F 
+ 4379      646500
+ 4380              	.LASF35:
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 91
+
+
+ 4381 0bc0 6770696F 		.ascii	"gpioVersion\000"
+ 4381      56657273 
+ 4381      696F6E00 
+ 4382              	.LASF34:
+ 4383 0bcc 666C6173 		.ascii	"flashcVersion\000"
+ 4383      68635665 
+ 4383      7273696F 
+ 4383      6E00
+ 4384              	.LASF56:
+ 4385 0bda 70726F74 		.ascii	"protBusMasterMask\000"
+ 4385      4275734D 
+ 4385      61737465 
+ 4385      724D6173 
+ 4385      6B00
+ 4386              	.LASF25:
+ 4387 0bec 70726F74 		.ascii	"protBase\000"
+ 4387      42617365 
+ 4387      00
+ 4388              	.LASF268:
+ 4389 0bf5 433A5C55 		.ascii	"C:\\Users\\jlabe\\Desktop\\PROTOTYPE2\\Prototype\\L"
+ 4389      73657273 
+ 4389      5C6A6C61 
+ 4389      62655C44 
+ 4389      65736B74 
+ 4390 0c22 61626F72 		.ascii	"aboratoire3.cydsn\000"
+ 4390      61746F69 
+ 4390      7265332E 
+ 4390      63796473 
+ 4390      6E00
+ 4391              	.LASF167:
+ 4392 0c34 636F756E 		.ascii	"countDirection\000"
+ 4392      74446972 
+ 4392      65637469 
+ 4392      6F6E00
+ 4393              	.LASF161:
+ 4394 0c43 74784C65 		.ascii	"txLeftToTransmit\000"
+ 4394      6674546F 
+ 4394      5472616E 
+ 4394      736D6974 
+ 4394      00
+ 4395              	.LASF95:
+ 4396 0c54 63707573 		.ascii	"cpussCm4PwrCtlOffset\000"
+ 4396      73436D34 
+ 4396      50777243 
+ 4396      746C4F66 
+ 4396      66736574 
+ 4397              	.LASF3:
+ 4398 0c69 5F5F7569 		.ascii	"__uint8_t\000"
+ 4398      6E74385F 
+ 4398      7400
+ 4399              	.LASF13:
+ 4400 0c73 756E7369 		.ascii	"unsigned int\000"
+ 4400      676E6564 
+ 4400      20696E74 
+ 4400      00
+ 4401              	.LASF99:
+ 4402 0c80 63707573 		.ascii	"cpussCm0NmiCtlOffset\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 92
+
+
+ 4402      73436D30 
+ 4402      4E6D6943 
+ 4402      746C4F66 
+ 4402      66736574 
+ 4403              	.LASF92:
+ 4404 0c95 63707573 		.ascii	"cpussCm4ClockCtlOffset\000"
+ 4404      73436D34 
+ 4404      436C6F63 
+ 4404      6B43746C 
+ 4404      4F666673 
+ 4405              	.LASF143:
+ 4406 0cac 63795F73 		.ascii	"cy_stc_scb_spi_context\000"
+ 4406      74635F73 
+ 4406      63625F73 
+ 4406      70695F63 
+ 4406      6F6E7465 
+ 4407              	.LASF197:
+ 4408 0cc3 6B696C6C 		.ascii	"killInput\000"
+ 4408      496E7075 
+ 4408      7400
+ 4409              	.LASF97:
+ 4410 0ccd 63707573 		.ascii	"cpussTrimRomCtlOffset\000"
+ 4410      73547269 
+ 4410      6D526F6D 
+ 4410      43746C4F 
+ 4410      66667365 
+ 4411              	.LASF196:
+ 4412 0ce3 6B696C6C 		.ascii	"killInputMode\000"
+ 4412      496E7075 
+ 4412      744D6F64 
+ 4412      6500
+ 4413              	.LASF36:
+ 4414 0cf1 6873696F 		.ascii	"hsiomVersion\000"
+ 4414      6D566572 
+ 4414      73696F6E 
+ 4414      00
+ 4415              	.LASF10:
+ 4416 0cfe 6C6F6E67 		.ascii	"long unsigned int\000"
+ 4416      20756E73 
+ 4416      69676E65 
+ 4416      6420696E 
+ 4416      7400
+ 4417              	.LASF101:
+ 4418 0d10 63707573 		.ascii	"cpussRomCtl\000"
+ 4418      73526F6D 
+ 4418      43746C00 
+ 4419              	.LASF251:
+ 4420 0d1c 64656275 		.ascii	"debut\000"
+ 4420      7400
+ 4421              	.LASF17:
+ 4422 0d22 696E7433 		.ascii	"int32_t\000"
+ 4422      325F7400 
+ 4423              	.LASF222:
+ 4424 0d2a 696E6465 		.ascii	"indexMinSignalRedAC\000"
+ 4424      784D696E 
+ 4424      5369676E 
+ 4424      616C5265 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 93
+
+
+ 4424      64414300 
+ 4425              	.LASF202:
+ 4426 0d3e 61726D5F 		.ascii	"arm_fir_instance_f32\000"
+ 4426      6669725F 
+ 4426      696E7374 
+ 4426      616E6365 
+ 4426      5F663332 
+ 4427              	.LASF212:
+ 4428 0d53 7369676E 		.ascii	"signalIRAC\000"
+ 4428      616C4952 
+ 4428      414300
+ 4429              	.LASF249:
+ 4430 0d5e 666C6167 		.ascii	"flagTraitement\000"
+ 4430      54726169 
+ 4430      74656D65 
+ 4430      6E7400
+ 4431              	.LASF223:
+ 4432 0d6d 696E6465 		.ascii	"indexMaxSignalIRAC\000"
+ 4432      784D6178 
+ 4432      5369676E 
+ 4432      616C4952 
+ 4432      414300
+ 4433              	.LASF2:
+ 4434 0d80 756E7369 		.ascii	"unsigned char\000"
+ 4434      676E6564 
+ 4434      20636861 
+ 4434      7200
+ 4435              	.LASF9:
+ 4436 0d8e 5F5F7569 		.ascii	"__uint32_t\000"
+ 4436      6E743332 
+ 4436      5F7400
+ 4437              	.LASF106:
+ 4438 0d99 6970634C 		.ascii	"ipcLockStatusOffset\000"
+ 4438      6F636B53 
+ 4438      74617475 
+ 4438      734F6666 
+ 4438      73657400 
+ 4439              	.LASF182:
+ 4440 0dad 636F756E 		.ascii	"countInput\000"
+ 4440      74496E70 
+ 4440      757400
+ 4441              	.LASF241:
+ 4442 0db8 4932435F 		.ascii	"I2C_2_context\000"
+ 4442      325F636F 
+ 4442      6E746578 
+ 4442      7400
+ 4443              	.LASF116:
+ 4444 0dc6 63795F65 		.ascii	"cy_en_scb_i2c_command_t\000"
+ 4444      6E5F7363 
+ 4444      625F6932 
+ 4444      635F636F 
+ 4444      6D6D616E 
+ 4445              	.LASF215:
+ 4446 0dde 44437265 		.ascii	"DCred\000"
+ 4446      6400
+ 4447              	.LASF62:
+ 4448 0de4 666C6173 		.ascii	"flashEraseDelay\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 94
+
+
+ 4448      68457261 
+ 4448      73654465 
+ 4448      6C617900 
+ 4449              	.LASF113:
+ 4450 0df4 5F426F6F 		.ascii	"_Bool\000"
+ 4450      6C00
+ 4451              	.LASF257:
+ 4452 0dfa 6E756D42 		.ascii	"numBlocks\000"
+ 4452      6C6F636B 
+ 4452      7300
+ 4453              	.LASF258:
+ 4454 0e04 64617461 		.ascii	"dataLength\000"
+ 4454      4C656E67 
+ 4454      746800
+ 4455              	.LASF121:
+ 4456 0e0f 73746174 		.ascii	"state\000"
+ 4456      6500
+ 4457              	.LASF264:
+ 4458 0e15 726F756E 		.ascii	"round\000"
+ 4458      6400
+ 4459              	.LASF267:
+ 4460 0e1b 54726169 		.ascii	"Traitement.c\000"
+ 4460      74656D65 
+ 4460      6E742E63 
+ 4460      00
+ 4461              	.LASF230:
+ 4462 0e28 64696666 		.ascii	"difference\000"
+ 4462      6572656E 
+ 4462      636500
+ 4463              	.LASF58:
+ 4464 0e33 666C6173 		.ascii	"flashRwwRequired\000"
+ 4464      68527777 
+ 4464      52657175 
+ 4464      69726564 
+ 4464      00
+ 4465              	.LASF87:
+ 4466 0e44 6770696F 		.ascii	"gpioPrtCfgOffset\000"
+ 4466      50727443 
+ 4466      66674F66 
+ 4466      66736574 
+ 4466      00
+ 4467              	.LASF213:
+ 4468 0e55 41437265 		.ascii	"ACred\000"
+ 4468      6400
+ 4469              	.LASF1:
+ 4470 0e5b 7369676E 		.ascii	"signed char\000"
+ 4470      65642063 
+ 4470      68617200 
+ 4471              	.LASF164:
+ 4472 0e67 70657269 		.ascii	"period\000"
+ 4472      6F6400
+ 4473              	.LASF68:
+ 4474 0e6e 64774368 		.ascii	"dwChOffset\000"
+ 4474      4F666673 
+ 4474      657400
+ 4475              	.LASF41:
+ 4476 0e79 63707573 		.ascii	"cpussIpcIrqNr\000"
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 95
+
+
+ 4476      73497063 
+ 4476      4972714E 
+ 4476      7200
+ 4477              	.LASF163:
+ 4478 0e87 63795F73 		.ascii	"cy_stc_tcpwm_counter_config\000"
+ 4478      74635F74 
+ 4478      6370776D 
+ 4478      5F636F75 
+ 4478      6E746572 
+ 4479              	.LASF71:
+ 4480 0ea3 64774368 		.ascii	"dwChCtlPreemptablePos\000"
+ 4480      43746C50 
+ 4480      7265656D 
+ 4480      70746162 
+ 4480      6C65506F 
+ 4481              	.LASF255:
+ 4482 0eb9 66697243 		.ascii	"firCoeffsLPF\000"
+ 4482      6F656666 
+ 4482      734C5046 
+ 4482      00
+ 4483              	.LASF107:
+ 4484 0ec6 63795F73 		.ascii	"cy_stc_device_t\000"
+ 4484      74635F64 
+ 4484      65766963 
+ 4484      655F7400 
+ 4485              	.LASF38:
+ 4486 0ed6 70657269 		.ascii	"periVersion\000"
+ 4486      56657273 
+ 4486      696F6E00 
+ 4487              	.LASF112:
+ 4488 0ee2 75696E74 		.ascii	"uint8\000"
+ 4488      3800
+ 4489              	.LASF111:
+ 4490 0ee8 646F7562 		.ascii	"double\000"
+ 4490      6C6500
+ 4491              	.LASF28:
+ 4492 0eef 70617373 		.ascii	"passBase\000"
+ 4492      42617365 
+ 4492      00
+ 4493              	.LASF261:
+ 4494 0ef8 61726D5F 		.ascii	"arm_max_f32\000"
+ 4494      6D61785F 
+ 4494      66333200 
+ 4495              	.LASF47:
+ 4496 0f04 73727373 		.ascii	"srssNumClkpath\000"
+ 4496      4E756D43 
+ 4496      6C6B7061 
+ 4496      746800
+ 4497              	.LASF140:
+ 4498 0f13 63795F73 		.ascii	"cy_stc_scb_i2c_context_t\000"
+ 4498      74635F73 
+ 4498      63625F69 
+ 4498      32635F63 
+ 4498      6F6E7465 
+ 4499              	.LASF67:
+ 4500 0f2c 666C6173 		.ascii	"flashCtlMainWs4Freq\000"
+ 4500      6843746C 
+ARM GAS  C:\Users\jlabe\AppData\Local\Temp\ccNBMM2b.s 			page 96
+
+
+ 4500      4D61696E 
+ 4500      57733446 
+ 4500      72657100 
+ 4501              	.LASF46:
+ 4502 0f40 63707573 		.ascii	"cpussNotConnectedIrq\000"
+ 4502      734E6F74 
+ 4502      436F6E6E 
+ 4502      65637465 
+ 4502      64497271 
+ 4503              	.LASF145:
+ 4504 0f55 72784275 		.ascii	"rxBuf\000"
+ 4504      6600
+ 4505              	.LASF206:
+ 4506 0f5b 46696C74 		.ascii	"FilterLP\000"
+ 4506      65724C50 
+ 4506      00
+ 4507              	.LASF216:
+ 4508 0f64 4443696E 		.ascii	"DCinfrared\000"
+ 4508      66726172 
+ 4508      656400
+ 4509              	.LASF208:
+ 4510 0f6f 6D65616E 		.ascii	"mean\000"
+ 4510      00
+ 4511              	.LASF37:
+ 4512 0f74 69706356 		.ascii	"ipcVersion\000"
+ 4512      65727369 
+ 4512      6F6E00
+ 4513              	.LASF74:
+ 4514 0f7f 70657269 		.ascii	"periTrCmdOffset\000"
+ 4514      5472436D 
+ 4514      644F6666 
+ 4514      73657400 
+ 4515              	.LASF146:
+ 4516 0f8f 72784275 		.ascii	"rxBufSize\000"
+ 4516      6653697A 
+ 4516      6500
+ 4517              	.LASF129:
+ 4518 0f99 736C6176 		.ascii	"slaveStatus\000"
+ 4518      65537461 
+ 4518      74757300 
+ 4519              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

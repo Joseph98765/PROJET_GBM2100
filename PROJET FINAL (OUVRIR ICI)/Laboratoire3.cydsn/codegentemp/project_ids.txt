@@ -1,0 +1,6 @@
+C:\Users\jlabe\Desktop\PROTOTYPE2\Prototype\Laboratoire3.cydsn\Laboratoire3.cyprj|a7ad832d-c0ca-4f77-bcd0-07b666c65dfe
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|39d7d0b2-0062-45ba-9d04-b8f2077c9bdd
+C:\Users\jlabe\OneDrive\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|cf4d24ed-878b-430a-ae0d-4fc97910ead8
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2bdc097e-b622-4b9a-83cd-eda407324ba1
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|6f36849d-8864-4eb8-8cc5-ac5bc7b0fc81
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|528a8c5d-fb9a-429e-8db9-6919f19c1e4c
